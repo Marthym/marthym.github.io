@@ -2,7 +2,7 @@
 
 title:            J'ai acheté un PC neuf cassé ...
 locale:           fr_FR
-url:              
+url:
 
 
 # Jekyll configuration
@@ -28,7 +28,7 @@ kramdown:
 owner:
   name: Marthym
   avatar: bio-marthym.png
-  bio: "Describe your self."
+  bio: "Frédéric, un Nième développeur qui partage ses aventures ..."
   email:
   disqus-shortname:
   twitter: #username
