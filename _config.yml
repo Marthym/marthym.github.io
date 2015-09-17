@@ -2,7 +2,7 @@
 
 title:            J'ai acheté un PC neuf cassé ...
 locale:           fr_FR
-url:              https://blog.ght1pc9kc.fr/
+url:              http://blog.ght1pc9kc.fr
 
 
 # Jekyll configuration
@@ -34,14 +34,14 @@ owner:
   twitter: #username
   facebook: #username
   google:
-    plus: #username
+    plus: marthym
     analytics:
     verify:
     ad-client:
     ad-slot:
   bing-verify:
-  github: #username
-  stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
+  github: marthym
+  stackoverflow: 3710542/marthym
   linkedin: #username
   xing: #username
   instagram: #username
