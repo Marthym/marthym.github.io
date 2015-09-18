@@ -87,59 +87,7 @@ J'ai beaucoup de données (entre moi et mon amie, on a plus de 400Go) et je suis
 français. Donc je voulais avoir des fichier `tar.gz` incrémentaux pour pas y passer des plombes tous les jours et les crypter à la volée avant de les envoyer
 sur HubiC. Voilà ce que donne le script :
 
-{% highlight ruby %}
-#!/bin/csh -f
-
-set NAME=$1
-
-if ( "$1" == "" ) then
-    echo "Usage: backup <username>"
-    exit 1
-endif
-
-set NOW="`date +"%Y%m%d"`"
-set WEEK="`date +"%W"`"
-set BACKUP_SOURCE="/media/storage/$NAME/Divers"
-set BACKUP_SNAR_DIR="/usr/backup/snar/"
-set BACKUP_TEMP_DEST="/usr/backup/"
-set BACKUP_MAX_FILE_SIZE="2048m"
-set M20="20000000"
-
-set BACKUP_ID=$NAME-$WEEK-$NOW
-set SNAR_ID=$NAME-$WEEK
-
-mkdir -p /usr/backup/snar
-
-# Clean Incrementary SNAR File
-find $BACKUP_SNAR_DIR -type f -not -name marthym-$SNAR_ID.snar | xargs rm
-if ( $? > 0 ) exit $?
-
-# Perform backup
-echo "Start $NAME backup at "`date`
-gtar -g $BACKUP_SNAR_DIR/$SNAR_ID.snar -czf - $BACKUP_SOURCE | gpg --batch --yes --passphrase secret -ac -o- | split -b $BACKUP_MAX_FILE_SIZE - $BACKUP_TEMP_DEST/$BACKUP_ID.tar.gz.gpg.
-if ( $? > 0 ) exit $?
-
-# Upload backup
-set RETRY_TIMES=0
-set COMMAND_STATUS=1
-while ( $COMMAND_STATUS != 0 && $RETRY_TIMES < 4 )
-  echo "Start $NAME upload at "`date`
-  ls $BACKUP_TEMP_DEST | grep "$BACKUP_ID.tar.gz.gpg" | xargs -I {} csh -c "./hubic.py --swift -- upload --segment-size $M20 --object-name {} HubiC-DeskBackup_$NAME $BACKUP_TEMP_DEST{}"
-
-  set COMMAND_STATUS=$?
-  set RETRY_TIMES=RETRY_TIMES+1
-end
-if ($COMMAND_STATUS > 0) exit $?
-
-# Purge old backup
-echo "Start purge at "`date`
-./hubic.py --swift list HubiC-DeskBackup_$NAME | sed '/^HUBIC/d' | sed "/$NAME-$WEEK/q" | sed "/$NAME-$WEEK/d" | xargs -I {} csh -c "echo '\tDelete file {}' && ./hubic.py --swift delete HubiC-DeskBackup_$NAME {}"
-
-find $BACKUP_TEMP_DEST -name "$BACKUP_ID.tar.gz.gpg*" | xargs rm -rf
-
-echo "End of backup $NAME process at "`date`
-
-{% endhighlight %}
+{% gist Marthym/7f61550fd538a128ad02 %}
 
 {: .notice}
 J'ai pas trouvé le moyen de couper les lignes comme en bash avec `\ ` du coup tout est sur la même ligne.
