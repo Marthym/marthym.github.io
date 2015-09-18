@@ -32,21 +32,20 @@ Par contre :
 
 * Pas besoin de pouvoir garder un historique des versions, c'est le NAS qui s'en charge.
 
-J'ai en premier pensé faire un backup chez mes parents mais ce n'est pas gérable, personne pour maintenir un PC en fonctionnement là-bas, connexion internet
-restreinte, ... Bref mauvaise idée.
-
 ## Le choix de l'hébergement
-J'ai donc pas mal recherché un service de stockage qui réponde au cahier des charges. J'ai un peu fait le tour des services existant :
+Après pas mal de recherche et de comparatif des différents service existant voici rapidement ce qu'il en ressort :
 
 * Mega.co.nz: Propriété douteuse apparemment c'est de chinois derrière
 * Onedrive: Américain, trop cher (84€ / an pour 1 To)
 * Google Drive: Américain, trop intrusif, pas de client ligne de commande, cher (106€ / an pour 1 To)
 * Droopbox: Américain, trop cher (119€ / an pour 1 To)
 
-Rien qui m'emballe dans tout ça, je ne trouve tout un peu cher pour ce que j'ai à en faire et je ne suis pas fan de laisser mes données sur un serveur américain. J'ai
-même regardé si louer un serveur d'hébergement n'était pas rentable ... ça l'est pas.
+Rien qui ne réponde parfaitement au cahier des charges, tout est relativement cher pour l'utilisation qu'on veut en faire et laisser trainer des données
+personnelles sur des serveurs américains ça fait plaisir à personne surtout ces derniers temps.
+Et ne parlons même pas de louer un serveur de stockage c'est encore plus cher.
 
-Puis j'ai trouvé [HubiC](https://hubic.com/en/), un service de stockage d'[OVH](https://www.ovh.com/fr/). Rapidement ce que HubiC propose :
+Jusqu'à ce qu'au détour d'une recherche apparaisse **[HubiC](https://hubic.com/en/)**, un service de stockage d'[OVH](https://www.ovh.com/fr/).
+Rapidement ce que HubiC propose :
 
 * 25Go gratuit
 * 100Go pour 10€ / an
@@ -56,22 +55,22 @@ Puis j'ai trouvé [HubiC](https://hubic.com/en/), un service de stockage d'[OVH]
 * Datacenter en France
 * API
 
-Bref ce n'est pas mal, c'est français et ce n'est carrément pas cher. Maintenant la difficulté c'est d'arriver à uploader via la ligne de commande en utilisant les
-APIs fournies par HubiC.
+Bref que du positif ! C'est français et ce n'est carrément pas cher. Maintenant la difficulté c'est d'arriver à uploader via la ligne de commande en utilisant
+les APIs fournies par HubiC.
 
 ### Le client swift
 HubiC utilise la techno [OpenStack](https://www.ovh.com/fr/g611.openstack_quickstart) d'OVH. Il est donc possible de passer par un client Swift pour y accéder.
 Ca vous fait une belle jambe me direz-vous ! Et pour cause, il n'existe rien d'officiel qui exploite ces APIs en ligne de commande. On trouve des clients
 graphiques et pas mal d'outils de synchro mais rien qui soit utilisable pour mettre en place des batchs.
-En fouillant sur le net j'ai trouvé des tas de solutions, non officielles, plus ou moins simple pour accéder aux containers openStack en ligne de commande.
-J'ai trouvé des trucs qui passaient par des proxys, des trucs pour monter un répertoire, des trucs à base de [duplicity](http://duplicity.nongnu.org/) mais
-finalement rien de simple qui me permette d'envoyer un fichier sur mon compte HubiC.<br/>
-J'ai aussi essayé le client non officiel fourni par OVH mais se dernier n'est qu'un portable de la version Windows via Mono. J'ai pas forcément ça et en plus
-ma cible est de le faire tourner sur FreeNAS en FreeBSD via un CShell. Le Mono ça lui plaît pas des masses.
+En fouillant sur le net on trouve des tas de solutions, non officielles, plus ou moins simple pour accéder aux containers OpenStack en ligne de commande.
+Des trucs qui passent par des proxys, des trucs pour monter un répertoire, des trucs à base de [duplicity](http://duplicity.nongnu.org/) mais finalement rien
+de simple qui permette d'envoyer un fichier sur un compte HubiC.<br/>
+OVH fourni aussi un client officiel en ligne de commande  mais se dernier n'est qu'un portage de la version Windows via Mono. C'est pas bien élégant et ça ne
+marche pas avec la cible qui est de le faire tourner sur FreeNAS en FreeBSD via un CShell. Mono ça lui plaît pas des masses.
 
-Finalement, je suis tombé sur [hubic-wrapper-to-swift](https://github.com/puzzle1536/hubic-wrapper-to-swift) qui en plus d'être pas trop mal documenté, a le
-mérite de fonctionner facilement et sans Mono. C'est à base python, facile à installer sur DSB, la configuration du client est assez simple. Et en quelques
-essais j'ai peu envoyer des fichiers sur Hubic.
+Finalement, l'outsider se cachait dans github sous le nom de [hubic-wrapper-to-swift](https://github.com/puzzle1536/hubic-wrapper-to-swift) un projet plutôt
+bien documenté et qui en plus fonctionne, facilement et sans Mono. C'est à base python, facile à installer sur DSB, la configuration du client est rapide via
+un fichier de configuration. Et en quelques essais ça a permis d'envoyer des fichiers sur Hubic.
 
 Il suffit de télécharger le fichier `hubic.py` de le rendre exécutable, de suivre la doc pour paramétrer le compte et c'est partie :
 ```sh
@@ -95,9 +94,9 @@ bon de limiter.
 gtar -g $BACKUP_SNAR_DIR/$SNAR_ID.snar -czf - $BACKUP_SOURCE | gpg --batch --yes --passphrase <passphrase> -ac -o- | split -b $BACKUP_MAX_FILE_SIZE - $BACKUP_TEMP_DEST/$BACKUP_ID.tar.gz.gpg.
 ~~~
 
-J'ai beaucoup de données (entre moi et mon amie, on a plus de 400 Go) et je suis un peu parano, je veux pas laisser mes données en clair, même sur un serveur
-français. Donc je voulais avoir des fichiers `tar.gz` incrémentaux pour pas y passer des plombes tous les jours et les crypter à la volée avant de les envoyer
-sur HubiC.
+Pour les [syllogomanes](https://fr.wikipedia.org/wiki/Syllogomanie) et les paranos qui ne veulent pas laisser des données en clair sur des serveurs qu'ils ne
+maîtrisent pas, les fichiers tar.gz sont incrémentaux et cryptés à la volée. Ainsi les backups ne prennent pas trop de temps et on ne passe pas par de gros
+fichiers intermédiaires.
 
 **TAR**
 
@@ -106,7 +105,7 @@ incrémental depuis l'état des fichiers contenus dans le snar.
 
 **GPG**
 
-J'ai utilisé GPG parce que, apparemment l'encryptage est meilleur mais ça marche aussi avec OpenSSL.
+Pour le cryptage on utilise GPG parce que, apparemment l'encryptage est meilleur mais ça marche aussi avec OpenSSL.
 
 * `--batch`: Pour d'ire qu'on est en mode non-interractif.
 * `--yes`: On dit oui à toutes les questions
@@ -153,8 +152,8 @@ ne pas renvoyer les segments de fichiers déjà envoyés une première fois.
 ./hubic.py --swift list HubiC-DeskBackup_$NAME | sed '/^HUBIC/d' | sed "/$NAME-$WEEK/q" | sed "/$NAME-$WEEK/d" | xargs -I {} csh -c "echo '\tDelete file {}' && ./hubic.py --swift delete HubiC-DeskBackup_$NAME {}"
 ~~~
 
-Je ne garde qu'une semaine à la fois, comme j'ai déjà des snapshots ZFS, du mirroring et tout, il ne m'est pas nécessaire de conserver 3 mois de données. Je
-purge les données de la semaine précédente chaque début de semaine.
+Le choix est ne ne garder qu'une semaine à la fois, comme en théorie, l'historique des données est protégé par des snapshots ZFS, du mirroring et tout, il
+n'est pas nécessaire de conserver 3 mois de données. Les données de la semaine précédente sont purgées chaque début de semaine.
 
 * `./hubic.py --swift list HubiC-DeskBackup_$NAME`: Liste les fichiers dans le container
 * `| sed '/^HUBIC/d'`: supprime le bruit généré par une reconnexion s'il y en a eu.
