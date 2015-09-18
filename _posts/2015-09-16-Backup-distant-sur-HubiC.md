@@ -116,7 +116,7 @@ if ( $? > 0 ) exit $?
 
 # Perform backup
 echo "Start $NAME backup at "`date`
-gtar -g $BACKUP_SNAR_DIR/$SNAR_ID.snar -czf - $BACKUP_SOURCE | gpg --batch --yes --passphrase <passphrase> -ac -o- | split -b $BACKUP_MAX_FILE_SIZE - $BACKUP_TEMP_DEST/$BACKUP_ID.tar.gz.gpg.
+gtar -g $BACKUP_SNAR_DIR/$SNAR_ID.snar -czf - $BACKUP_SOURCE | gpg --batch --yes --passphrase secret -ac -o- | split -b $BACKUP_MAX_FILE_SIZE - $BACKUP_TEMP_DEST/$BACKUP_ID.tar.gz.gpg.
 if ( $? > 0 ) exit $?
 
 # Upload backup
@@ -133,12 +133,12 @@ if ($COMMAND_STATUS > 0) exit $?
 
 # Purge old backup
 echo "Start purge at "`date`
-./hubic.py --refresh
-./hubic.py --swift list HubiC-DeskBackup_$NAME | sed "/$NAME-$WEEK/q" | sed "/$NAME-$WEEK/d" | xargs -I {} csh -c "echo '\tDelete file {}' && ./hubic.py --swift delete HubiC-DeskBackup_$NAME {}"
+./hubic.py --swift list HubiC-DeskBackup_$NAME | sed '/^HUBIC/d' | sed "/$NAME-$WEEK/q" | sed "/$NAME-$WEEK/d" | xargs -I {} csh -c "echo '\tDelete file {}' && ./hubic.py --swift delete HubiC-DeskBackup_$NAME {}"
 
 find $BACKUP_TEMP_DEST -name "$BACKUP_ID.tar.gz.gpg*" | xargs rm -rf
 
 echo "End of backup $NAME process at "`date`
+
 {% endhighlight %}
 
 {: .notice}
