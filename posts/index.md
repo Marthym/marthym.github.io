@@ -1,5 +1,7 @@
 ---
 layout: post-index
-title: All Posts
-excerpt: "A List of Posts"
+title: Tous les billets
+excerpt: "Tous les billets depuis la création de l'univers"
+image:
+  feature: back.png
 ---
