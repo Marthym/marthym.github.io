@@ -1,25 +1,19 @@
 ---
 layout: page
-title: About the Theme
-tags: [about, Jekyll, theme, responsive]
-modified: 2014-08-08T20:53:07.573882-04:00
+title: A propos de GHT1PC9KC.fr
+tags: [about, Jekyll]
+#modified: 2014-08-08T20:53:07.573882-04:00
 comments: true
 image:
-  feature: sample-image-2.jpg
-  credit: WeGraphics
-  creditlink: http://wegraphics.net/downloads/free-ultimate-blurred-background-pack/
+  feature: back.png
+#  credit: WeGraphics
+#  creditlink: http://wegraphics.net/downloads/free-ultimate-blurred-background-pack/
 ---
 
-Minimal Mistakes is responsive Jekyll theme with large featured images and solid typography. As the name implies the styling is fairly minimal to make it easier for you to build on top of.
+## T'es qui d'abord ?
+*Frédéric*, un dev Java qui travaille à Toulouse. {{ 'now' | date:'%Y' | minus:1980 }} ans cette année.
 
-## Minimal Mistakes is all about:
-
-* Responsive templates. Looking good on mobile, tablet, and desktop.
-* Gracefully degrading in older browsers. Compatible with Internet Explorer 8+ and all modern browsers.
-* Minimal embellishments -- content first.
-* Optional large feature images for posts and pages.
-* Simple and clear permalink structure.
-* [Custom 404 page](http://mmistakes.github.io/minimal-mistakes/404.html) to get you started.
-* Support for Disqus Comments
-
-<a markdown="0" href="{{ site.url }}/theme-setup" class="btn">Install Minimal Mistakes Theme</a>
+## C'est pas un nom pour un blog ça ?
+Ben ouais je sais mais un jour un client m'a sorti ça en password, ça m'a fait rire. J'ai jamais voulu m'en servir comme mot de passe par ce que c'est un peu
+trop connu et pas vraiment sécure mais du coup pourquoi pas comme nom de blog. Puis j'ai surtout pris ce nom de domaine alors bon c'est plus simple et moins
+cher de le garder.
