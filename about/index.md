@@ -3,7 +3,7 @@ layout: page
 title: A propos de GHT1PC9KC.fr
 tags: [about, Jekyll]
 #modified: 2014-08-08T20:53:07.573882-04:00
-comments: true
+comments: false
 image:
   feature: about.png
 #  credit: WeGraphics

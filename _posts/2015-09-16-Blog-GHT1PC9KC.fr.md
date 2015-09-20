@@ -4,7 +4,7 @@ title: Blog GHT1PC9KC.fr
 excerpt: "Création du blog."
 #modified: 2015-09-16
 tags: [intro, beginner, jekyll, about]
-comments: true
+comments: false
 image:
   feature: back.png
 ---
