@@ -3,18 +3,18 @@ layout: post
 title: "Squid: StoreID rewrite"
 excerpt: "Configurer la réécriture du StoreId avec Squid"
 #modified: 2015-09-16
-tags: [squid, linux, network, proxy]
+tags: [squid, linux, network, proxy, planetlibre]
 comments: true
 image:
   feature: network.png
 ---
 
-L'équipe dans laquelle je travaille utilise un environnement de développement commun créé et mis jour via des scripts 
-[Ansible](http://www.ansible.com/). Tout le monde a le même, on n'est pas perdu quand on binôme chacun y rajoute sa 
+L'équipe dans laquelle je travaille utilise un environnement de développement commun créé et mis jour via des scripts
+[Ansible](http://www.ansible.com/). Tout le monde a le même, on n'est pas perdu quand on binôme chacun y rajoute sa
 touche, ... Bref, on aime ou on n'aime pas ça dépend des développeurs.
 
 Par contre une chose est sure c'est que quand la version de Java ou de votre EDI préféré change, tout le monde se
-trouve à faire le download de la nouvelle version, tout le monde tire sur la connexion internet pour télécharger X fois 
+trouve à faire le download de la nouvelle version, tout le monde tire sur la connexion internet pour télécharger X fois
 la même chose, c'est dommage et ça prend du temps pour rien.
 
 ## Mise en place d'un proxy
@@ -26,7 +26,7 @@ cache_dir ufs /var/spool/squid3 5000 16 256
 maximum_object_size 400 MB
 ~~~
 
-Ca fonctionne très bien sauf dans certains cas. En y regardant bien, les fichiers comme le JRE de Oracle par exemple 
+Ca fonctionne très bien sauf dans certains cas. En y regardant bien, les fichiers comme le JRE de Oracle par exemple
 ne sont jamais mis en cache, ou plutôt ne sont jamais retrouvé dans le cache. Si on regarde le lien :
 
 ~~~ sh
@@ -100,7 +100,7 @@ doc Squid : http://wiki.squid-cache.org/Features/StoreID/DB
 
 ## Cache-Control "must-revalidate"
 Une dernière subtilité, il arrive de rencontrer des fichiers avec l'entête HTTP `Cache-Control "must-revalidate"`.
-Squid interprète cet entête comme un ordre de toujours récupérer le fichier depuis sa source internet. Pour régler ça, 
+Squid interprète cet entête comme un ordre de toujours récupérer le fichier depuis sa source internet. Pour régler ça,
 il est possible de demander à Squid d'ignorer certaines entêtes. Ce n'est pas conseillé dans le cadre d'un proxy standard
 mais dans le cadre d'un proxy de téléchargement, ce n'est pas problématique.
 

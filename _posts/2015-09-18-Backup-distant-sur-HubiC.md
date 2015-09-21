@@ -2,8 +2,8 @@
 layout: post
 title: Backups distant sur HubiC
 excerpt: "Protéger ses données perso d'un cataclisme en les envoyant dans le cloud"
-#modified: 2015-09-16
-tags: [backup,shell,admin]
+modified: 2015-09-21
+tags: [backup,shell,admin,planetlibre]
 comments: true
 image:
   feature: backup.png
