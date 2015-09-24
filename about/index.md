@@ -1,6 +1,6 @@
 ---
 layout: page
-title: A propos de GHT1PC9KC.fr
+title: Software Engineer
 tags: [about, Jekyll]
 #modified: 2014-08-08T20:53:07.573882-04:00
 comments: false
@@ -9,9 +9,22 @@ image:
   feature: about.png
 author: fcombes
 ---
+## Expériences professionnelles
 
-## T'es qui d'abord ?
-*Frédéric*, un développeur Java de plus, travaillant à Toulouse. {{ 'now' | date:'%Y' | minus:1980 }} ans cette année.
+### Living Objects
+
+Depuis 2014
+Toulouse, Basso Cambo
+Expert développement Java
+Java 8, Wisdom, OSGi, Maven, Ansible, Docker
+
+Au sein du département Recherche & Développement de Living Objects, composé d'une quinzaine de développeurs, je
+supervise les choix techniques concernant le projet "eye.lo", un collecteur de flow Cisco pour lequel les contraintes
+de performances et de haute disponibilité sont très strictes.
+
+J'ai de plus pris part à la réalisation de la nouvelle génération du produit "b.lo". Basé sur une architecture orientée
+micro-services REST, à base de Java 8 et d'OSGi (Wisdom), ce projet m'a permis de consolider mes compétences de
+développeur ainsi que mes aptitudes à travailler en équipe.
 
 ## C'est pas un nom pour un blog ça ?
 Ben ouais je sais mais un jour un client m'a sorti ce password un jour, je ne connaissais pas et ça m'a fait rire.
