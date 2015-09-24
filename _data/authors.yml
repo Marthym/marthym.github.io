@@ -1,14 +1,18 @@
 # Authors
 
-billy_rick:
-  name: Billy Rick
+fcombes:
+  name: Frédéric Combes
   web: http://thewhip.com
-  email: billy@rick.com
-  bio: "What do you want, jewels? I am a very extravagant man."
-  avatar: bio-photo-2.jpg
-  twitter: extravagantman
+  email: marthym (at) gmail (dot) com
+  bio: ""
+  avatar: fcombes.jpg
   google:
-    plus: BillyRick
+    plus: FrédéricCombes
+  linkedin: combesfrederic
+  github: Marthym
+  stackoverflow: 3710542/marthym
+  languages: [Français, Anglais]
+  skills: [Java 8, OSGi, Struts, Spring, SVN, Git, Docker, Maven, Ivy, Ant, Oracle, MySQL, JS, CSS3, HTML5, Linux]
 
 cornelius_fiddlebone:
   name: Cornelius Fiddlebone

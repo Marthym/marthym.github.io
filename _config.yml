@@ -1,9 +1,9 @@
 # Site wide configuration
 
-title:            J'ai acheté un PC neuf cassé ...
-locale:           fr_FR
-url:              http://blog.ght1pc9kc.fr
-future:           false
+title:       J'ai acheté un PC neuf cassé ...
+locale:      fr_FR
+url:         http://blog.ght1pc9kc.fr
+future:      false
 
 # Jekyll configuration
 
@@ -34,14 +34,14 @@ owner:
   twitter: #username
   facebook: #username
   google:
-    plus: marthym
+    plus: #username
     analytics: UA-67836375-1
     verify:
     ad-client:
     ad-slot:
   bing-verify:
-  github: marthym
-  stackoverflow: 3710542/marthym
+  github: #username
+  stackoverflow: #id/username
   linkedin: #username
   xing: #username
   instagram: #username
