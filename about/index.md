@@ -13,44 +13,44 @@ author: fcombes
 
 | Living Objects | *Expert développement Java*	|
 |:---------------|-----------------------------:|
-|	 			 | *Toulouse, Basso Cambo*		|
-|	 			 | *Depuis 2014* 				|
+|                | *Toulouse, Basso Cambo*      |
+|                | *Depuis 2014*                |
 
 Au sein du département Recherche & Développement de Living Objects, composé d'une quinzaine de développeurs, je
 supervise les choix techniques concernant le projet "eye.lo", un collecteur de flow Cisco pour lequel les contraintes
 de performances et de haute disponibilité sont très strictes.
 
 J'ai de plus pris part à la réalisation de la nouvelle génération du produit "b.lo". Basé sur une architecture orientée
-micro-services REST, à base de Java 8 et d'OSGi (Wisdom), ce projet m'a permis de consolider mes compétences de
+micro-services REST, à base de Java 8 et d'OSGi (Wisdom), ce projet m'a permis de parfaire mes compétences de
 développeur ainsi que mes aptitudes à travailler en équipe.
 
 ------
 
-| Cameleon Software | Consultant Technique Expert	|
+| Cameleon Software | Consultant Technique Expert	  |
 |:------------------|------------------------------:|
-|	 			 	| *Toulouse, Labège*			|
-|	 			 	| *De 2007 à 2013* 				|
+|                   | *Toulouse, Labège*            |
+|                   | *De 2007 à 2013*              |
 
 Expert Technique au sein de l'équipe "CEO Services" composée de neuf personnes, mes attributions sont les suivantes :
 
-* Développement de composants d’interface sur les nouveaux produits. Pour des sociétés comme la MNT pour qui j’ai 
+* Développement de composants d’interface sur les nouveaux produits. Pour des sociétés comme la MNT pour qui j’ai
 implémenté des composants de leur offre en ligne grâce à ma maîtrise des technologies web 2.0.
-* Réalisation d’intégration entre nos produits et des CRM tel que Selligent pour des clients comme Gras Savoye grâce à 
+* Réalisation d’intégration entre nos produits et des CRM tel que Selligent pour des clients comme Gras Savoye grâce à
 mes compétences en Web Services.
-* Réalisation de PoC, pour des clients comme AXA, MMA, SAGE ou encore La Poste. Mon sens du relationnel et l'esprit 
-d'équipe nécessaires pour de telles réalisations, m'ont permis de présenter des concepts aboutis à des clients 
+* Réalisation de PoC, pour des clients comme AXA, MMA, SAGE ou encore La Poste. Mon sens du relationnel et l'esprit
+d'équipe nécessaires pour de telles réalisations, m'ont permis de présenter des concepts aboutis à des clients
 convaincus.
-* Missions à l’étranger pour travailler avec notre équipe à Chicago sur des projets SaS comme Clear Channel et 
+* Missions à l’étranger pour travailler avec notre équipe à Chicago sur des projets SaS comme Clear Channel et
 Crystal Rock pour qui j'ai développé des interfaces avancées de configuration de produit.
 
 ------
 
-| Access-Commerce 	| Développeur d'adaptations		|
+| Access-Commerce 	| Développeur d'adaptations     |
 |:------------------|------------------------------:|
-|	 			 	| *Toulouse, Labège*			|
-|	 			 	| *De 2001 à 2007* 				|
+|                   | *Toulouse, Labège*            |
+|                   | *De 2001 à 2007*              |
 
-Centre de compétences ERP chez Access-Commerce à Toulouse Labège. En tant qu’unique ressource technique d'une équipe 
+Centre de compétences ERP chez Access-Commerce à Toulouse Labège. En tant qu’unique ressource technique d'une équipe
 de sept personnes, j’ai, entre autres, effectué les missions suivantes :
 
 * Installation et administration de serveur Oracle sur systèmes Windows et Unix
