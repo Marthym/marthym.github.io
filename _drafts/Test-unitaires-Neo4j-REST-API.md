@@ -8,13 +8,13 @@ comments: true
 image:
   feature: database.png
 ---
-L'usage de base Neo4j est gratuit. Par contre l'utilisation du client java ne l'est que pour les usage non-commerciaux.
-En d'autre termes, vous avez le droit d'utiliser un serveur Neo4j mais pas d'inclure des jars de Neo4j dans vos projets
+L'usage de base Neo4j est gratuit. Par contre l'utilisation du client java ne l'est que pour les usages non-commerciaux.
+En d'autres termes, vous avez le droit d'utiliser un serveur Neo4j mais pas d'inclure des jars de Neo4j dans vos projets
 commerciaux. L'accès à la base Neo4j se fait alors au travers des APIs REST fourni par le serveur. Ce qui amène le
 problème des tests unitaires.
 
 Lors de l'utilisation d'une base de données SQL, on pourra utiliser une base de données in-memory type
-[H2](http://www.h2database.com/) ou [HSQLDB](http://hsqldb.org/) pour isoler les tests dans un environnement controlé
+[H2](http://www.h2database.com/) ou [HSQLDB](http://hsqldb.org/) pour isoler les tests dans un environnement contrôlé
 et ne pas dépendre d'un serveur externe. Mais quand vos appels à la base de données sont des appels REST c'est moins
 évident.
 
@@ -40,7 +40,7 @@ C'est bien et très pratique mais la base qui est créée n'est pas accessible v
 
 ## WrappingNeoServerBootstrapper
 
-C'est là qu'intervient le `WrappingNeoServerBootstrapper`, une classe qui vient englober la base impermanent et qui
+C'est là qu'intervient le `WrappingNeoServerBootstrapper`, une classe qui vient englober la base impermanente et qui
 lui ajoute les APIs REST. Son utilisation n'est pas intuitive :
 
 {% gist Marthym/1db21f44b7f296fcaf1f %}
