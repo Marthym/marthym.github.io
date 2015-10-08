@@ -11,7 +11,7 @@ author: fcombes
 ---
 ## Expériences professionnelles
 
-| Living Objects | *Ingénieur Logiciel Sénior*	|
+| Living Objects | Ingénieur Logiciel Sénior  	|
 |:---------------|-----------------------------:|
 | *Depuis 2014*  | *Toulouse, Basso Cambo*      |
 
