@@ -2,8 +2,8 @@
 layout: post
 title: Backups distant sur HubiC
 excerpt: "Protéger ses données perso d'un cataclisme en les envoyant dans le cloud"
-modified: 2015-09-21
-tags: [backup,shell,admin,planetlibre]
+modified: 2015-10-10
+tags: [backup,shell,admin,planetlibre,hubic]
 comments: true
 image:
   feature: backup.png
@@ -127,7 +127,7 @@ cat <nom_du_fichier>.tar.gz.gpg* | gpg -d --yes --batch --passphrase <passphrase
 ### L'envoi sur les serveur HubiC
 
 ~~~csh
-ls $BACKUP_TEMP_DEST | grep "$BACKUP_ID.tar.gz.gpg" | xargs -I {} csh -c "./hubic.py --swift -- upload --segment-size $M20 --object-name {} HubiC-DeskBackup_$NAME $BACKUP_TEMP_DEST{}"
+ls $BACKUP_TEMP_DEST | grep "$BACKUP_ID.tar.gz.gpg" | xargs -I {} sh -c "./hubic.py --swift -- upload --segment-size $M20 --object-name {} HubiC-DeskBackup_$NAME $BACKUP_TEMP_DEST{} 2> $TMPFILE"
 ~~~
 
 On commence par lister les fichiers que l'on vient de créer puis via `xargs` on les envoie à la commande `hubic.py`.
@@ -141,10 +141,14 @@ On commence par lister les fichiers que l'on vient de créer puis via `xargs` on
 tout les conteneur qui commencent par "HubiC-DeskBackup_".
 
 {: .notice}
-La commande hubic est englobée dans un `csh -c` pour que le `-I {}` du xargs fonctionne.
+La commande hubic est englobée dans un `sh -c` pour que le `-I {}` du xargs fonctionne.
 
-Il arrive que l'upload échoue, la commande est alors rejouée jusqu'à ce qu'elle réussisse (ou qu'elle échoue à 3 x). Le client swift est assez intelligent pour
+Il arrive que l'upload échoue, la commande est alors rejouée jusqu'à ce qu'elle réussisse (ou qu'elle échoue à 3 reprises). Le client swift est assez intelligent pour
 ne pas renvoyer les segments de fichiers déjà envoyés une première fois.
+
+Par contre il ne l'est pas suffisamment pour renvoyer le bon code d'erreur. En effet si l'upload échoue l'exit code est à `0` quand même. C'est pourquoi la sortie erreur
+de l'upload est stocké dans une variable et analysée afin de déterminer si la commande s'est bien passée. C'est un peu compliqué mais c'est le seul moyen, d'autant que
+les erreurs d'accès au serveur sont fréquentes.
 
 ### La purge
 
@@ -168,3 +172,8 @@ n'est pas nécessaire de conserver 3 mois de données. Les données de la semain
 
 {: .notice}
 Je n'ai pas trouvé le moyen de couper les lignes comme en bash avec `\ ` du coup tout est sur la même ligne.
+
+## Edit
+### 2015-10-10
+
+* Mise à jour du script pour changer le mécanisme de retry.
