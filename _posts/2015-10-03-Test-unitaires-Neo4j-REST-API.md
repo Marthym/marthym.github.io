@@ -54,7 +54,7 @@ deprecated depuis un moment. A ce jour, il n'y a pas de solution de remplacement
 ## Les dépendences nécécessaire
 Pour que cela fonctionne vous aurez besoin des dépendences suivante pou run projet Maven :
 
-{% highlight java %}
+{% highlight pom %}
 <dependency>
     <groupId>org.neo4j</groupId>
     <artifactId>neo4j</artifactId>
