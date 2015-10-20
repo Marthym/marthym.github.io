@@ -2,7 +2,7 @@
 layout: post
 title: Tests unitaires sur base Neo4j via APIs REST
 excerpt: "Faire des tests unitaires sur une base Neo4j 'in-memory' accédé via les APIs REST de Neo4j"
-#modified: 2015-09-21
+modified: 2015-10-20
 tags: [neo4j, java, database, planetlibre]
 comments: true
 image:
@@ -50,3 +50,34 @@ test case utilise sa propre instance de la base.
 
 Le seul point d'ombre de cette technique est l'utilisation de la classe `WrappingNeoServerBootstrapper` qui est
 deprecated depuis un moment. A ce jour, il n'y a pas de solution de remplacement.
+
+## Les dépendences nécécessaire
+Pour que cela fonctionne vous aurez besoin des dépendences suivante pou run projet Maven :
+
+{% highlight java %}
+<dependency>
+    <groupId>org.neo4j</groupId>
+    <artifactId>neo4j</artifactId>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.neo4j.app</groupId>
+    <artifactId>neo4j-server</artifactId>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.neo4j</groupId>
+    <artifactId>neo4j-kernel</artifactId>
+    <type>test-jar</type>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.neo4j</groupId>
+    <artifactId>neo4j-io</artifactId>
+    <type>test-jar</type>
+    <scope>test</scope>
+</dependency>
+{% endhighlight %}
+
+
+**Edit 2015-10-20** : Ajout des dépendences nécessaire.
