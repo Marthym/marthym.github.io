@@ -27,7 +27,7 @@ Le builder éssaye de démarrer un serveur sur 7474 et teste tous les ports un p
 y démarrer le serveur.
 
 Le tout n'est pas déprécié et ne demande en dépendance que
-{% highlight maven %}
+{% highlight xml %}
 <dependency>
     <groupId>org.neo4j.test</groupId>
     <artifactId>neo4j-harness</artifactId>
