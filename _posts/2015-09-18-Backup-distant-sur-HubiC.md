@@ -2,7 +2,7 @@
 layout: post
 title: Backups distant sur HubiC
 excerpt: "Protéger ses données perso d'un cataclisme en les envoyant dans le cloud"
-modified: 2015-10-10
+modified: 2015-10-25
 tags: [backup,shell,admin,planetlibre,hubic]
 comments: true
 image:
@@ -178,3 +178,7 @@ Je n'ai pas trouvé le moyen de couper les lignes comme en bash avec `\ ` du cou
 ### 2015-10-10
 
 * Mise à jour du script pour changer le mécanisme de retry.
+
+### 2015-10-25
+
+* Pour ceux que cela intéresse, voici mon code de parrainage HubiC qui donne droit à 2.5Go d'espace supplémentaire : **XVGEAO**
