@@ -6,7 +6,11 @@ excerpt: "Utilisation de Declarative Services dans un application OSGi"
 tags: [OSGi, REST, java, planetlibre]
 comments: true
 image:
-  feature: back.png
+  feature: osgi_back.png
 ---
 
 ## Introduction
+Vous vous souvenez de l'épisode précédent, le modèle de composant. Dans l'optique de faire un peu le tour, nous commencerons par utiliser
+Declarative Service puis on modifiera pour faire avec iPOJO.
+
+Commençons par créer le projet.

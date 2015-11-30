@@ -59,15 +59,16 @@ Il en existe plusieurs avec leurs avantages et inconvénients :
 ## Framework REST
 Encore un choix à faire. Quel framework REST choisir pour notre *Hello world OSGi* ?
 
-Le framework REST n'étant pas le sujet de ce tuto, on ne va pas s'attarder sur ce choix, il sera facilement changeable.
-On peut néanmoins en lister quelques uns que l'on testera dans le tuto.
+Le framework REST n'étant pas le sujet de ce tuto, on ne va pas s'attarder sur ce choix, il sera facilement changeable. Pour rester dans du standard, un
+framework à base [JAX-RS](https://jax-rs-spec.java.net/) est un bon point de départ. Voici quelques framework que j'ai peu tester:
 
-* [Wisdom](http://wisdom-framework.org/). Très bien mais masque complètement OSGi du coup pas vraiment adéquat pour ce
-tuto.
+* [Wisdom](http://wisdom-framework.org/). Très bien mais masque complètement OSGi du coup pas vraiment adéquat dans ce tuto. Il a sa proper gestion des
+annotations pour déclarer les resources REST.
 * [fluent-http](https://github.com/CodeStory/fluent-http). Sympa mais tire avec lui beaucoup de dépencdences qui le
 rendent compliqué à intégrer dans un environnement OSGi.
-* [Restlet](http://restlet.com/projects/restlet-framework/). Premier framework que l'on testera.
-* [Jersey](https://jersey.java.net/). Deuxième framework que l'on testera.
+* [Restlet](http://restlet.com/projects/restlet-framework/). Compliqué à intégrer en environnement OSGi malgrés une version dédié. Se basse sur ses propres
+annotations. Accepte JAX-RS via extension mais je trouve la mise en place compliqué, beaucoup de code pour pas grand chose.
+* [Jersey](https://jersey.java.net/). Le framework que l'on utilisera dans ce tutoriel. Il est connu, documenté et bien intégré à OSGi;
 
 ## Sujet du tutoriel
 Maintenant que les différents choix ont été fait, entrons dans le vif du sujet. Pour expliquer et détailler un peu
@@ -78,3 +79,4 @@ qui retourne `Hello world`. Comme le sujet est plutôt vaste, on fera ça en plu
 * [Part 2, Declarative Services](% post_url 2010-07-21-name-of-post %)
 * [Part 3, iPOJO](% post_url 2010-07-21-name-of-post %)
 * [Part 4, Logging](% post_url 2010-07-21-name-of-post %)
+* [Part 4, Tests](% post_url 2010-07-21-name-of-post %)
