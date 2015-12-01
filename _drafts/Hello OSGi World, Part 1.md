@@ -80,3 +80,5 @@ qui retourne `Hello world`. Comme le sujet est plutôt vaste, on fera ça en plu
 * [Part 3, iPOJO](% post_url 2010-07-21-name-of-post %)
 * [Part 4, Logging](% post_url 2010-07-21-name-of-post %)
 * [Part 4, Tests](% post_url 2010-07-21-name-of-post %)
+
+Toutes les sources sont ou seront présente sur [mon repo github](https://github.com/Marthym/hello-osgi-world)
