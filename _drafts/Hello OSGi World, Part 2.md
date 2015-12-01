@@ -3,14 +3,23 @@ layout: post
 title: Hello OSGi World, Part 2, Declarative Services
 excerpt: "Utilisation de Declarative Services dans un application OSGi"
 #modified: 2015-09-21
-tags: [OSGi, REST, java, planetlibre]
+tags: [OSGi, REST, java, planetlibre, restlet]
 comments: true
 image:
   feature: osgi_back.png
 ---
 
 ## Introduction
-Vous vous souvenez de l'épisode précédent, le modèle de composant. Dans l'optique de faire un peu le tour, nous commencerons par utiliser
-Declarative Service puis on modifiera pour faire avec iPOJO.
+L'objectif est donc de créer un server REST avec une route `/hello` qui produit le résultat `Hello World`. Le tout
+exécuté dans un environnement OSGi.
 
-Commençons par créer le projet.
+## Création du projet
+Commençons par créer le projet et le POM associé. On ne va pas utiliser d'artefact Maven, ça serait trop facile.
+
+Le projet va avoir l'arborescence suivante:
+
+* hello-word-osgi
+   * hello-word-assembly *Module faisant l'assemblage du projet*
+   * hello-word-rest *Code du projet*
+
+### Le POM
