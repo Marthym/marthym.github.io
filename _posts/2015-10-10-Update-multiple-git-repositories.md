@@ -2,7 +2,7 @@
 layout: post
 title: Mettre à jour plusieurs dépôts git
 excerpt: "Travailler avec plusieurs dépôts git interconnecté peut s'avérer fastidieux voilà une possibilité pour gérer ça."
-#modified: 2015-09-21
+modified: 2015-12-11
 tags: [git, bash, planetlibre]
 comments: true
 image:
@@ -33,3 +33,6 @@ Ce script donne en sortie une ligne pour chaque dépôt trouvé. Sur chaque lign
 A la fin de la procédure un récapitulatif des dépôts en erreur est affiché.
 
 Voilà, j'espère que ça servira à d'autres, je suis ouvert à toutes amélioration.
+
+**EDIT 2015-12-11: Mise à jour du script**<br/>
+Le scrip est modifié pour être multi-thread, c'est beaucoup plus rapide sur un grande quantité de repos.
