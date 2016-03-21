@@ -2,7 +2,7 @@
 layout: post
 title: Mettre à jour plusieurs dépôts git
 excerpt: "Travailler avec plusieurs dépôts git interconnecté peut s'avérer fastidieux voilà une possibilité pour gérer ça."
-modified: 2016-03-17
+modified: 2016-03-21
 tags: [git, bash, planetlibre]
 comments: true
 image:
@@ -33,6 +33,16 @@ Ce script donne en sortie une ligne pour chaque dépôt trouvé. Sur chaque lign
 A la fin de la procédure un récapitulatif des dépôts en erreur est affiché.
 
 Voilà, j'espère que ça servira à d'autres, je suis ouvert à toutes amélioration.
+
+**EDIT 2016-03-21: Mise à jour du script**<br/>
+Limitation du nombre de thread via xargs. Sous les versions récentes de docker le nombre de process fils est limité et le script générait des erreurs de fork.
+En limitant le nombre de thread à 5 on évite ce problème sans que la durée totale de la mise à jour n'en soit trop impactée.
+
+```bash
+find -L ~ -maxdepth 5 -path "*.git" -not -path "*zprezto*" -type d 2> /dev/null | \
+  xargs --max-proc=$MAX_PROC -n 1 -I {} bash -c "update_git_repo {}"
+```
+De plus le wait n'est plus nécessiare, c'est `xargs` qui s'en occupe. Par contre il est nécessaire d'exporter toutes les variables et les fonctions.
 
 **EDIT 2016-03-17: Mise à jour du script**<br/>
 Amélioration du threading :
