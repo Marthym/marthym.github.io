@@ -44,9 +44,7 @@ La première chose c'est que nous voulons faire du java 8. Donc on ajoute la con
 ```
 
 #### maven-bundle-plugin
-Packager un bundle maven à la main est particulièrement fastidieux. Heureusement, des outils qui analysent le code et
-en déduisent les dépendences à mettre dans le META-INF pour transformer le jar en bundle. Il s'agit de [BNDTools](http://bndtools.org/). Ce dernier possède un plugin maven qui permet d'intégrer la bundelization aux
-cycle de vie maven.
+Packager un bundle maven à la main est particulièrement fastidieux. Heureusement, des outils qui analysent le code et en déduisent les dépendences à mettre dans le META-INF pour transformer le jar en bundle. Il s'agit de [BNDTools](http://bndtools.org/). Ce dernier possède un plugin maven qui permet d'intégrer la bundelization aux cycle de vie maven.
 
 ```xml
 <plugin>
@@ -61,6 +59,7 @@ cycle de vie maven.
     </configuration>
 </plugin>
 ```
+
 Le `_include` explique au plugin d'utiliser le fichier `osgi.bnd` comme configuration s'il en trouve un. Ces fichiers
 sont généré par bndtools. Cela permet de garder la compatibilité si le projet est partagé avec des développeurs
 utilisant bndtools directement.
