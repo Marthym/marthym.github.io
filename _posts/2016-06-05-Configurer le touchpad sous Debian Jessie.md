@@ -2,23 +2,23 @@
 layout: post
 title: Reconfigurer le TouchPad sur Debian
 excerpt: "Sur Debian testing, certain touchpad ne fonctionnent plus correctement, voyons comment retrouver un touchpad fonctionnel."
-#modified: 2015-09-21
+modified: 2016-06-12
 tags: [debian, linux, touchpad, xorg, mouse, libinput, synaptics, planetlibre]
 comments: true
 image:
   feature: debian.png
 ---
-Dernièrement, une mise à jour de ma Debian a eu pour conséquence de dérégler le pavé tactile de mon portable. Plus de tap-to-click, plus de natural scroll
-, plus de click droit, ... bref pas génial. Du coup je vais dans les paramètres de Gnome-shell pour remettre tout ça en ordre. Mais dans les paramêtres on
+Dernièrement, une mise à jour de ma Debian a eu pour conséquence de dérégler le pavé tactile de mon portable. Plus de tap-to-click, plus de `natural scroll`
+, plus de click droit, ... bref pas génial. Du coup je vais dans les paramètres de Gnome-shell pour remettre tout ça en ordre. Mais dans les paramètres on
 ne trouve que deux pauvres options pour la souris mais rien pour le touchpad.
 
-![paramêtres Gnome-Shell]({{ site.url }}/images/20160604/20160604-gnome-settings-001.png)
+![paramètres Gnome-Shell]({{ site.url }}/images/20160604/20160604-gnome-settings-001.png)
 
 Donc pour ceux qui ont ce problème voici comment je l'ai résolu.
 
 ## Les drivers
-Historiquement, la plus part des distributions Linux utilisent les driver `synaptics`. Mais avec l'arrivé de Wayland, de nouveaux drivers apparaissent, 
-plus performant, plus souple et compatible xorg/wayland. C'est le cas de `libinput` qui remplace petit à petit tous les drivers d'entrée sur la Debian.
+Historiquement, la plupart des distributions Linux utilisent les driver `synaptics`. Mais avec l'arrivée de Wayland, de nouveaux drivers apparaissent, 
+plus performants, plus souple et compatible xorg/wayland. C'est le cas de `libinput` qui remplace petit à petit tous les drivers d'entrée sur la Debian.
 
 On peut utiliser la commande suivante pour connaitre les drivers utilisés par type d'entrée :
 
@@ -37,11 +37,11 @@ grep -e "Using input driver " ~/.local/share/xorg/Xorg.0.log
 [    18.774] (II) Using input driver 'libinput' for 'Logitech USB Receiver
 ```
 
-Voilà ce que l'on optient avant de suivre ce tuto, le touchpad utilise synaptics. Et c'est là qu'est le problème, dans les derniers update, Gnome-Shell est
-passé sur `libinput`. Mais coté Debian c'est pas encore le cas, on est sur `synaptics` et du coup le touchpad est mal géré. Bienvenue sur la testing...
+Voilà ce que l'on obtient avant de suivre ce tuto, le touchpad utilise synaptics. Et c'est là qu'est le problème, dans les derniers updates, Gnome-Shell est
+passé sur `libinput`. Mais côté Debian c'est pas encore le cas, on est sur `synaptics` et du coup le touchpad est mal géré. Bienvenue sur la testing...
 
 ## Changement de driver
-C'est pas très compliqué mais il faut savoir où se trouvent les fichiers Xorg à modifier. Pour cela, voici un commande qui aide :
+C'est pas très compliqué mais il faut savoir où se trouvent les fichiers Xorg à modifier. Pour cela, voici une commande qui aide :
 
 ```bash
 locate xorg.conf
@@ -55,8 +55,8 @@ locate xorg.conf
 /usr/share/X11/xorg.conf.d/70-synaptics.conf
 ```
 
-Selon les configurations il y a d'autres lignes mais c'est celles là qui nous intéressent. Xorg prend les fichiers dans l'ordre, donc c'est `synaptics` qui
-lu en dernier surcharge la configuretion. Le but est donc de rajouter un fichier `90-libinput-custom.conf` par exemple qui viendra sur-charger celui de 
+Selon les configurations il y a d'autres lignes mais c'est celles-là qui nous intéresse. Xorg prend les fichiers dans l'ordre, donc c'est `synaptics` qui,
+lut en dernier surcharge la configuretion. Le but est donc de rajouter un fichier `90-libinput-custom.conf` par exemple qui viendra surcharger celui de 
 `synaptics`.
 Copier / coller la partie du fichier de `libinput` qui correspond au pavé tactile et la mettre dans le nouveau fichier :
 
@@ -99,3 +99,7 @@ Et si on va dans les paramêtres de Gnome-Shell,
 
 [libinputarch]: https://wiki.archlinux.org/index.php/Libinput#Touchpad_configuration
 [manlibinput]: https://manpages.debian.org/cgi-bin/man.cgi?query=libinput&apropos=0&sektion=0&manpath=Debian+unstable+sid&format=html&locale=en {:hreflang="en"}
+
+## Edit
+
+ * *2016-06-12*: Quelques corrections d'orthographe
