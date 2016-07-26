@@ -2,12 +2,19 @@
 layout: post
 title: Reconfigurer le TouchPad sur Debian
 excerpt: "Sur Debian testing, certain touchpad ne fonctionnent plus correctement, voyons comment retrouver un touchpad fonctionnel."
-modified: 2016-06-12
+modified: 2016-07-26
 tags: [debian, linux, touchpad, xorg, mouse, libinput, synaptics, planetlibre]
 comments: true
 image:
   feature: debian.png
 ---
+
+## Edit 2016-007-26
+
+Il semble que le problème ai été corrigé sur la debian testing.
+
+---
+
 Dernièrement, une mise à jour de ma Debian a eu pour conséquence de dérégler le pavé tactile de mon portable. Plus de tap-to-click, plus de `natural scroll`
 , plus de click droit, ... bref pas génial. Du coup je vais dans les paramètres de Gnome-shell pour remettre tout ça en ordre. Mais dans les paramètres on
 ne trouve que deux pauvres options pour la souris mais rien pour le touchpad.
