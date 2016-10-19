@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Auto-hébergement et sauvegarde de données perso
+title: Auto-hébergement et sauvegarde de données personelle
 excerpt: "Présentation d'une installation d'auto-hébergement et du système de sauvegarde qui va avec"
 #modified: 2015-09-21
 tags: [backup, NAS, hubic, sauvegarde, webdav, freenas, hébergement, planetlibre]
@@ -73,11 +73,14 @@ J'ai choisi spliter la synchro en plusieurs répertoires, ça permet de parallé
 
 Le site du projet est clair sur le fait que c'est plus un outil de partage que de backup notement parce qu'il n'historise pas (en fait si mais bon) mais pour l'utilisation que j'ai fais c'est le jour et la nuit avec ownCloud. Par contre j'ai pas encore eu l'occasion de tester la synchro hors de mon réseau local.
 
-#### Accès à distance au données
-Reste maintenant à pouvoir accéder aux données à distance. Techniquement c'est possible avec `Syncthing` mais ça implique une duplication complète des répertoires que l'on veut accéder.
-J'ai besoin de pouvoir mettre à jour rapidement quelques fichiers et de pouvoir en récupérer quelques autres, je ne tiens pas a dupliquer toutes mes données partout ! C'est là qu'intervient le WebDAV. C'est le protocole qui semble le plus adéquat pour ça, plus simple (et rapide ?) que le SFTP. FreeNAS possède cette fonctionnalité de base mais j'ai préféré installer un serveur Nginx à l'interieur d'une Jail, plus sur en terme d'accès.
+#### Accès à distance aux données
+Reste maintenant à pouvoir accéder aux données à distance. Techniquement c'est possible avec `Syncthing` mais ça implique une duplication complète des répertoires que l'on veut accéder ce qui s'avère plûtôt lourd à l'utilisation.
+J'ai besoin de pouvoir mettre à jour rapidement quelques fichiers et d'en récupérer quelques autres, je ne tiens pas a dupliquer toutes mes données partout ! C'est là qu'intervient le WebDAV. C'est le protocole qui semble le plus adéquat pour ça, plus simple (et rapide ?) que le SFTP. FreeNAS possède cette fonctionnalité de base mais j'ai préféré installer un serveur Nginx à l'interieur d'une Jail, plus sûr en terme d'accès.
 
 Et avec ça j'ai remplacé l'utilisation que je faisais d'ownCloud et c'est beaucoup plus efficace.
+
+### Accès depuis l'extérieur
+J'ai pris un nom de domaine chez OVH, ça ne coute pas bien cher, une dizaine d'euro par an et ça rend bien service. Ensuite on peut configurer des sous-domaines pour accéder aux différents services que l'on héberge. On dirige tout ça vers la box sur laquelle on ouvre les port HTTP et HTTPS. C'est ici qu'entre en scène le Raspberry. La box redirige les ports ouverts vers le Rapsberry et de la un Nginx sert de reverse proxy vers les services hébergé dans les jails du NAS. Et le tour est joué. Ca a l'air compliqué en le lisant mais pas tant que ça finalement. 
 
 NFS TV
 Backup Hubic (sortir la passphrase du script)
