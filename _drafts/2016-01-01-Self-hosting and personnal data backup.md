@@ -80,7 +80,8 @@ J'ai besoin de pouvoir mettre à jour rapidement quelques fichiers et d'en récu
 Et avec ça j'ai remplacé l'utilisation que je faisais d'ownCloud et c'est beaucoup plus efficace.
 
 ### Accès depuis l'extérieur
-J'ai pris un nom de domaine chez OVH, ça ne coute pas bien cher, une dizaine d'euro par an et ça rend bien service. Ensuite on peut configurer des sous-domaines pour accéder aux différents services que l'on héberge. On dirige tout ça vers la box sur laquelle on ouvre les port HTTP et HTTPS. C'est ici qu'entre en scène le Raspberry. La box redirige les ports ouverts vers le Rapsberry et de la un Nginx sert de reverse proxy vers les services hébergé dans les jails du NAS. Et le tour est joué. Ca a l'air compliqué en le lisant mais pas tant que ça finalement. 
+On a donc un serveur WebDAV qui va permettre un accès basique aux données depuis l'extérieur du réseau local, reste maintenant à rendre cet accès possible. Pour cela, j'ai pris un nom de domaine chez OVH, c'est dans les 15€ par an et ça permet de faire du DynDNS si votre box change d'IP tout les jours (comme chez SFR par exemple). De ce que j'ai testé, ça marche sans problème.
 
-NFS TV
-Backup Hubic (sortir la passphrase du script)
+C'est là qu'intervient le Raspberry qui va servir de point d'entrée et de reverse proxy pour les jails du NAS. Alors pourquoi utiliser le Raspberry plutôt qu'une jail ? Je trouve ça pratique de pouvoir éteindre le NAS quand je parts en vacance et de quand même garder un accès SSH si besoin. En plus le RPi est plus simple à maintenir à jour et comme il ne consomme rien et ne fais pas de bruit il n'est pas génant de l'avoir allumé en permanence. Après je suppose que la jail est une solution qui fonctionne très bien aussi.
+
+Donc on renvoit les ports `http` et `https` de la box vers le RPi, de là le Nginx joue son rôle de reverse proxy vers les services dans les jails et voilà.
