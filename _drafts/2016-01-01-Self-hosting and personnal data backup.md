@@ -10,56 +10,42 @@ image:
 ---
 
 ## Introduction
-J'ai récement déménagé et au passage changé de box, de configuration réseau et du coup tant qu'à faire ça, j'en ai profité pour revoir l'organisation de mes sauvegardes perso. Et comme je n'ai pas écris grand chose depuis un moment, pourquoi pas en faire profiter ce qui se sont perdu jusqu'ici.
+J'ai récement déménagé et au passage changé de box, de configuration réseau et tant qu'a tout refaire, j'en ai profité pour revoir l'organisation de mes sauvegardes perso. Je n'ai pas écris grand chose depuis un moment, alors pourquoi pas en faire profiter pour faire un billet rapide sur les quelques trucs sympa que j'ai changé.
 
 ## Les besoins
-Dans l'ordre d'importance :
+Voyons déjà ce qui est important en terme de préservation de nos données personnelles. Pour une sécurité minimale, les données doivent être **dupliqué sur au moins deux supports physiques**. On parle là de deux copies faciles d'accès, sur le PC de tout les jours et sur un disque secondaire. Les données doivent être facile a restaurer et à synchroniser.
 
- * Duplication des données importante (photos surtout que je n'aimerais pas perdre)
- * Sauvegarde distante en cas d'appart qui brule ou de cambriolage.
- * Historique d'un à trois mois des données en cas de fausse manipulation
- * Accès distant et sécurisé aux données
+Pour une sécurité optimale, **une copie distante**, situé physiquement dans un lieu différent est importante. Envoyé sur le cloud par exemple, cette copie n'a pas besoin d'être facile ou rapide d'accès. Par contre selon le lieux du stockage, il faudra sans doute crypter.
+
+Enfin un **accès distant aux données** est un fonctionnalité sympa qui permet d'accéder à ses photos ou vidéo même en voyage.
 
 ## Le matériel
-Pour ce qui est du matériel, j'avais un PC fixe qui a dans les 7/8 ans maintenant que j'ai remplacé par un portable plus pratique et que j'ai reconverti en NAS.
+Un vieux PC fixe de 7 à 8 ans, avec quelques modifications se reconverti en NAS.
 
-Déjà, suppression du matériel inutile, lecteur DVD et carte graphique, ça gagne en consommation et en décibel. Ensuite, ajout de disque conséquant et adapté, j'ai choisi 2x [Western Digital Red 2 To](http://www.ldlc.com/fiche/PB00133400.html). C'est des disques fait pour rester allumé en permanence, tailler pour les NAS et j'en suis vraiment très content. Les deux seront monté en RAID 10.
+Suppression du matériel inutile, lecteur DVD et carte graphique, ça gagne en consommation et en décibel. Ensuite, ajout de disque conséquant et adapté, j'ai opté pour 2x [Western Digital Red 2 To](http://www.ldlc.com/fiche/PB00133400.html), des disques fait pour rester allumé en permanence, taillé pour les NAS et j'en suis vraiment très content. Les deux seront monté en RAID 10.
 
 J'ai aussi ajouté une ventillateur plus silentieux que l'original car le PC est dans le salon et le ventillo original souflait un peu. J'ai pris conseil sur [cette page](http://www.choixpc.com/silence.htm) (elle est moche mais bien pratique et pleine de bonnes infos), et j'ai choisi un [Arctic Freezer 13](http://www.ldlc.com/fiche/PB00112450.html#aff106) pour sont rapport taille efficacité.
 
-Enfin, un Raspberry Pi s'ajoute à la configuration pour servir de gateway, ça tombe jamais en panne c'est facile à remplacer et c'est pas cher.
-
-En terme de coût, vu que j'avais déjà le PC ça donne ça :
-
-* 2x WD Red 2To &rarr; 200€ (ça pique un peu)
-* 1x Rapsberry Pi &rarr; 50€
-* 1x Arctic Freezer 13 &rarr; 35€
-
-Soit **285€**
-
 ## Le système
-Pour la partie logicielle, j'ai opté pour [FreeNAS](http://www.freenas.org/). Certes il y en a d'autre et il y a des bonnes raisons pour tous, les avis divergent et je vais pas rentrer dans un justification. FreeNAS répond à mon besoin, de ce que j'en ai vu ça ét là il est ultra robuste et éprouvé. Les fonctionnalités que j'apprécie tout particulièrement sont :
+Pour la partie système, le NAS tourne sous [FreeNAS](http://www.freenas.org/). Certes il y a d'autre système pour NAS, comme OpenMediaVault par exemple, et de bonnes raisons de les choisir. Les avis divergent et je vais pas rentrer dans une justification. FreeNAS répond au besoin, et de ce que j'en ai vu ça ét là il est ultra robuste et éprouvé. Parmi les fonctionnalités particulièrement appréciable on trouve :
 
 * Le système de snapshot ZFS qui m'a sauvé la vie plusieurs fois
 * Les jails, même si c'est un peu plus contrainiant que des docker
 * L'interface hostère mais efficace
 * L'installation sur clé pour ne pas squater d'espace disque pour rien
 
-Coté Raspberry, j'ai une RaspBian, c'est facile à mettre en place et a mettre à jour.
-
 ## Le fonctionnement
-Comment j'utilise tout ça maintenant pour répondre aux besoins.
 
 ### Duplication et accès distant aux données
-J'ai longtemps utilisé [ownCloud](https://owncloud.org/) pour répondre à ces deux besoins. Installé dans un jail de FreeNAS, ownCloud fourni une interface de visialisation des données, un accès WebDAV et des clients de synchronisation pour un peu tout les systèmes. Cependant j'ai jamais été pleinement satisfait par owncloud. 
+J'ai longtemps utilisé [ownCloud](https://owncloud.org/) pour répondre à ces besoins. Installé dans une jail de FreeNAS, ownCloud fourni une interface de visialisation des données, un accès WebDAV et des clients de synchronisation pour un peu tout les OS du marché. Cependant je n'ai jamais été pleinement satisfait par owncloud. 
 
-Son client Windows est une horreur, si la quantité de fichiers à synchronisé est trop grande, il met plus de temps à chercher les différences que la plage d'intervale de synchronisation. Ce qui a pour conséquence une suppression pure et simple des fichiers en retard lors de la synchro suivante. Sous Linux c'est un peu différent car le client utilise inotify et la synchro est en temps réel.
+Son client Windows est une horreur, si la quantité de fichiers à synchroniser est trop grande, il met plus de temps à chercher les différences que la plage d'intervale de synchronisation. Ce qui a pour conséquence une suppression pure et simple des fichiers en retard lors de la plage de synchro suivante. Sous Linux c'est un peu différent car le client utilise inotify et la synchro est en temps réel.
 
 Dernièrement sous Linux le client se déconfigure et à chaque redémarrage il faut re-saisir l'URL du serveur et les login/password.
 
 Enfin, des dissensions au sein du projet on engendré un fork [NextCloud](https://nextcloud.com/). Ce genre de chose est rarement de bonne augure pour un projet, les utilisateurs en sont divisé et la pérénité des projets est douteuse. Pour des projets garant de vos données personnelles ce n'est pas engageant.
 
-C'est pourquoi après quelques recherche d'alternative, je me suis rabatu sur autre chose d'un peu différent, en séparant la partie duplication de la partie accès distant.
+C'est pourquoi après quelques recherche d'alternative, je me suis tourné vers une solution un peu différente, en séparant la partie duplication de la partie accès distant.
 
 #### Duplication des données
 C'est la base de la sauvegarde, les données doivent à minima se trouver sur deux supports différent pour s'assurer qu'il n'y aura pas de perte si un disque ou un PC lache.
