@@ -3,18 +3,22 @@ layout: post
 title: Nettoyer sa Debian
 excerpt: "Après quelques années d'utilisation, même un système Linux peut s'encrasser. Voyons comment on peut le nettoyer et ainsi regagner de l'espace disque."
 modified: 2016-11-02
-tags: [planetlibre,debian,admin,disque,apt,linux]
+tags: [planetlibre,debian,admin,apt,linux,docker]
 comments: true
 image:
   feature: debian.png
 ---
 {% include _toc.html %}<!--_-->
-Même si ce n'est pas dans les proportions de Windows, un Linux a tendance à accumuler des reliquats de vieux paquets et du cache pas vraiment utile qui à la longue pèsent lourd sur l'espace disque (ça ne ralenti pas le système pour autant). Voyons quelques pistes pour récupérer cet espace et rafraichir un peu le disque.
+Même si ce n'est pas dans les proportions de Windows, un Linux a tendance à accumuler des reliquats de vieux paquets et du cache pas vraiment utile qui a la longue pèsent lourd sur l'espace disque (ça ne ralenti pas le système pour autant). Voyons quelques pistes pour récupérer cet espace et rafraichir un peu le disque.
 
-Donc histoire de faire le 20 articles sur le sujet, voilà les astuces que j'ai.
+Donc histoire de faire le 20ième article sur le sujet (je fais même pas l'effort de lui trouver un nom original), voilà quelques pistes pour retrouver un peu d'espace sur vos disques durs.
+
+## Nettoyer les fichiers de conf obsolète
+C'est un article que j'avais publié il n'y a pas longtemps qui est en relation directe : <br/>
+[Nettoyer les configuration obsoletes debian]({% post_url 2016-07-01-Nettoyer les configuration obsoletes debian %})
 
 ## Localepurge
-C'est la première chose à faire, ''localepurge'' est un outil qui à chaque install de paquet ou de mise à jour, va faire le ménage dans les langues installés.
+C'est la première chose à faire, ''localepurge'' est un outil qui a chaque install de paquet ou de mise à jour, va faire le ménage dans les langues installées.
 Sa première utilisation va potentiellement faire gagner pas mal de place.
 
 ``` sh
@@ -38,7 +42,7 @@ du -hs /var/cache/apt/archives
 On constate que le cache des paquets prend une place significative au sein du système pour une utilité très réduite.
 
 ### La solution
-Cette suite de commande va permettre d'effectuer un nettoyage rapide des caches d'apt sans risque d'endommager le système :
+Cette suite de commandes va permettre d'effectuer un nettoyage rapide des caches d'apt sans risque d'endommager le système :
 
 ``` sh
 apt-get autoclean
@@ -46,23 +50,23 @@ apt-get clean
 apt-get autoremove
 ```
 
-La première commande supprimera tous les paquets .deb présent dans le cache dont une version plus récente est installé, la deuxième supprime tous les paquets
+La première commande supprimera tous les paquets .deb présents dans le cache dont une version plus récente est installée, la deuxième supprime tous les paquets
 du cache, et non pas seulement ceux obsolètes comme la commande précédente, enfin la troisième commande supprime les dépendances qui ne sont plus nécessaires.
 
-Si vous faite un `du` par la suite vous verrez le gain de place.
+Si vous faites un `du` par la suite vous verrez le gain de place.
 
 ## Gagner encore de la place
 
-Si cela n'a pas suffit, voici encore quelques façons de gratter un peu de place.
+Si cela n'a pas suffi, voici encore quelques façons de gratter un peu de place.
 
-  * **Nettoyer /var/tmp** ce dernier contient des fichier ... temporaires non effacé
+  * **Nettoyer /var/tmp** ce dernier contient des fichiers ... temporaires non effacé
   * **Nettoyer /var/log** qui contient les log du système
   * **Nettoyer ~/.thumbnails** qui contient tout les aperçus des fichiers de Nautilus
 
 ### Nettoyer les kernels
 
-Lors des mise à jour de kernel, les anciens kernel sont conservé afin de pouvoir y revenir en cas de problème.
-Il est possible de dés-installer les anciens kernel ainsi que tout ce qui leur est associé (header, src, ...) via apt-get.
+Lors des mises à jour de kernel, les anciens kernel sont conservés afin de pouvoir y revenir en cas de problème.
+Il est possible de désinstaller les anciens kernel ainsi que tout ce qui leur est associé (header, src, ...) via apt-get.
 
 La commande suivante vous permet de connaître le kernel actuellement utilisé
 
@@ -71,7 +75,7 @@ uname -r
 4.7.0-1-amd64
 ```
 
-Celle pour les kernels installé :
+Celle pour les kernels installés :
 
 ``` sh
 dpkg --list 'linux-image*'
@@ -96,13 +100,13 @@ un  linux-image-4.7.0-1-amd64-unsigned   <aucune>               <aucune>        
 ii  linux-image-amd64                    4.7+75                 amd64           Linux for 64-bit PCs (meta-package)
 ```
 
-Les "**ii**" sont les packages installé, pour supprimer ceux qui ne sont plus utilisé, dans l'exemple suivant c'est le **4.6.0-1-amd64** :
+Les "**ii**" sont les packages installés, pour supprimer ceux qui ne sont plus utilisés, dans l'exemple suivant c'est le **4.6.0-1-amd64** :
 
 ``` sh
 apt purge linux-image-4.6.0-1-amd64 linux-headers-4.6.0-1*
 ```
 
-**ATTENTION Cette commande est a utiliser avec beaucoup de parcimonie, c'est irréversible et ça casse la VM ou le PC définitivement !**
+**ATTENTION Cette commande est à utiliser avec beaucoup de parcimonie, c'est irréversible et ça casse la VM ou le PC définitivement !**
 
 ### Trouver les gros fichiers
 Un ligne de commande bien pratique pour ça :
@@ -125,11 +129,11 @@ docker rmi $(docker images | grep '^<none>' | awk '{print $3}')
 docker rmi $(docker images | grep 'months ago' | awk '{print $3}')
 ```
 
-1. on supprime les containers non démarré (attention à cette commande du coup). Remarquer le `-v` qui évite de se trouver avec des volumes orphelins.
-2. on supprime les images non taggé
-3. on supprime les images vieille de plusieurs mois
+1. on supprime les containers non démarrés (attention à cette commande du coup). Remarquer le `-v` qui évite de se trouver avec des volumes orphelins.
+2. on supprime les images non tagguées
+3. on supprime les images vieilles de plusieurs mois
 
-Chez nous ces trois commande sont placé dans un cron weekly sur toutes les machines qui utilisent Docker.
+Chez nous ces trois commandes sont placées dans un cron weekly sur toutes les machines qui utilisent Docker.
 
 ### Supprimer les layers orphelins dans un registry docker
 Enfin, un petit script bien pratique, notez que selon les versions du registry ce script n'est pas forcément nécessaire mais ça fait pas de mal de le connaitre.
