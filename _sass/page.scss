@@ -595,7 +595,7 @@ $button-size: 1.5rem;
   a {
 	  display: block;
 	  padding: 8px 20px;
-	  text-decoration: none !important;
+	  text-decoration: none;
 	  text-transform: uppercase;
 	  @include font-rem(14);
 	  font-family: $heading-font;
@@ -722,8 +722,8 @@ $button-size: 1.5rem;
 	@include font-rem(14);
 	background-color: $white;
 	color: $black;
-	border-width: 2px !important;
-	border-style: solid !important;
+	border-width: 2px;
+	border-style: solid;
 	border-color: lighten($black,50);
 	@include rounded(3px);
 }
