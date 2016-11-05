@@ -8,3 +8,14 @@
 @import "elements";
 @import "forms";
 @import "page";
+
+.contact-xp-table {
+	th {
+		text-align: left;
+		& + th {text-align: right;}
+	}
+	td {
+		text-align: left;
+		& + td {text-align: right;}
+	}
+}

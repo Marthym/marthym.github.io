@@ -12,20 +12,23 @@ author: fcombes
 ## Expériences professionnelles
 
 | Living Objects | Ingénieur Logiciel Sénior  	|
-|:---------------|-----------------------------:|
+|----------------|------------------------------|
 | *Depuis 2014*  | *Toulouse, Basso Cambo*      |
+{: .contact-xp-table }
 
 ---------------
 
 | Cameleon Software | Consultant Technique Expert	  |
-|:------------------|------------------------------:|
+|-------------------|-------------------------------|
 | *De 2007 à 2013*  | *Toulouse, Labège*            |
+{: .contact-xp-table }
 
 ------
 
 | Access-Commerce 	| Développeur d'adaptations     |
-|:------------------|------------------------------:|
+|-------------------|-------------------------------|
 | *De 2001 à 2007*  | *Toulouse, Labège*            |
+{: .contact-xp-table }
 
 ## Formation
 

@@ -2,7 +2,7 @@
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
 <!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<!--[if gt IE 8]><!--> <html amp class="no-js" lang="fr"><!--<![endif]-->
 <head>
 {% include _head.html %}
 </head>
@@ -21,7 +21,9 @@
     {% else %}
       "{{ site.url }}/images/{{ page.image.feature }}"
     {% endif %}
-  alt="{{ page.title }} feature image">
+  alt="{{ page.title }} feature image"
+  layout="responsive"
+  width="1900" height="113">
   {% if page.image.credit %}
     <span class="image-credit">Crédit: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></span>
   {% endif %}
@@ -53,7 +55,7 @@
   </footer>
 </div><!-- /.footer-wrap -->
 
-{% include _scripts.html %}
+{% include _analytics.html %}
 
 </body>
 </html>
