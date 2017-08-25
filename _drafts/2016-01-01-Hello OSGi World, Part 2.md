@@ -93,6 +93,65 @@ L’activateur doit implémenter l’interface `BundleActivator`, ce qui permet 
 
 On va pour l’instant en rester là pour le code, un simple message pour s’assurer que l’on arrive bien à activer notre bundle. Dans le prochain billet on verra comment packager et lancer l’application.
 
+### Bundleization
+
+Si on fait maintenant un `mvn clean package` on aura un how-rest.jar très bien pour la plupart des utilisations mais ça ne sera pas un bundle. En effet comme expliqué plus haut, un bundle, pour en être un, doit exprimer ses caractéristiques dans son fichier `MANIFEST.MF`. C’est-à-dire les packages qu’il exporte, ceux qu’il importe, leur version, ... Si on regarde le `MANIFEST.MF` du jar à cette étape, on y trouve :
+
+```
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Built-By: marthym
+Created-By: Apache Maven 3.3.9
+Build-Jdk: 1.8.0_144
+```
+
+Pas d’informations sur le bundle. Du coup OSGi ne saura pas comment le charger. C’est là une des plus grosses complications d’OSGi, tous les jar utilisé dans l’application doivent impérativement être des bundles ! Ce qui n’est pas le cas de tous les jars libres et open-source, loin de là. Si vous souhaitez dépendre d’un jar qui n’est pas un bundle, vous devrez le bundelizer vous-même avant de pouvoir vous en servir. 
+
+Bref, pour transformer votre jar en bundle, il suffit d’ajouter le tag suivant dans le `pom.xml`:
+
+```xml
+<packaging>bundle</packaging>
+...
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>maven-bundle-plugin</artifactId>
+            <extensions>true</extensions>
+            <configuration>
+                <instructions combine.children="append">
+                    <Bundle-Activator>fr.ght1pc9kc.how.HowActivator</Bundle-Activator>
+                </instructions>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+Puis de relancer le `mvn clean package`. C’est le `maven-bundle-plugin` qui s’occupe de rajouter dans le `MANIFEST.MF` les informations nécessaires. Notez que `maven-bundle-plugin` détecte tout seul ce qui doit ou non être exporté. Par défaut, tous les packages contenant **.internal.** ne seront pas exportés.
+
+Si on regarde à nouveau le `MANIFEST.MF`:
+
+```
+Manifest-Version: 1.0
+Bnd-LastModified: 1503662621679
+Build-Jdk: 1.8.0_144
+Built-By: marthym
+Bundle-Activator: fr.ght1pc9kc.how.HowActivator
+Bundle-ManifestVersion: 2
+Bundle-Name: how-rest
+Bundle-SymbolicName: fr.ght1pc9kc.how-rest
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: fr.ght1pc9kc.how;uses:="org.osgi.framework";version="1
+ .0.0"
+Import-Package: org.osgi.framework;version="[1.8,2)",org.slf4j;version
+ ="[1.7,2)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-3.3.0.201609221906
+
+```
+
 ## Next
 
 Comme je le disais plus haut, les applications OSGi ne se lance pas avec une simple `java -jar` il est nécessaire de configurer un runner qui va s’occuper de résoudre les dépendances entre les bundles et de les charger.
