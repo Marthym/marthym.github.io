@@ -98,7 +98,7 @@ Ensuite pour démarrer, felix à besoin d'un fichier de configuration. A mettre 
 
 Le plugin assembly de maven va permettre de générer un tar.gz contenant la structure finale du projet. La structure que souhaité est la suivante:
 
-<pre>
+<pre class="console">
 /
 ├── application
 │   ├── how-rest-1.0-SNAPSHOT.jar
