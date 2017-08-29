@@ -102,9 +102,11 @@ Le plugin assembly de maven va permettre de générer un tar.gz contenant la str
 /
 ├── application
 │   ├── how-rest-1.0-SNAPSHOT.jar
-│   ├── logback-classic-1.2.3.jar
-│   ├── logback-core-1.2.3.jar
+│   ├── log4j-api-2.8.2.jar
+│   ├── log4j-core-2.8.2.jar
+│   ├── log4j-slf4j-impl-2.8.2.jar
 │   └── slf4j-api-1.7.25.jar
+├── archive-tmp
 ├── bundle
 │   ├── org.apache.felix.bundlerepository-1.6.0.jar
 │   ├── org.apache.felix.fileinstall-3.6.0.jar
@@ -135,11 +137,11 @@ java -Dfelix.fileinstall.dir=application -jar org.apache.felix.main-5.6.6.jar
 ```
 
 Et si tout se passe bien :
-<pre>
+<pre class="console">
 ____________________________
 Welcome to Apache Felix Gogo
 
-g! 16:30:19.348 [fileinstall-application] INFO fr.ght1pc9kc.how.HowActivator - HOW is now Activated !
+g! HOW is now Activated !
 </pre>
 
 Le message de notre activateur s'affiche !
@@ -160,9 +162,7 @@ START LEVEL 1
     6|Active     |    1|osgi.cmpn (4.3.1.201210102024)|4.3.1.201210102024
     7|Active     |    1|osgi.core (6.0.0.201403061837)|6.0.0.201403061837
     8|Active     |    1|how-rest (1.0.0.SNAPSHOT)|1.0.0.SNAPSHOT
-    9|Active     |    1|Logback Classic Module (1.2.3)|1.2.3
-   10|Active     |    1|slf4j-api (1.7.25)|1.7.25
-   11|Active     |    1|Logback Core Module (1.2.3)|1.2.3
+    9|Installed  |    1|slf4j-api (1.7.25)|1.7.25
 </pre>
 
 Il s'agit de la liste des bundles installé et démarré dans le framework felix. Vous remarquez le bundle 9 `how-rest` marqué comme actif.
@@ -179,8 +179,9 @@ Dans la console de l'application, vous allez voir apparaitre
 ____________________________
 Welcome to Apache Felix Gogo
 
-g! 16:44:07.395 [fileinstall-application] INFO fr.ght1pc9kc.how.HowActivator - HOW is now Activated !
-16:44:15.420 [fileinstall-application] INFO fr.ght1pc9kc.how.HowActivator - HOW is now Activated !
+g! HOW is now Activated !
+HOW is now Stopped !
+HOW is now Activated !
 </pre>
 
 Le log de l'activateur apparait à nouveau. En effet, `fileinstall` a détecté la modification d'un fichier dans application et grâce à la gestion de dépendances à chaud d'OSGi, il a peu désactiver le bundle `how-rest` installer la nouvelle version et ré-activer la nouvelle version. D'où le message qui ré-apparait. Bon après j'avoue faut en avoir l'usage, mais OSGi peut le faire ...

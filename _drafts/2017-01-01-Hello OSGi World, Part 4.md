@@ -86,3 +86,120 @@ g!
 </pre> 
 
 Pour chaque bundle, cette commande liste les composants et leur état. C'est très utile si un composant ne s'active pas, pour savoir ce qu'il lui manque, quelles dépendances ne sont pas satisfaite par exemple.
+
+## Dis Bonjour !
+
+Ben oui on a fait plein de truc mais on a toujours pas notre Hello World. Maintenant que la machinerie est en place on peut lancer un serveur HTTP à l'activation de notre composant `http-server` :
+
+{% highlight java %}
+    @Activate
+    private void startHttpServer() {
+        Undertow server = Undertow.builder()
+                .addHttpListener(HTTP_PORT, "localhost")
+                .setHandler(exchange -> {
+                    exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "text/plain");
+                    exchange.getResponseSender().send("Hello OSGi World");
+                }).build();
+        server.start();
+        LOGGER.info("HTTP Server started on port {}", HTTP_PORT);
+    }
+{% endhighlight %}
+
+J'ai pris un serveur Undertow parce qu’il est rapide simple, non-bloquant (killer feature dans notre cas !) et en prime il est compatible OSGi.
+
+Je vous laisse voir les poms pour la liste des imports.
+
+Il ne reste plus qu'a relancer l'application pour voir si ça fonctionne.
+
+### Ordre et dépendances
+<pre class="console">
+ERROR: [http-server(0)] The startHttpServer method has thrown an exception
+java.lang.IllegalArgumentException: XNIO001001: No XNIO provider found 
+        at org.xnio.Xnio.doGetInstance(Xnio.java:270)
+        at org.xnio.Xnio.getInstance(Xnio.java:187)
+        at io.undertow.Undertow.start(Undertow.java:114)
+        at fr.ght1pc9kc.how.HttpServerComponent.startHttpServer(HttpServerComponent.java:23)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.felix.scr.impl.inject.BaseMethod.invokeMethod(BaseMethod.java:229)
+        at org.apache.felix.scr.impl.inject.BaseMethod.access$500(BaseMethod.java:39)
+        at org.apache.felix.scr.impl.inject.BaseMethod$Resolved.invoke(BaseMethod.java:650)
+        at org.apache.felix.scr.impl.inject.BaseMethod.invoke(BaseMethod.java:506)
+        at org.apache.felix.scr.impl.inject.ActivateMethod.invoke(ActivateMethod.java:307)
+        at org.apache.felix.scr.impl.inject.ActivateMethod.invoke(ActivateMethod.java:299)
+</pre>
+
+Voilà un autre incovénient d'OSGi, l'ordre de chargement des bundles compte. La plus part du temps, les bundles dépendandent les uns des autres et le framwork les résouds en chargeant les bundles dans l'ordre. Mais là on a un bundle `xnio.nio` qui est une implémentation, personne de dépend de lui. Mais tand qu'il n'est pas là le serveur Undertow ne peut être lancé. Mais comme personne ne dépend ni de `xnio.nio` ni de `how-rest` les deux bundles sont chargé par ordre alphabethique et l'activation de `how-rest` est déclenché avant que `xnio.nio` ne soit disponible.
+
+**Solution:**
+
+En regardant le code d'Undertow ou dans la documentation,on voit que Undertow pour être lancé à besoin d'une instance de `Xnio`. Comme c'est souvent le cas dans les modules standard qui "supportent" OSGi, la façon dont Xnio génère son instance et la façon dont Undertow en dépend ne permet pas d'éviter ce soucis. Du coup c'est a nous de le gérer. Le plus simple pour ça est d'expliquer à OSGi que le module `http-server` ne peut être activer tand qu'il n'existe pas une instance accéssible de Xnio. On ajout la dépendance comme ça :
+
+{% highlight java %}
+    @Reference
+    private void waitForXnio(Xnio xnio) {
+        LOGGER.debug("XNIO Implementation found: {}", xnio);
+    }
+{% endhighlight %}
+
+C'est l'annotation `@Reference` qui indique à Felix que le composant à besoin d'une instance de `Xnio`.
+
+On rebuild l'application et ça démarre correctement ! Rendez vous sur la page `http://localhost:8080/` pour y voir s'affiche le message de bienvenue.
+
+### Le felix-cache
+Il reste cependant encore un soucis, si l'on stoppe (`CTRL^C`) et que l'on relance, on prend à nouveau cette erreur. C'est lié au cache que Felix génère. J'ignore pourquoi mais un chargement depuis le cache provoque la même erreur. Pour palier ce soucis, on demande à Felix de recharger son cache à chaque démarrage. Dans le fichier de configuration Felix on ajoute la ligne:
+
+{% highlight conf %}
+org.osgi.framework.storage.clean=onFirstInit
+{% endhighlight %}
+
+## Dépendances Multiples
+Pour finir, modifions un peu l'application pour la rendre plus dynamique. L'idée de de faire en sorte que le serveur découvre les nouvelles route dynamiquement.
+
+Pour cela, on crée une interface `Route` comme suit :
+
+{% highlight java %}
+public interface Route extends HttpHandler {
+    String getRoute();
+}
+{% endhighlight %}
+
+Et dans le composant HTTP on ajoute une dépendance MULTIPLE à `Route`
+{% highlight java %}
+@Reference(cardinality = ReferenceCardinality.MULTIPLE, policy = ReferencePolicy.DYNAMIC)
+private void addHttpHandler(Route handler) {
+    routingHandler.get(handler.getRoute(), handler);
+}
+
+private void removeHttpHandler(Route handler) {
+    routingHandler.remove(handler.getRoute());
+}
+{% endhighlight %}
+
+Ainsi chaque Route qui apparaitra dans les bundles installé viendra s'ajouter à celle existantes. La présence d'une méthode `removeHttpHandler` est obligatoire pour pacakager le bundle. BND utilise le nom pour trouver la bonne méthode.
+
+Une route ressemble à ça :
+{% highlight java %}
+@Component
+public class HelloWorldRoute implements Route {
+    @Override
+    public void handleRequest(HttpServerExchange exchange) throws Exception {
+        exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "text/plain");
+        exchange.getResponseSender().send("Hello OSGi World");
+    }
+
+    @Override
+    public String getRoute() {
+        return "/hello";
+    }
+}
+{% endhighlight %}
+
+Si vous compilez les sources 4.0 il y a 2 routes, /hello et /bonjour.
+
+C'est un example simple pour illustré les dépendances multiple mais il est possible de faire beaucoup mieux, des Controllers avec l'API JAX-RS.
+
+## Next
+Donc voilà, on a vu comment OSGi gère les dépendances. La prochaine fois on verra les Fragments Bundles, à quoi ça sert et comment on fait ça.
