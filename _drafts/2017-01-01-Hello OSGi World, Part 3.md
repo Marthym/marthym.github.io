@@ -26,7 +26,7 @@ Tel qu'on l'a inclus pour l'instant un import felix nu sans rien d'autre. On va 
 ### Pom parent du projet
 On y ajoute les versions des dépendances felix dont on a parlé précédement :
 
-{% highlight xml %}
+``` xml
     <properties>
         ...
         <fileinstall.version>3.6.0</fileinstall.version>
@@ -65,7 +65,7 @@ On y ajoute les versions des dépendances felix dont on a parlé précédement :
             ...
         </dependencies>
     </dependencyManagement>
-{% endhighlight %}
+```
 
 L'exclusion de easymock c'est pour éviter de l'avoir dans les jar de l'application, il ne sert à rien, je pense que c'est juste une erreur de dépendances qui aurait due se trouver en scope test.
 
@@ -170,9 +170,9 @@ Il s'agit de la liste des bundles installé et démarré dans le framework felix
 ### Mise à jour à chaud
 C'est là l'un des gros points fort de OSGi, la mise à jour des bundles à chaud. C'est a dire que sans arréter et relancer l'application, il est possible de mettre à jour les jars qui la compose. Par exemple, lancé l'application puis, depuis le répertoire du dossier, essayez la commande suivante :
 
-{% highlight shell %}
+``` shell
 cp how-rest/target/how-rest-1.0-SNAPSHOT.jar how-assembly/target/application/
-{% endhighlight %}
+```
 
 Dans la console de l'application, vous allez voir apparaitre 
 <pre class="console">
