@@ -26,7 +26,7 @@ Tel qu'on l'a inclus pour l'instant un import felix nu sans rien d'autre. On va 
 ### Pom parent du projet
 On y ajoute les versions des dépendances felix dont on a parlé précédement :
 
-```xml
+{% highlight xml %}
     <properties>
         ...
         <fileinstall.version>3.6.0</fileinstall.version>
@@ -65,14 +65,14 @@ On y ajoute les versions des dépendances felix dont on a parlé précédement :
             ...
         </dependencies>
     </dependencyManagement>
-```
+{% endhighlight %}
 
 L'exclusion de easymock c'est pour éviter de l'avoir dans les jar de l'application, il ne sert à rien, je pense que c'est juste une erreur de dépendances qui aurait due se trouver en scope test.
 
 ### Module Assembly
 Maintenant que les versions sont correcte on ajoute les dépendances dans l'assembly puisqu'il n'y a que lui qui en aura besoin, c'est des dépendance runtime.
 
-```xml
+{% highlight xml %}
     <dependencies>
         ...
         <dependency>
@@ -90,7 +90,7 @@ Maintenant que les versions sont correcte on ajoute les dépendances dans l'asse
 
     </dependencies>
     ...
-```
+{% endhighlight %}
 
 Ensuite pour démarrer, felix à besoin d'un fichier de configuration. A mettre dans `how-assembly/src/main/resources/conf/config.properties`. Vous pourrez en trouver un examplaire dans les sources et la doc des différentes propriétées est consultable [ici][felix-config]. 
 
@@ -129,12 +129,12 @@ Dans `how-assembly/src/main/assembly/bundle.xml` permet de paramétrer l'assembl
 ## Premier démarrage
 Une fois l'assemblage au point, on peut aller lancer la machine de guerre !
 
-```bash
+{% highlight shell %}
 mvn clean package
 cd how-assembly/target
 tar jxvf how-1.0-SNAPSHOT.tar.bz2
 java -Dfelix.fileinstall.dir=application -jar org.apache.felix.main-5.6.6.jar
-```
+{% endhighlight %}
 
 Et si tout se passe bien :
 <pre class="console">
@@ -149,7 +149,7 @@ Le message de notre activateur s'affiche !
 ### Gogo Shell
 C'est le moment de comprendre un peu mien à quoi servent les "Goodies" que l'on a ajouté dans l'assembly. Faite `Entrer` pour obtenir l'invite `g! ` puis tapez la commande `lb` pour List Bundles vous devriez avoir quelque chose comme ça :
 
-<pre>
+<pre class="console">
 g! lb
 START LEVEL 1
    ID|State      |Level|Name
@@ -170,12 +170,12 @@ Il s'agit de la liste des bundles installé et démarré dans le framework felix
 ### Mise à jour à chaud
 C'est là l'un des gros points fort de OSGi, la mise à jour des bundles à chaud. C'est a dire que sans arréter et relancer l'application, il est possible de mettre à jour les jars qui la compose. Par exemple, lancé l'application puis, depuis le répertoire du dossier, essayez la commande suivante :
 
-```bash
+{% highlight shell %}
 cp how-rest/target/how-rest-1.0-SNAPSHOT.jar how-assembly/target/application/
-```
+{% endhighlight %}
 
 Dans la console de l'application, vous allez voir apparaitre 
-<pre>
+<pre class="console">
 ____________________________
 Welcome to Apache Felix Gogo
 
