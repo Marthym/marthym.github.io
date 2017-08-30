@@ -6,6 +6,8 @@ body {
 	background-color: $bodycolor;
 	font-family: $base-font;
 	color: $text-color;
+	line-height: $base-line-height;
+	font-size: $base-font-size;
 }
 
 /*
@@ -38,7 +40,7 @@ body {
 	}
 	@media #{$x-large} {
 		@include grid(12,1.5);
-		@include prefix(12,2);
+		@include prefix(12,1);
 	}
 }
 
@@ -239,7 +241,7 @@ $button-size: 1.5rem;
 			@include suffix(12,0);
 		}
 		@media #{$x-large} {
-			@include grid(11,4.5);
+			@include grid(11,5.5);
 		}
 	}
 }
@@ -408,8 +410,8 @@ $button-size: 1.5rem;
 		}
 	}
 	@media #{$x-large} {
-		@include grid(12,1.5);
-		@include prefix(12,2);
+		@include grid(12,1);
+		@include prefix(12,1.5);
 	}
 }
 
