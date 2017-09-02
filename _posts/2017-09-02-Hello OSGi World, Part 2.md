@@ -3,27 +3,25 @@ layout: post
 title: Hello OSGi World, Part 2, Premiers concepts OSGi
 excerpt: "Création de la structure initiale du projet et notions de Bundle"
 #modified: 2015-09-21
-tags: [OSGi, REST, java, planetlibre, restlet]
+tags: [OSGi, bundle, java, planetlibre]
 comments: true
 image:
   feature: osgi_back.png
 ---
 
 ## Introduction
-L’objectif est donc de créer un serveur REST avec une route `/hello` qui produit le résultat `Hello World`. Le tout
-exécuté dans un environnement OSGi.
+L’objectif est donc de créer un serveur REST avec une route `/hello` qui produit le résultat `Hello World`. Le tout exécuté dans un environnement OSGi.
 
-Pour exécuter une application au sein d’un conteneur OGSi, cette dernière doit être packagé sous la forme d’un bundle.
-Un bundle est un jar contenant des informations de dépendance dans son META-INF.
+Pour exécuter une application au sein d’un conteneur OGSi, cette dernière doit être packagé sous la forme d’un bundle. Un bundle est un jar contenant des informations de dépendance dans son META-INF.
 
 ## Création du projet
 Commençons par créer le projet et le POM associé. On ne va pas utiliser d’artefact Maven, ça serait trop facile.
 
 Le projet va avoir l’arborescence suivante:
 
-* hello-osgi-world
-   * how-assembly *Module faisant l’assemblage du projet*
-   * how-rest *Code du projet*
+* **hello-osgi-world**
+   * **how-assembly** *Module faisant l’assemblage du projet*
+   * **how-rest** *Code du projet*
 
 Cette structure permet de limiter les dépendances du jar principal du projet qui ne dépendra que des API, les implémentations seront définies dans l’assembly et seront facilement interchangeable si besoin.
 
@@ -32,7 +30,7 @@ La structure des POMs est discutable, je les ai écrits comme j’en ai l’habi
 
 La première chose c’est que nous voulons faire du java 8. Donc on ajoute la configuration du `maven-compiler-plugin` :
 
-```xml
+``` xml
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-compiler-plugin</artifactId>
@@ -46,7 +44,7 @@ La première chose c’est que nous voulons faire du java 8. Donc on ajoute la c
 #### maven-bundle-plugin
 Packager un bundle maven à la main est particulièrement fastidieux. Heureusement, il y a des outils qui analysent le code et en déduisent les dépendances à mettre dans le META-INF pour transformer le jar en bundle. Il s’agit de [BNDTools](http://bndtools.org/). Ce dernier possède un plugin maven qui permet d’intégrer la bundelization aux cycles de vie maven.
 
-```xml
+``` xml
 <plugin>
     <groupId>org.apache.felix</groupId>
     <artifactId>maven-bundle-plugin</artifactId>
@@ -65,7 +63,7 @@ Le `_include` explique au plugin d’utiliser le fichier `osgi.bnd` comme config
 ## L’activator
 Dans le contexte d’OSGi, il n’y a pas de méthode Main qui sert de point d’entrée à l’application, c’est un Activator qui fait ça.
 
-### Principe des bundle
+### Principe du bundle
 Les applications OSGi sont divisées en `bundle`, c’est une unité d’isolation dans l’application OSGi. Il s’agit le plus souvent des packages. Chaque bundle contient ses classes métier. Un bundle consomme et fournit des services (des interfaces), il a des dépendances vers d’autres bundles. 
 Lors du démarage, le runner charge chaque bundle dans son propre classpath de façon à maintenir une forte isolation entre les différents bundle. Chaque bundle peut posséder un Activateur qui contiendra du code à jouer une fois son activation terminé.
 
@@ -73,7 +71,7 @@ C’est dans cet Activateur que l’on mettra le démarrage de notre serveur htt
 
 ### L’implémentation
 
-```java
+``` java
 public final class HowActivator implements BundleActivator {
     private static final Logger LOGGER = LoggerFactory.getLogger(HowActivator.class);
 
@@ -109,7 +107,7 @@ Pas d’informations sur le bundle. Du coup OSGi ne saura pas comment le charger
 
 Bref, pour transformer votre jar en bundle, il suffit d’ajouter le tag suivant dans le `pom.xml`:
 
-```xml
+``` xml
 <packaging>bundle</packaging>
 ...
 <build>
@@ -157,3 +155,6 @@ Tool: Bnd-3.3.0.201609221906
 Comme je le disais plus haut, les applications OSGi ne se lance pas avec une simple `java -jar` il est nécessaire de configurer un runner qui va s’occuper de résoudre les dépendances entre les bundles et de les charger.
 
 Du coup on verra ça dans le prochain billet car je ne veux pas faire des chose trop longue ou fastidieuse à lire (même si je doute qu’il y ai du monde).
+
+[Code source: Part 2, Premiers concepts OSGi](https://github.com/Marthym/hello-osgi-world/tree/2.0)
+
