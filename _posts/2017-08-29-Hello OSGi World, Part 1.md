@@ -68,7 +68,7 @@ annotations pour déclarer les ressources REST.
 Maintenant que les différents choix ont été faits, entrons dans le vif du sujet. Pour expliquer et détailler un peu OSGi ce tuto se propose de faire dans l’originalité en créant un service `Hello OSGi World`. Une API REST appelable en GET qui retourne `Hello OSGi world`. Comme le sujet est plutôt vaste, on fera ça en plusieurs parties :
 
 * [Part 1, Introduction]()
-* [Part 2, Premiers concepts OSGi]()
+* [Part 2, Premiers concepts OSGi]({% post_url 2017-09-02-Hello OSGi World, Part 2 %})
 * [Part 4, Configuration du runner]()
 * [Part 4, Injection de dépendances]()
 * [Part 5, Fragment Bundles]()
