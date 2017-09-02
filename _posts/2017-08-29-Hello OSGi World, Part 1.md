@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Hello OSGi World, Part 1, Introduction
-excerpt: "Débuter un application REST avec OSGi & Declarative Service"
+excerpt: "Débuter une application REST avec OSGi & Declarative Service"
 #modified: 2015-09-21
 tags: [OSGi, REST, java, planetlibre]
 comments: false
