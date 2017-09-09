@@ -2,7 +2,7 @@
 layout: post
 title: Sauvegarde intelligente sur HubiC (Mise à jour)
 excerpt: "Sauvegarder ses données sur un cloud HubiC avec mise à jour des modifications"
-tags: [backup,shell,admin,hubic]
+tags: [backup,bash,shell,admin,hubic]
 comments: true
 image:
   feature: backup.png
@@ -25,6 +25,8 @@ ou
 * [yyyy-Lieu] Nom de l’album
 
 Bref, c’est plus pour l’inspiration !
+
+J’en profite aussi pour parler de cet article vraiment bien, [Shell Script Matter]. C’est en anglais mais il contient beaucoup de trucs & astuces sympa si vous écrivez des scripts bash.
 
 ## Le script
 ``` shell
@@ -142,4 +144,8 @@ _cleanSha1File "$BACKUP_DIR"
 ```
 
 ## Liens
-* [Le Gist](https://gist.github.com/Marthym/bbdd8688eaa6e1776a304aabb99099b3)
+* [Shell Script Matter][] (en)
+* [Le Gist][]
+
+[Shell Script Matter]: https://dev.to/thiht/shell-scripts-matter
+[Le Gist]: https://gist.github.com/Marthym/bbdd8688eaa6e1776a304aabb99099b3
