@@ -69,7 +69,7 @@ Maintenant que les différents choix ont été faits, entrons dans le vif du suj
 
 * [Part 1, Introduction]()
 * [Part 2, Premiers concepts OSGi]({% post_url 2017-09-02-Hello OSGi World, Part 2 %})
-* [Part 4, Configuration du runner]()
+* [Part 3, Configuration du runner]({% post_url 2017-09-09-Hello OSGi World, Part 3 %})
 * [Part 4, Injection de dépendances]()
 * [Part 5, Fragment Bundles]()
 

@@ -189,6 +189,12 @@ Le log de l’activateur apparaît à nouveau. En effet, `fileinstall` a détect
 ## Next
 On a vu comment packager et lancer une application OSGi basique, comment palier certaines lourdeurs et rapidement comment lister les bundles en cours. La prochaine fois on verra l’injection de dépendances avec **Declarative Service** et **SCR**.
 
+[Code source: Part 3, Configuration du runner](https://github.com/Marthym/hello-osgi-world/tree/3.0)
 
+* [Part 1, Introduction]({% post_url 2017-08-29-Hello OSGi World, Part 1 %})
+* [Part 2, Premiers concepts OSGi]({% post_url 2017-09-02-Hello OSGi World, Part 2 %})
+* [Part 3, Configuration du runner]()
+* [Part 4, Injection de dépendances]()
+* [Part 5, Fragment Bundles]()
 
 [felix-config]: https://felix.apache.org/documentation/subprojects/apache-felix-framework/apache-felix-framework-configuration-properties.html
