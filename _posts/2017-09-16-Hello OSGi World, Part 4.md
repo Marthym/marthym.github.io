@@ -205,3 +205,11 @@ C’est un exemple simple pour illustré les dépendances multiples, mais il est
 
 ## Next
 Donc voilà, on a vu comment OSGi gère les dépendances. La prochaine fois on verra les Fragments Bundles, à quoi ça sert et comment on fait ça.
+
+[Code source: Part 4, Injection de dépendances](https://github.com/Marthym/hello-osgi-world/tree/4.0)
+
+* [Part 1, Introduction]({% post_url 2017-08-29-Hello OSGi World, Part 1 %})
+* [Part 2, Premiers concepts OSGi]({% post_url 2017-09-02-Hello OSGi World, Part 2 %})
+* [Part 3, Configuration du runner]({% post_url 2017-09-09-Hello OSGi World, Part 3 %})
+* [Part 4, Injection de dépendances]()
+* [Part 5, Fragment Bundles]()
