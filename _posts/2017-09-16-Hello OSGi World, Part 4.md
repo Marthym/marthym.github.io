@@ -75,7 +75,7 @@ On voit bien les deux messages. Et à ce moment vous vous dites “merde mais l�
 Bref on peut supprimer l’activateur et la toutes section `<build>` du pom de `how-rest` qui devient elle aussi inutile. Dans le jar maintenant, au même niveau que `META-INT` on trouve `OSGI-INF` qui contient les déclarations XML des composants que le `maven-bundle-plugin` a généré pour nous.
 
 ### Gogo gadgeto composant
-Jetons un oeil coté gogo shell, un coup de `help` montre une nouvelle série de commandes, les `scr:`. Essayez `scr:list` :
+Jetons un œil coté gogo shell, un coup de `help` montre une nouvelle série de commandes, les `scr:`. Essayez `scr:list` :
 
 <pre class="console">
 g! scr:list
@@ -90,7 +90,7 @@ Pour chaque bundle, cette commande liste les composants et leur état. C’est t
 
 ## Dis Bonjour !
 
-Ben oui on a fait plein de truc mais on a toujours pas notre Hello World. Maintenant que la machinerie est en place on peut lancer un serveur HTTP à l’activation de notre composant `http-server` :
+Ben oui on a fait plein de trucs mais on a toujours pas notre Hello World. Maintenant que la machinerie est en place on peut lancer un serveur HTTP à l’activation de notre composant `http-server` :
 
 ``` java
     @Activate
@@ -137,7 +137,7 @@ Voilà un autre inconvénient d’OSGi, l’ordre de chargement des bundles comp
 
 **Solution:**
 
-En regardant le code d’Undertow ou dans la documentation, on voit que Undertow pour être lancé à besoin d’une instance de `Xnio`. Comme c’est souvent le cas dans les modules standard qui “supportent” OSGi, la façon dont Xnio génère son instance et la façon dont Undertow en dépend ne permet pas d’éviter ce souci. Du coup c’est a nous de le gérer. Le plus simple pour ça est d’expliquer à OSGi que le module `http-server` ne peut être activé tant qu’il n’existe pas une instance accessible de Xnio. On ajoute la dépendance comme ça :
+En regardant dans le code d’Undertow ou dans la documentation, on voit que Undertow, pour être lancé, a besoin d’une instance de `Xnio`. Comme c’est souvent le cas dans les modules standard qui “supportent” OSGi, la façon dont Xnio génère son instance et la façon dont Undertow en dépend ne permet pas d’éviter ce souci. Du coup c’est à nous de le gérer. Le plus simple pour ça est d’expliquer à OSGi que le module `http-server` ne peut être activé tant qu’il n’existe pas une instance accessible de Xnio. On ajoute la dépendance comme suit :
 
 ``` java
     @Reference
@@ -180,7 +180,7 @@ private void removeHttpHandler(Route handler) {
 }
 ```
 
-Ainsi chaque Route qui apparaitra dans les bundles installé viendra s’ajouter à celle existantes. La présence d’une méthode `removeHttpHandler` est obligatoire pour packager le bundle. BND utilise le nom pour trouver la bonne méthode.
+Ainsi chaque Route qui apparaîtra dans les bundles installé viendra s’ajouter à celle existantes. La présence d’une méthode `removeHttpHandler` est obligatoire pour packager le bundle. BND utilise le nom pour trouver la bonne méthode.
 
 Une route ressemble à ça :
 ``` java
