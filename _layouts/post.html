@@ -47,8 +47,8 @@
         <p class="byline"><strong>{{ page.title }}</strong> est paru le <time datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date: "%d-%m-%Y" }}</time>{% if page.modified %} et modifié pour la dernière fois le <time datetime="{{ page.modified | date: "%Y-%m-%d" }}">{{ page.modified | date: "%d-%m-%Y" }}</time>{% endif %}.</p>
       </footer>
     </div><!-- /.article-wrap -->
-  {% if site.owner.disqus-shortname and page.comments == true %}
-    <section id="disqus_thread"></section><!-- /#disqus_thread -->
+  {% if page.comments == true %}
+    {% include _comments.html %}
   {% endif %}
   </article>
 </div><!-- /#main -->
