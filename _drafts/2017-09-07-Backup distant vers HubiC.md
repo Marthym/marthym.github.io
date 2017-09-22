@@ -2,7 +2,7 @@
 layout: post
 title: Sauvegarde intelligente sur HubiC (Mise à jour)
 excerpt: "Sauvegarder ses données sur un cloud HubiC avec mise à jour des modifications"
-tags: [backup,bash,shell,admin,hubic]
+tags: [backup, bash, shell, devops, hubic]
 comments: true
 image:
   feature: backup.png
@@ -14,8 +14,9 @@ Les modifications donc :
   * Un découpage en fonctions qui rendent le script beaucoup plus lisible
   * `gpg --no-secmem-warning` qui retire le warning sur la mémoire
   * La gestion des sous-répertoires par année
-  * Utilisation d’un shebang valide
-  * Ajout de log
+  * Le sha1 des répertoires devient relatif au répertoire de backup
+  * L’ajout de logs via un micro framework
+  * Le script est maintenant full compatible Debian/FreeBSD
 
 Alors bien sur, c’est adapté à ma gestion des Photos, c’est-à-dire :
 
@@ -28,7 +29,7 @@ ou
 
 Bref, c’est plus pour l’inspiration !
 
-J’en profite aussi pour parler de cet article vraiment bien, [Shell Script Matter]. C’est en anglais mais il contient beaucoup de trucs & astuces sympa si vous écrivez des scripts bash.
+J’en profite aussi pour parler de cet article vraiment bien, [Shell Script Matter]. C’est en anglais, mais il contient beaucoup de trucs & astuces sympa si vous écrivez des scripts bash.
 
 ## Le script
 ``` shell
