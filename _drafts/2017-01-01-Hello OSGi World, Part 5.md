@@ -2,7 +2,6 @@
 layout: post
 title: Hello OSGi World, Part 5, Fragment Bundles
 excerpt: "Qu’est ce qu’un Fragment Bundle et à quoi ça sert ?"
-#modified: 2015-09-21
 tags: [OSGi, bundle, log4j, java, planetlibre]
 comments: true
 image:
@@ -33,7 +32,7 @@ Dans la configuration du `maven-bundle-plugin` on a précisé
 </configuration>
 ```
 
-Cette configuration permet, via un fichier `src/main/osgi/osgi.bnd`, d’ajouter des instructions à BND. On le module `how-log4j2` avec le fichier `osgi.bnd` contenant la ligne nécessaire. Et on ajoute au module le ficher de configuration log4j2.
+Cette configuration permet, via un fichier `src/main/osgi/osgi.bnd`, d’ajouter des instructions à BND. On ajoute le module `how-log4j2` avec le fichier `osgi.bnd` contenant la ligne nécessaire. Et on ajoute au module le ficher de configuration log4j2.
 
 On build et on re-teste :
 <pre>
@@ -49,7 +48,13 @@ Les logs s’affichent maintenant correctement !
 ## Conclusion
 Si vous êtes arrivé là, merci de votre patience et indulgence. N’hésitez pas à me faire un retour dans les commentaires !
 
-J’utilise OSGi depuis 4 ans sur un projet en production. Quand on a commencé, on a essuyé les mêmes plâtres que décrit dans ces articles et même plus ! Au final le projet fonctionne bien mais la maintenance en est souvent complexe. Nous n’avons pas abordé la question des tests mais c’est tout aussi compliqué. En outre, les ressources que ce soit documentation ou humaines sont difficiles à trouver. La multitude d’implémentations de chaque partie du framework crée en plus une fragmentation qui amplifie encore le phénomène.
-De plus, vous avez du le voir, malgré l’ajout de la dépendance `Xnio` dans le composant `http-server` il arrive que l’erreur XNIO se produise. C’est une question de timing. Pour la résoudre définitivement, en plus de demander à Felix de vider son cache sur chaque démarrage, il faut ajouter un niveau de chargement des bundles. Un répertoire `core` qui serait chargé avec `application` et qui contiendrait tout sauf les jars de notre application. Mais on constate que la gestion de l’ordre de chargement est aussi un élément compliqué d’OSGi qui vient s’ajouter aux autres.
+J’utilise OSGi depuis 4 ans sur un projet conséquent en production. Quand on a commencé, on a essuyé les mêmes plâtres que décrit dans ces articles et même plus ! Au final le projet fonctionne bien mais la maintenance en est souvent complexe. Nous n’avons pas abordé la question des tests mais c’est tout aussi compliqué. En outre, les ressources que ce soit documentation ou humaines sont difficiles à trouver. La multitude d’implémentations de chaque partie du framework crée en plus une fragmentation qui amplifie encore le phénomène.
+De plus, vous avez du le voir, malgré l’ajout de la dépendance `Xnio` dans le composant `http-server` il arrive que l’erreur XNIO se produise. C’est une question de timing. Pour la résoudre définitivement, en plus de demander à Felix de vider son cache sur chaque démarrage, il faut ajouter un niveau de chargement des bundles. Un répertoire `core` qui serait chargé avant `application` et qui contiendrait tout sauf les jars de notre application. Mais on constate que la gestion de l’ordre de chargement est aussi un élément compliqué d’OSGi qui vient s’ajouter aux autres.
 
-Pour ces raisons, je déconseille l’utilisation d’OSGi en production. C’est un sujet intéressant à explorer mais le coût en est très comparé comparé au gain qu’on en retire.
+Pour ces raisons, je ne choisirais pas d’utiliser OSGi en production sur les prochains projets. C’est un sujet intéressant à explorer mais le coût en est très élevé comparé au gain qu’on en retire.
+
+* [Part 1, Introduction]({% post_url 2017-08-29-Hello OSGi World, Part 1 %})
+* [Part 2, Premiers concepts OSGi]({% post_url 2017-09-02-Hello OSGi World, Part 2 %})
+* [Part 3, Configuration du runner]({% post_url 2017-09-09-Hello OSGi World, Part 3 %})
+* [Part 4, Injection de dépendances]({% post_url 2017-09-16-Hello OSGi World, Part 4 %})
+* [Part 5, Fragment Bundles]()
