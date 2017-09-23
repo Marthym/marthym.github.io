@@ -212,4 +212,4 @@ Donc voilà, on a vu comment OSGi gère les dépendances. La prochaine fois on v
 * [Part 2, Premiers concepts OSGi]({% post_url 2017-09-02-Hello OSGi World, Part 2 %})
 * [Part 3, Configuration du runner]({% post_url 2017-09-09-Hello OSGi World, Part 3 %})
 * [Part 4, Injection de dépendances]()
-* [Part 5, Fragment Bundles]()
+* [Part 5, Fragment Bundles]({% post_url 2017-09-23-Hello OSGi World, Part 5 %})

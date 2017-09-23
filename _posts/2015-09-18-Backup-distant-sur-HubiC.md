@@ -168,7 +168,65 @@ n'est pas nécessaire de conserver 3 mois de données. Les données de la semain
 
 ## Le script
 
-{% gist Marthym/7f61550fd538a128ad02 %}
+``` shell
+#!/bin/csh -f
+
+set NAME=$1
+
+if ( "$1" == "" ) then
+    echo "Usage: backup <username>"
+    exit 1
+endif
+
+set NOW="`date +"%Y%m%d"`"
+set WEEK="`date +"%W"`"
+set BACKUP_SOURCE="/media/storage/$NAME/Divers"
+set BACKUP_SNAR_DIR="/usr/backup/snar/"
+set BACKUP_TEMP_DEST="/usr/backup/"
+set BACKUP_MAX_FILE_SIZE="2048m"
+set M20="20000000"
+
+set BACKUP_ID=$NAME-$WEEK-$NOW
+set SNAR_ID=$NAME-$WEEK
+
+mkdir -p /usr/backup/snar
+
+# Clean Incrementary SNAR File
+#find $BACKUP_SNAR_DIR -type f -not -name marthym-$SNAR_ID.snar | xargs rm
+#if ( $? > 0 ) exit $?
+
+# Perform backup
+echo "Start $NAME backup at "`date`
+gtar -g $BACKUP_SNAR_DIR/$SNAR_ID.snar -czf - $BACKUP_SOURCE | gpg --batch --yes --passphrase secret -ac -o- | split -b $BACKUP_MAX_FILE_SIZE - $BACKUP_TEMP_DEST/$BACKUP_ID.tar.gz.gpg.
+if ( $status > 0 ) exit $status
+
+# Refresh Hubic Token
+./hubic.py --refresh
+
+# Upload backup
+set TMPFILE=`mktemp -t hubic` || exit 1
+set COMMAND_STATUS=1
+@ RETRY_TIMES = 0
+while ($COMMAND_STATUS != 0 && $RETRY_TIMES < 4)
+  echo "Start $NAME upload at "`date`
+  ls $BACKUP_TEMP_DEST | grep "$BACKUP_ID.tar.gz.gpg" | xargs -I {} sh -c "./hubic.py --swift -- upload --segment-size $M20 --object-name {} HubiC-DeskBackup_$NAME $BACKUP_TEMP_DEST{} 2> $TMPFILE"
+
+  if ( ! -s $TMPFILE ) set COMMAND_STATUS=0
+  cat $TMPFILE > /dev/stderr
+  cat /dev/null > $TMPFILE
+  @ RETRY_TIMES += 1
+end
+rm -f $TMPFILE
+if ($COMMAND_STATUS > 0) exit $?
+
+# Purge old backup
+echo "Start purge at "`date`
+./hubic.py --swift list HubiC-DeskBackup_$NAME | sed '/^HUBIC/d' | sed '/^OS_/d' | sed "/$NAME-$WEEK/q" | sed "/$NAME-$WEEK/d" | xargs -I {} csh -c "echo '\tDelete file {}' && ./hubic.py --swift delete HubiC-DeskBackup_$NAME {}"
+
+find $BACKUP_TEMP_DEST -name "$BACKUP_ID.tar.gz.gpg*" | xargs rm -rf
+
+echo "End of backup $NAME process at "`date`
+```
 
 {: .notice}
 Je n'ai pas trouvé le moyen de couper les lignes comme en bash avec `\ ` du coup tout est sur la même ligne.

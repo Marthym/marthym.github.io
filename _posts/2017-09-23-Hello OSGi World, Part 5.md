@@ -53,6 +53,8 @@ De plus, vous avez du le voir, malgré l’ajout de la dépendance `Xnio` dans l
 
 Pour ces raisons, je ne choisirais pas d’utiliser OSGi en production sur les prochains projets. C’est un sujet intéressant à explorer mais le coût en est très élevé comparé au gain qu’on en retire.
 
+[Code source: Part 5, Fragment Bundles](https://github.com/Marthym/hello-osgi-world)
+
 * [Part 1, Introduction]({% post_url 2017-08-29-Hello OSGi World, Part 1 %})
 * [Part 2, Premiers concepts OSGi]({% post_url 2017-09-02-Hello OSGi World, Part 2 %})
 * [Part 3, Configuration du runner]({% post_url 2017-09-09-Hello OSGi World, Part 3 %})

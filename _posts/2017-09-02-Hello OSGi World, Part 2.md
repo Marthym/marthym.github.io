@@ -162,4 +162,4 @@ Du coup on verra ça dans le prochain billet car je ne veux pas faire des chose 
 * [Part 2, Premiers concepts OSGi]()
 * [Part 3, Configuration du runner]({% post_url 2017-09-09-Hello OSGi World, Part 3 %})
 * [Part 4, Injection de dépendances]({% post_url 2017-09-16-Hello OSGi World, Part 4 %})
-* [Part 5, Fragment Bundles]()
+* [Part 5, Fragment Bundles]({% post_url 2017-09-23-Hello OSGi World, Part 5 %})
