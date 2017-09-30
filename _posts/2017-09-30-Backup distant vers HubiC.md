@@ -18,7 +18,7 @@ Les modifications donc :
   * L’ajout de logs via un micro framework
   * Le script est maintenant full compatible Debian/FreeBSD
 
-Alors bien sur, c’est adapté à ma gestion des Photos, c’est-à-dire :
+Alors bien sûr, c’est adapté à ma gestion des Photos, c’est-à-dire :
 
 * yyyy
   - MMdd-Nom de l’album
@@ -46,10 +46,10 @@ usage() { grep '^#/' "$0" | cut -c4- ; exit 0 ; }
 expr "$*" : ".*--help" > /dev/null && usage
 
 readonly LOG_FILE="${TMPDIR:-/tmp}/$(basename "$0").log"
-info()    { echo "[INFO]    $*" | tee -a "$LOG_FILE" >&2 ; }
-warning() { echo "[WARNING] $*" | tee -a "$LOG_FILE" >&2 ; }
-error()   { echo "[ERROR]   $*" | tee -a "$LOG_FILE" >&2 ; }
-fatal()   { echo "[FATAL]   $*" | tee -a "$LOG_FILE" >&2 ; exit 1 ; }
+info()    { echo -e "[INFO]    $*" | tee -a "$LOG_FILE" >&2 ; }
+warning() { echo -e "[WARNING] $*" | tee -a "$LOG_FILE" >&2 ; }
+error()   { echo -e "[ERROR]   $*" | tee -a "$LOG_FILE" >&2 ; }
+fatal()   { echo -e "[FATAL]   $*" | tee -a "$LOG_FILE" >&2 ; exit 1 ; }
 
 function _sha1sumFile() {
   local bckpDirectory=$1
@@ -150,7 +150,7 @@ function _backupDirectory() {
     return $isUploaded
   else
     info "\u2713 $toArchiveDirectory"
-    return 1
+    return 0
   fi
 }
 
@@ -189,7 +189,7 @@ if [[ "${BASH_SOURCE[0]}" = "$0" ]]; then
         continue
       fi
 
-      if [[ ${line:0:1} == "[" ]] ; then
+      if [[ $line =~ ^[\\[_].* ]] ; then
 
         _backupDirectory "$BACKUP_DIR" "$line" "$passphrase"
 
