@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Software Engineer
+title: Technical Leader Backend
 tags: [about, Jekyll]
-#modified: 2014-08-08T20:53:07.573882-04:00
+modified: 2018-01-08T23:29:00
 comments: false
 share: false
 image:
@@ -11,9 +11,15 @@ author: fcombes
 ---
 ## Expériences professionnelles
 
-| Living Objects | Ingénieur Logiciel Sénior  	|
+| I-Run.fr       | Techlead Banckend            |
 |:---------------|-----------------------------:|
-| *Depuis 2014*  | *Toulouse, Basso Cambo*      |
+| *Depuis 2018*  | *Toulouse, Launaguet*        |
+
+---------------
+
+| Living Objects   | Ingénieur Logiciel Sénior  	|
+|:-----------------|-----------------------------:|
+| *De 2014 à 2018* | *Toulouse, Basso Cambo*      |
 
 ---------------
 
