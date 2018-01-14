@@ -68,10 +68,10 @@ annotations pour déclarer les ressources REST.
 Maintenant que les différents choix ont été faits, entrons dans le vif du sujet. Pour expliquer et détailler un peu OSGi ce tuto se propose de faire dans l’originalité en créant un service `Hello OSGi World`. Une API REST appelable en GET qui retourne `Hello OSGi world`. Comme le sujet est plutôt vaste, on fera ça en plusieurs parties :
 
 * [Part 1, Introduction]()
-* [Part 2, Premiers concepts OSGi]({% post_url 2017-09-02-Hello OSGi World, Part 2 %})
-* [Part 3, Configuration du runner]({% post_url 2017-09-09-Hello OSGi World, Part 3 %})
-* [Part 4, Injection de dépendances]({% post_url 2017-09-16-Hello OSGi World, Part 4 %})
-* [Part 5, Fragment Bundles]({% post_url 2017-09-23-Hello OSGi World, Part 5 %})
+* [Part 2, Premiers concepts OSGi]({% post_url /2017/2017-09-02-Hello OSGi World, Part 2 %})
+* [Part 3, Configuration du runner]({% post_url /2017/2017-09-09-Hello OSGi World, Part 3 %})
+* [Part 4, Injection de dépendances]({% post_url /2017/2017-09-16-Hello OSGi World, Part 4 %})
+* [Part 5, Fragment Bundles]({% post_url /2017/2017-09-23-Hello OSGi World, Part 5 %})
 
 Toutes les sources sont ou seront présentes sur [mon repo github](https://github.com/Marthym/hello-osgi-world). Il y a un tag pour chaque étape du tuto qui correspond à chaque billet :
 * Part 1 -> Pas de source

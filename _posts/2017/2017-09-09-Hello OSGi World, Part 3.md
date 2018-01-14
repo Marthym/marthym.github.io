@@ -191,10 +191,10 @@ On a vu comment packager et lancer une application OSGi basique, comment palier 
 
 [Code source: Part 3, Configuration du runner](https://github.com/Marthym/hello-osgi-world/tree/3.0)
 
-* [Part 1, Introduction]({% post_url 2017-08-29-Hello OSGi World, Part 1 %})
-* [Part 2, Premiers concepts OSGi]({% post_url 2017-09-02-Hello OSGi World, Part 2 %})
+* [Part 1, Introduction]({% post_url /2017/2017-08-29-Hello OSGi World, Part 1 %})
+* [Part 2, Premiers concepts OSGi]({% post_url /2017/2017-09-02-Hello OSGi World, Part 2 %})
 * [Part 3, Configuration du runner]()
-* [Part 4, Injection de dépendances]({% post_url 2017-09-16-Hello OSGi World, Part 4 %})
-* [Part 5, Fragment Bundles]({% post_url 2017-09-23-Hello OSGi World, Part 5 %})
+* [Part 4, Injection de dépendances]({% post_url /2017/2017-09-16-Hello OSGi World, Part 4 %})
+* [Part 5, Fragment Bundles]({% post_url /2017/2017-09-23-Hello OSGi World, Part 5 %})
 
 [felix-config]: https://felix.apache.org/documentation/subprojects/apache-felix-framework/apache-felix-framework-configuration-properties.html

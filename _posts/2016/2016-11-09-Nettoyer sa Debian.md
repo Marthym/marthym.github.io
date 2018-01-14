@@ -15,7 +15,7 @@ Donc histoire de faire le 20ième article sur le sujet (je fais même pas l'effo
 
 ## Nettoyer les fichiers de conf obsolète
 C'est un article que j'avais publié il n'y a pas longtemps qui est en relation directe : <br/>
-[Nettoyer les configuration obsoletes debian]({% post_url 2016-07-01-Nettoyer les configuration obsoletes debian %})
+[Nettoyer les configuration obsoletes debian]({% post_url /2016/2016-07-01-Nettoyer les configuration obsoletes debian %})
 
 ## Localepurge
 C'est la première chose à faire, ''localepurge'' est un outil qui a chaque install de paquet ou de mise à jour, va faire le ménage dans les langues installées.

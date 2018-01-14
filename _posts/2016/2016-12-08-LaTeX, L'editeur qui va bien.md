@@ -11,7 +11,7 @@ image:
 
 ## L'histoire
 
-Dans un [précédent billet]({% post_url 2016-05-11-Github release avec Travis %}), j'expliquais comment j'avais publié mon CV LaTeX sur GitHub. C'était ma première expérience LaTeX et quand on connaît pas et qu'on apprend, on a besoin de voir ce que l'on fait en temps réel. Je modifie une ligne, ça change le PDF généré, ... Je m'étais alors tourné vers [Gummy](https://github.com/alexandervdm/gummi). Léger, pratique, pour les deux pages de mon CV c'est très bien. Mais déjà il y avait quelques points gênant comme un affichage pas toujours fidèle à mon PDF de sortie.
+Dans un [précédent billet]({% post_url /2016/2016-05-11-Github release avec Travis %}), j'expliquais comment j'avais publié mon CV LaTeX sur GitHub. C'était ma première expérience LaTeX et quand on connaît pas et qu'on apprend, on a besoin de voir ce que l'on fait en temps réel. Je modifie une ligne, ça change le PDF généré, ... Je m'étais alors tourné vers [Gummy](https://github.com/alexandervdm/gummi). Léger, pratique, pour les deux pages de mon CV c'est très bien. Mais déjà il y avait quelques points gênant comme un affichage pas toujours fidèle à mon PDF de sortie.
 
 Et puis dernièrement j'ai commencé un projet demandant la rédaction d'un PDF assez conséquent. D'expérience, World/OpenOffice n'ont pas la qualité de rendu que j'espère et la gestion du volume et de la présentation avec ces deux solutions est bien trop couteuse. Je suis donc naturellement reparti sur LaTeX en me disant en plus que ça sera l'occasion d'en apprendre un peu plus.
 
