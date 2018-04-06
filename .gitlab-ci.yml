@@ -20,6 +20,7 @@ pages:
   stage: deploy
   script:
   - bundle exec jekyll build -d public
+  - find public -type f -iregex '.*\.\(htm\|html\|txt\|text\|js\|css\|json\)$' -execdir gzip -f --keep {} \;
   artifacts:
     paths:
     - public

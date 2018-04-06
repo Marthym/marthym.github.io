@@ -1,6 +1,6 @@
 # Site wide configuration
 
-title:       J'ai acheté un PC neuf cassé ...
+title:       J’ai acheté un PC neuf cassé ...
 locale:      fr_FR
 url:         http://blog.ght1pc9kc.fr
 future:      false
@@ -31,7 +31,7 @@ kramdown:
 owner:
   name: Marthym
   avatar: bio-marthym.png
-  bio: "Frédéric, un Nième développeur qui partage ses aventures ..."
+  bio: "Fred, un Nième développeur qui partage n’importe quoi ..."
   email:
   disqus-shortname: ght1pc9kc
   twitter: #username

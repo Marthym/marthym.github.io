@@ -11,7 +11,7 @@ author: fcombes
 ---
 ## Expériences professionnelles
 
-| I-Run.fr       | Techlead Banckend            |
+| I-Run.fr       | Tech Lead Back               |
 |:---------------|-----------------------------:|
 | *Depuis 2018*  | *Toulouse, Launaguet*        |
 
@@ -45,14 +45,14 @@ author: fcombes
 * **Anglais** -- Lu, écrit et parlé<br/>
 *Utilisé lors des mes déplacements aux USA et durant les réunions de cadrage avec les clients étrangers.*
 * **Java 8** -- Expert<br/>
-*Langage de programmation principal des applications éditées par Caméléon Software & Living Objects*
+*Langage de programmation principal des applications éditées par Caméléon Software, Living Objects & I-Run.fr*
 * **Eclipse, IntelliJ** -- Maîtrise<br/>
 *EDIs utilisés pour les développements*
 * **Subversion, Git** -- Maîtrise<br/>
-*Outils de gestion de source utilisé par Cameleon Software & Living Objects*
+*Outils de gestion de source utilisé par Cameleon Software, Living Objects & I-Run.fr*
 * **Oracle, MySQL** -- Expert<br/>
-*Certification OCA 10g, MySQL est la base de données utilisé chez Living Objects*
+*Certification OCA 10g, MySQL est la base de données utilisé chez Living Objects & I-Run.fr*
 * **Maven, Ivy** -- Maîtrise<br/>
 *Outils de build utilisé chez Living Objects*
 * **Linux** -- Expert<br/>
-*Unique système d’exploitation utilisé chez Cameleon Software & Living Objects*
+*Unique système d’exploitation utilisé chez Cameleon Software, Living Objects & I-Run.fr*
