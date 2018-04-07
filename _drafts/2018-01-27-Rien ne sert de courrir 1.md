@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Rien ne sert de courrir
+title: Rien ne sert de courrir - Un nouvel espoir
 excerpt: "Quand la dette technique à pris une ampleur telle que rien ne semble plus pouvoir la résorber..."
-tags: [projet, legacy, java, planetlibre]
+tags: [projet, legacy, dette, java, planetlibre]
 comments: false
 image:
   feature: back.png
@@ -51,7 +51,7 @@ Un commit ne provoque pas de réaction. C’est à dire, que le code poussé n�
 
 Par le fait, les tests ne sont pas obligatoire puisqu’il ne bloquent aucun processus. Et le temps entre le moment où un développeur commit et où il voit le résultat de ses modification peut être long, plusieurs jours parfois.
 
-Chaque deploiement, que ce soit en pré-production ou en production, c’est une suite de commandes qui doivent être exécutés à la main pour compiler et installé les nouvelles versions avec tous les risques d’oubli et de raté que cela implique. Sans compter le stress que cela génère 3x par semaine.
+Chaque deploiement, que ce soit en pré-production ou en production, est une suite de commandes qui doivent être exécutés à la main pour compiler et installé les nouvelles versions avec tous les risques d’oubli et de raté que cela implique. Sans compter le stress que cela génère 3x par semaine.
 
 #### Vétusté des technologies
 C’est un classique de la dette technique, certaines techno utilisées dans l’application date de plusieurs années et en plus de ne plus être adaptées au marché, n’existe simplement plus. Plus de doc, plus de ressources, ... Donc personne ne tiens à metre les mains dans les sections de code concerné. 
