@@ -21,7 +21,7 @@ C’est une stratégie qui consiste a coder les nouveauté et les bugs dans de n
 ### Du déploiement vers le code
 Et c’est cette dernière solution que nous avons choisi d’appliquer. Plutôt de que se pencher immédiatement sur le code, on se concentre sur la fin du processus, le déploiement. En simplifiant se dernier et en le rendant sur et robuste, on s’assure la pérénité de la production. L’inconvénient de cette stratégie c’est que pour simplifier le processus de déploiement on va considérablement compliqué le processus de release. Mais dans un second temps on s’attaquera au processus de release puis au code lui même.
 
-## Automatisation des déploiement
+## Automatisation des déploiements
 
 Comme on l’a rapidement expliqué lors du premier volet de la série, les MEP[^Mises En Production], au fil des corrections et des mises à jour se sont fortement compliquées et sont devenues des sources d’erreurs et de stress.
 
@@ -47,5 +47,33 @@ Chaque librairie a été sorti du repo principal afin de les isoler en terme de 
 ### Les composants
 
 L’objectif pour tous les composants est d’avoir pour chacun un `tar.gz`, ou un `jar`
+
+Pour la pluspart des composants il n’y a pas vraiment de problème. On mavenize les projets, on ajoute les dépendances vers les librairies et on package. C’est fastidieux mais c’est plutôt simple. La seule réelle complication se trouve dans les dépendances externes, jusqu’à lors, il s’agissait d’u ngros répertoire rempli de jars qui était posé sur la prod. Maintenant on vaut maitriser ces dépendances et avoir la certitudes que les versions que l’on utilise en prod sont bien les mêmes que celles que l’on utilise pour compiler.
+
+Pour gérer ça, on compile notre projet mavenizé sans aucune dépendances et, au fur et à mesure des erreurs de compilation, on ajoute les dépendances avec les numéros de versions issues du jar présent dans le répertoire de lib. C’est pas un job marrant mais ça fonctionne. 
+
+Mais comme ça serait trop facile, certaines librairie ont été patché pour le projet et ne possède pas de numéro de version. Dans ce cas, pour être certain d’avoir les bonnes versions et ne pas risqué de casser la prod, le plus simple a été de déployer directement ces librairies sur notre Nexus comme s’il s’agissait de librairies internes.
+
+
+### Les OVNIs
+
+Reste à gérer les OVNIs, ces composants qui ne sont pas mavenisable, qui nécessaire des compolations non conventionnelles. Eh oui, il y en a toujours dans ce genre de projet :).
+
+Dans notre cas, deux cas problématiques:
+
+* un composant angular compilé via des commandes npm
+* un composant foundation, contenu dans un autres composant, compilé à base de npm et bower
+
+Pour le premier la solution fut d’en faire un composant npm et de le déployer séparément, plutôt dans un autre composant comme c’était le cas.
+
+Pour le deuxième c’est plus compliqué, il ne s’ægit pas d’un composant npm, seulement des css et js minifié. Mais sans cette minification rien ne marche. Ce projet est longtemps resté un soucis puis finalement, c’est via maven que l’on a réglé ce problème. Avec le plugin exec, on a fait en sorte que le composant qui contenait ce fichiers s’occupe de la minification pendant le `mvn clean package`.
+
+## Conclusion
+
+Une fois les composants correctement découpés et packagés, le projet gagne en clarté. Il devient plus facile de mettre en place un système de déploiement fiable, de versionner les composants et de mettre en place de l’automatisation puisque tout a été standardisé.
+
+La suite consiste à mettre en place un système de déploiement fiable et de poussé tout ces composants vers la prod. Il s’agira d’une mise en prod sans aucune fonctionnalité pour l’utilisateur, mais pour le service informatique c’est une MEP très importante. Au dire que ce jour là, toute l’équipe à croisé les doigts. Finalement la MEP s’est très bien passée. 
+
+Suite à ça, nous allons pouvoir commencé à assainir chacun des composants et préparer le futur de notre SI.
 
 [Nexus]: https://www.sonatype.com/nexus-repository-oss
