@@ -1,0 +1,18 @@
+<div class="navigation-wrapper">
+	<div class="site-name">
+		<a href="/">{{ .Site.Title }}</a>
+	</div><!-- /.site-name -->
+	<div class="top-navigation">
+		<nav role="navigation" id="site-nav" class="nav">
+		    <ul>
+		        {{ range .Site.Sections }}
+				    <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+                {{ end }}
+		    </ul>
+		</nav>
+	</div><!-- /.top-navigation -->
+</div><!-- /.navigation-wrapper -->
+
+<div class="image-wrap">
+    <img src="{{ .Page.Params.image }}" alt="{{ .Page.Name }}">
+</div>
