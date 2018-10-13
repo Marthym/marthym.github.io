@@ -1,0 +1,37 @@
+{
+  "name": "HugoGulp",
+  "version": "0.0.0",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/joranquinten/hugo-gulp"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.0.1",
+    "cssgrace": "^3.0.0",
+    "cssnano": "^4.0.3",
+    "del": "^3.0.0",
+    "es6-promise": "^4.2.4",
+    "gulp": "^3.9.1",
+    "gulp-gzip": "^1.4.2",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-shell": "^0.6.5",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-strip-debug": "^3.0.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-uncss": "^1.0.4",
+    "gulp-watch": "^5.0.0",
+    "imagemin-pngquant": "^6.0.0",
+    "postcss-pseudoelements": "^5.0.0",
+    "run-sequence": "^2.2.1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "gull": "0.0.1"
+  }
+}

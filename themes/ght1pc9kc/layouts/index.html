@@ -5,7 +5,7 @@
     </div>
     <div id="index">
       <h3><a href="/posts/">Derniers billets</a></h3>
-      {{ range first 10 .Site.Pages }}
+      {{ range first 10 (where .Pages "Section" "blog").ByLastmod }}
       <article>
           <h2><a href="{{ .URL }}" title="{{ .Title }}">{{ .Title }}</a></h2>
           <p>{{ plainify .Params.excerpt | safeHTML | truncate 160 }}</p>
