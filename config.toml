@@ -2,3 +2,7 @@ baseURL = "https://blog.ght1pc9kc.fr"
 languageCode = "fr-fr"
 title = "blog.GHT1PK9KC"
 theme = "ght1pc9kc"
+uglyurls = true
+
+[permalinks]
+  blog = "/:year/:title"
