@@ -1,5 +1,5 @@
-{{ with .Page.author }}
-{{ $author := index .Site.Data.authors . }}
+{{ with .Params.author }}
+{{ $author := index $.Site.Data.authors . }}
 {{ with $author }}
 
 <div itemscope itemtype="http://schema.org/Person">
@@ -7,7 +7,7 @@
 {{ if hasPrefix .avatar "http" }}
 	<img src="{{ .avatar }}" class="bio-photo" alt="{{ .name }} bio photo">
 {{ else }}
-	<img src="/images/{{ .avatar }}" class="bio-photo" alt="{{ .name }} bio photo">
+	<img src="/img/{{ .avatar }}" class="bio-photo" alt="{{ .name }} bio photo">
 {{ end }}
 
   <h3 itemprop="name">{{ .name }}</h3>
