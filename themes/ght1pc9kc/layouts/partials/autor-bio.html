@@ -1,5 +1,5 @@
-{{ with .Params.author }}
-{{ $author := index $.Site.Data.authors . }}
+{{ $author := .Params.author | default "marthym" }}
+{{ $author := index $.Site.Data.authors $author }}
 {{ with $author }}
 
 <div itemscope itemtype="http://schema.org/Person">
@@ -41,5 +41,4 @@
   <p>{{ delimit . ", " }}</p>
   {{ end }}
 </div>
-{{ end }}
 {{ end }}
