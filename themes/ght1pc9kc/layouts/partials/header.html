@@ -5,9 +5,9 @@
 	<div class="top-navigation">
 		<nav role="navigation" id="site-nav" class="nav">
 		    <ul>
-		        {{ range .Site.Sections }}
-				    <li><a href="{{ .URL }}">{{ .Name }}</a></li>
-                {{ end }}
+		        {{ range .Site.Sections.ByWeight.Reverse }}
+					<li><a href="{{ .URL }}">{{ .LinkTitle }}</a></li>
+				{{ end }}
 		    </ul>
 		</nav>
 	</div><!-- /.top-navigation -->
