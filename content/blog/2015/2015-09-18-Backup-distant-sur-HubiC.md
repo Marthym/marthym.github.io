@@ -5,8 +5,7 @@ excerpt: "Protéger ses données perso d'un cataclisme en les envoyant dans le c
 modified: 2015-10-25
 tags: [backup,shell,admin,planetlibre,hubic]
 comments: true
-image:
-  feature: backup.png
+image: backup.png
 ---
 {% include _toc.html %}<!--_-->
 

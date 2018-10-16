@@ -5,8 +5,7 @@ excerpt: "Sauvegarder ses données sur un cloud HubiC avec mise à jour des modi
 modified: 2016-11-02
 tags: [backup,shell,admin,planetlibre,hubic]
 comments: true
-image:
-  feature: backup.png
+image: backup.png
 ---
 
 ## Introduction
