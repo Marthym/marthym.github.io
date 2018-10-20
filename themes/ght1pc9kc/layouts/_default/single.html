@@ -12,6 +12,16 @@
                     <h1><a href="{{ .URL }}" rel="bookmark" title="{{ .Title }}">{{ .Title }}</a></h1>
                 </div><!--/ .headline-wrap -->
                 <div class="article-wrap">
+                    {{ if .Params.toc }}
+                    <section id="table-of-contents" class="toc">
+                        <header>
+                            <h3>Vue d’ensemble</h3>
+                        </header>
+                        <div id="drawer" markdown="1">
+                        {{ .TableOfContents }}
+                        </div>
+                    </section>
+                    {{ end }}
                     {{- block "main" . }}{{- end }}
                     {{ .Content }}
                 <hr />

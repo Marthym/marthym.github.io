@@ -3,6 +3,8 @@ languageCode = "fr-fr"
 title = "J’ai acheté un PC neuf cassé ..."
 theme = "ght1pc9kc"
 uglyurls = true
+pygmentsUseClasses = true
+pygmentsCodeFences = true
 
 [permalinks]
   blog = "/:year/:title"
