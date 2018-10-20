@@ -1,13 +1,13 @@
 ---
-layout: post
 title: Backups distant sur HubiC
+date: "2015-09-18T12:00:00-00:00"
 excerpt: "Protéger ses données perso d'un cataclisme en les envoyant dans le cloud"
-modified: 2015-10-25
-tags: [backup,shell,admin,planetlibre,hubic]
+modified: "2015-15-25T12:00:00-00:00"
+tags: [backup, shell, admin, planetlibre, hubic]
 comments: true
 image: backup.png
+toc: true
 ---
-{% include _toc.html %}<!--_-->
 
 ## Le contexte
 J'ai chez moi un vieux PC reconverti en NAS grâce à [FreeNAS](http://www.freenas.org/). J'en suis très content, surtout du ZFS et de la possibilité de faire
@@ -89,9 +89,11 @@ bon de limiter.
 
 ### La création du backup
 
-~~~csh
-gtar -g $BACKUP_SNAR_DIR/$SNAR_ID.snar -czf - $BACKUP_SOURCE | gpg --batch --yes --passphrase <passphrase> -ac -o- | split -b $BACKUP_MAX_FILE_SIZE - $BACKUP_TEMP_DEST/$BACKUP_ID.tar.gz.gpg.
-~~~
+```csh
+gtar -g $BACKUP_SNAR_DIR/$SNAR_ID.snar -czf - $BACKUP_SOURCE | \
+  gpg --batch --yes --passphrase <passphrase> -ac -o- | \
+  split -b $BACKUP_MAX_FILE_SIZE - $BACKUP_TEMP_DEST/$BACKUP_ID.tar.gz.gpg.
+```
 
 Pour les [syllogomanes](https://fr.wikipedia.org/wiki/Syllogomanie) et les paranos qui ne veulent pas laisser des données en clair sur des serveurs qu'ils ne
 maîtrisent pas, les fichiers tar.gz sont incrémentaux et cryptés à la volée. Ainsi les backups ne prennent pas trop de temps et on ne passe pas par de gros
@@ -125,9 +127,9 @@ cat <nom_du_fichier>.tar.gz.gpg* | gpg -d --yes --batch --passphrase <passphrase
 
 ### L'envoi sur les serveur HubiC
 
-~~~csh
+```csh
 ls $BACKUP_TEMP_DEST | grep "$BACKUP_ID.tar.gz.gpg" | xargs -I {} sh -c "./hubic.py --swift -- upload --segment-size $M20 --object-name {} HubiC-DeskBackup_$NAME $BACKUP_TEMP_DEST{} 2> $TMPFILE"
-~~~
+```
 
 On commence par lister les fichiers que l'on vient de créer puis via `xargs` on les envoie à la commande `hubic.py`.
 
@@ -139,7 +141,6 @@ On commence par lister les fichiers que l'on vient de créer puis via `xargs` on
 * `HubiC-DeskBackup_$NAME $BACKUP_TEMP_DEST{}`: C'est le conteneur dans lequel on met le fichier. Dans l'UI d'HubiC dans la section "Sauvegardes" est listé
 tout les conteneur qui commencent par "HubiC-DeskBackup_".
 
-{: .notice}
 La commande hubic est englobée dans un `sh -c` pour que le `-I {}` du xargs fonctionne.
 
 Il arrive que l'upload échoue, la commande est alors rejouée jusqu'à ce qu'elle réussisse (ou qu'elle échoue à 3 reprises). Le client swift est assez intelligent pour
@@ -151,9 +152,9 @@ les erreurs d'accès au serveur sont fréquentes.
 
 ### La purge
 
-~~~ csh
+``` csh
 ./hubic.py --swift list HubiC-DeskBackup_$NAME | sed '/^HUBIC/d' | sed "/$NAME-$WEEK/q" | sed "/$NAME-$WEEK/d" | xargs -I {} csh -c "echo '\tDelete file {}' && ./hubic.py --swift delete HubiC-DeskBackup_$NAME {}"
-~~~
+```
 
 Le choix est ne ne garder qu'une semaine à la fois, comme en théorie, l'historique des données est protégé par des snapshots ZFS, du mirroring et tout, il
 n'est pas nécessaire de conserver 3 mois de données. Les données de la semaine précédente sont purgées chaque début de semaine.
@@ -227,7 +228,6 @@ find $BACKUP_TEMP_DEST -name "$BACKUP_ID.tar.gz.gpg*" | xargs rm -rf
 echo "End of backup $NAME process at "`date`
 ```
 
-{: .notice}
 Je n'ai pas trouvé le moyen de couper les lignes comme en bash avec `\ ` du coup tout est sur la même ligne.
 
 ## Edit
