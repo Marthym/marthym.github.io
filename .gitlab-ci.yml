@@ -1,25 +1,15 @@
-image: ruby:2.3
-
-variables:
-  JEKYLL_ENV: production
+image: marthym/hugulp:1.1.0
 
 before_script:
-  - bundle install
-
-test:
-  stage: test
-  script:
-  - bundle exec jekyll build -d test
-  artifacts:
-    paths:
-    - test
-  except:
-  - master
+  - cd "${CI_PROJECT_DIR}/themes/ght1pc9kc" && npm install --unsafe-perm
 
 pages:
   stage: deploy
+  cache:
+    untracked: true
   script:
-  - bundle exec jekyll build -d public
+  - cd "${CI_PROJECT_DIR}/themes/ght1pc9kc" && gulp prod
+  - cd "${CI_PROJECT_DIR}" && hugo
   - find public -type f -iregex '.*\.\(htm\|html\|txt\|text\|js\|css\|json\)$' -execdir gzip -f --keep {} \;
   artifacts:
     paths:
