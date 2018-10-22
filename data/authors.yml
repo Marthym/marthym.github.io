@@ -1,0 +1,18 @@
+fcombes:
+  name: Frédéric Combes
+  web: http://thewhip.com
+  email: marthym (at) gmail (dot) com
+  bio: ""
+  avatar: fcombes.jpg
+  google:
+    plus: FrédéricCombes
+  linkedin: combesfrederic
+  github: Marthym
+  stackoverflow: 3710542/marthym
+  languages: [Français, Anglais]
+  skills: [Java 8, Spring, Git, Docker, Maven, Oracle, MySQL, Linux]
+
+marthym:
+  name: Marthym
+  bio: Fred, un Nième développeur qui partage n’importe quoi ...
+  avatar: bio-marthym.png
