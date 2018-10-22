@@ -1,11 +1,9 @@
 ---
-layout: post
 title: Sauvegarde intelligente sur HubiC (Mise à jour)
+date: "2017-09-30T12:00:00-00:00"
 excerpt: "Sauvegarder ses données sur un cloud HubiC avec mise à jour des modifications"
 tags: [backup, bash, shell, devops, hubic]
-comments: true
-image:
-  feature: backup.png
+image: backup.png
 ---
 
 Suite à un changement dans l’agencement de mon stockage de Photos, j’ai mis à jour le script de sauvegarde vers HubiC et comme je sais que mes innombrables lecteurs ne dorment plus en pensant à ce script, je me sens le devoir de vous en faire profiter !

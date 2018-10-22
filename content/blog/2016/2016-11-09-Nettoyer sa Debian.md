@@ -1,24 +1,22 @@
 ---
-layout: post
 title: Nettoyer sa Debian
+date: "2016-11-09T12:00:00-00:00"
 excerpt: "Après quelques années d'utilisation, même un système Linux peut s'encrasser. Voyons comment on peut le nettoyer et ainsi regagner de l'espace disque."
-modified: 2016-11-02
 tags: [planetlibre,debian,admin,apt,linux,docker]
-comments: true
-image:
-  feature: debian.png
+image: debian.png
+toc: true
 ---
-{% include _toc.html %}<!--_-->
+
 Même si ce n'est pas dans les proportions de Windows, un Linux a tendance à accumuler des reliquats de vieux paquets et du cache pas vraiment utile qui a la longue pèsent lourd sur l'espace disque (ça ne ralenti pas le système pour autant). Voyons quelques pistes pour récupérer cet espace et rafraichir un peu le disque.
 
 Donc histoire de faire le 20ième article sur le sujet (je fais même pas l'effort de lui trouver un nom original), voilà quelques pistes pour retrouver un peu d'espace sur vos disques durs.
 
 ## Nettoyer les fichiers de conf obsolète
 C'est un article que j'avais publié il n'y a pas longtemps qui est en relation directe : <br/>
-[Nettoyer les configuration obsoletes debian]({% post_url /2016/2016-07-01-Nettoyer les configuration obsoletes debian %})
+[Nettoyer les configuration obsoletes debian]({{% relref "/blog/2016/2016-07-01-Nettoyer les configuration obsoletes debian" %}})
 
 ## Localepurge
-C'est la première chose à faire, ''localepurge'' est un outil qui a chaque install de paquet ou de mise à jour, va faire le ménage dans les langues installées.
+C'est la première chose à faire, `localepurge` est un outil qui a chaque install de paquet ou de mise à jour, va faire le ménage dans les langues installées.
 Sa première utilisation va potentiellement faire gagner pas mal de place.
 
 ``` shell

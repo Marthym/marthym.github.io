@@ -1,12 +1,10 @@
 ---
-layout: post
 title: Reconfigurer le TouchPad sur Debian
+date: "2016-06-05T12:00:00-00:00"
 excerpt: "Sur Debian testing, certain touchpad ne fonctionnent plus correctement, voyons comment retrouver un touchpad fonctionnel."
-modified: 2016-07-26
+modified: "2016-07-26T12:00:00-00:00"
 tags: [debian, linux, touchpad, xorg, mouse, libinput, synaptics, planetlibre]
-comments: true
-image:
-  feature: debian.png
+image: debian.png
 ---
 
 ## Edit 2016-007-26
@@ -19,7 +17,7 @@ Dernièrement, une mise à jour de ma Debian a eu pour conséquence de dérégle
 , plus de click droit, ... bref pas génial. Du coup je vais dans les paramètres de Gnome-shell pour remettre tout ça en ordre. Mais dans les paramètres on
 ne trouve que deux pauvres options pour la souris mais rien pour le touchpad.
 
-![paramètres Gnome-Shell]({{ site.url }}/images/20160604/20160604-gnome-settings-001.png)
+![paramètres Gnome-Shell](/img/2016/20160604-gnome-settings-001.png)
 
 Donc pour ceux qui ont ce problème voici comment je l'ai résolu.
 
@@ -97,7 +95,7 @@ grep -e "Using input driver " ~/.local/share/xorg/Xorg.0.log
 ```
 
 Et si on va dans les paramêtres de Gnome-Shell,
-![paramêtres Gnome-Shell]({{ site.url }}/images/20160604/20160604-gnome-settings-002.png)
+![paramêtres Gnome-Shell](/img/2016/20160604-gnome-settings-002.png)
 
 ## Liens 
 

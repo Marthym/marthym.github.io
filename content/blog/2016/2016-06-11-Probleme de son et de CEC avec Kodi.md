@@ -1,12 +1,10 @@
 ---
-layout: post
 title: Problème de son et de CEC avec Kodi
+date: "2016-06-11T12:00:00-00:00"
 excerpt: Quand le sigle "MUTE" s'affiche en haut à droite et que la télécommande ne fonctionne plus sur votre OpenELEC, que faire ?
 #modified: 2015-09-21
 tags: [Kodi, OpenELEC, Raspberry PI, rpi, HDMI, CEC, audio, planetlibre]
-comments: true
-image:
-  feature: kodi.png
+image: kodi.png
 ---
 
 Hier, je démarre mon Raspberry OpenELEC pour regarder je sais pas quoi et ... rien qui fonctionne. Impossible d'utiliser la télécommande de la TV et l'icône "MUTE" apparait en haut à droite à côté de l'heure. Pourtant deux heures plus tôt tout fonctionnait très bien ?
@@ -28,6 +26,4 @@ Mais pas de chance, toujours pas de son, le mute est resté activé, et comme on
 Une fois sur l'interface, allez dans l'onglet `Remote` et montez le son. Et voilà l'icône a disparu.
 
 [coldreboot]: http://openelec.tv/forum/124-raspberry-pi/60823-cec-no-longer-working 
-{:hreflang="en"}
 [mute]: http://openelec.tv/forum/68-audio/57729-frodo-beta-audio-stops-working-red-icon-after-a-few-days 
-{:hreflang="en"}

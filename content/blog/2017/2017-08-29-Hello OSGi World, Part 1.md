@@ -1,17 +1,16 @@
 ---
-layout: post
 title: Hello OSGi World, Part 1, Introduction
+date: "2017-08-29T12:00:00-00:00"
 excerpt: "Débuter une application REST avec OSGi & Declarative Service"
 #modified: 2015-09-21
 tags: [OSGi, REST, java, planetlibre]
-comments: false
-image:
-  feature: osgi_back.png
+image: osgi_back.png
 ---
 
 Vaste sujet que j’ai entamé il y a plus d’un an mais que j’ai jamais eu le temps de terminer correctement jusqu’ici.
 
 ## Introduction
+
 On en entend parler, mais on ne sait pas bien ce que c’est ni ce que cela fait ? [OSGi](http://www.osgi.org/) c’est une
 spécification de framework basé sur Java. Cette spécification définit le cycle de vie d’une application. Wikipedia
 définira mieux que moi ce qu’est OSGi sur le papier. Les fonctionnalités clés apportées par OSGi (selon moi) sont les
@@ -27,6 +26,7 @@ C’est pourquoi je me propose d’aborder le sujet dans un série de billets, e
 que j’avais en commençant.
 
 ## L’implémentation OSGi
+
 Comme dit plus haut, OSGi est une spécification, pas une librairie. Par conséquent, il existe plusieurs implémentations
 dont les plus répandus sont :
 
@@ -40,6 +40,7 @@ Personnellement, j’ai pris l’habitude de travailler avec Felix donc c’est 
 mais il reste bon de connaître les autres.
 
 ## Modèle de composants
+
 Autre choix qui se pose, le choix du modèle de composant. C’est la façon dont les différents composant vont être géré
 au sein de l’environnement OSGi.
 
@@ -56,6 +57,7 @@ Ce [comparatif](https://felix.apache.org/documentation/subprojects/apache-felix-
 liste quelques fonctionnalités des différents modèles.
 
 ## Serveur HTTP
+
 Le Framework REST n’est pas le sujet donc on va faire sans dans ce tuto et simplement utiliser un serveur HTTP pour servir notre application.
 
 * [Wisdom](http://wisdom-framework.org/). Très bien mais masque complètement OSGi du coup pas vraiment adéquat dans ce tuto. Il a sa propre gestion des
@@ -68,12 +70,13 @@ annotations pour déclarer les ressources REST.
 Maintenant que les différents choix ont été faits, entrons dans le vif du sujet. Pour expliquer et détailler un peu OSGi ce tuto se propose de faire dans l’originalité en créant un service `Hello OSGi World`. Une API REST appelable en GET qui retourne `Hello OSGi world`. Comme le sujet est plutôt vaste, on fera ça en plusieurs parties :
 
 * [Part 1, Introduction]()
-* [Part 2, Premiers concepts OSGi]({% post_url /2017/2017-09-02-Hello OSGi World, Part 2 %})
-* [Part 3, Configuration du runner]({% post_url /2017/2017-09-09-Hello OSGi World, Part 3 %})
-* [Part 4, Injection de dépendances]({% post_url /2017/2017-09-16-Hello OSGi World, Part 4 %})
-* [Part 5, Fragment Bundles]({% post_url /2017/2017-09-23-Hello OSGi World, Part 5 %})
+* [Part 2, Premiers concepts OSGi]({{% relref "/blog/2017/2017-09-02-Hello OSGi World, Part 2" %}})
+* [Part 3, Configuration du runner]({{% relref "/blog/2017/2017-09-09-Hello OSGi World, Part 3" %}})
+* [Part 4, Injection de dépendances]({{% relref "/blog/2017/2017-09-16-Hello OSGi World, Part 4" %}})
+* [Part 5, Fragment Bundles]({{% relref "/blog/2017/2017-09-23-Hello OSGi World, Part 5" %}})
 
 Toutes les sources sont ou seront présentes sur [mon repo github](https://github.com/Marthym/hello-osgi-world). Il y a un tag pour chaque étape du tuto qui correspond à chaque billet :
+
 * Part 1 -> Pas de source
 * Part 2 -> 2.0
 * Part 3 -> 3.0

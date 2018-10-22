@@ -1,11 +1,9 @@
 ---
-layout: post
 title: Les bases de Git
 excerpt: "Une présentation sur les bases de Git, les branching models et quelques astuces"
+date: "2018-01-14T12:00:00-00:00"
 tags: [git, training, presentation, branching, model, tips]
-comments: true
-image:
-  feature: git.png
+image: git.png
 ---
 
 Dans mon nouveau travail j’ai eu l’occasion de faire une présentation sur les principes de base de Git et sur les principaux branching models.

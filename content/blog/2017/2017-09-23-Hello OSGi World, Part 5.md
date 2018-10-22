@@ -1,11 +1,9 @@
 ---
-layout: post
 title: Hello OSGi World, Part 5, Fragment Bundles
+date: "2017-09-23T12:00:00-00:00"
 excerpt: "Qu’est ce qu’un Fragment Bundle et à quoi ça sert ?"
 tags: [OSGi, bundle, log4j, java, planetlibre]
-comments: true
-image:
-  feature: osgi_back.png
+image: osgi_back.png
 ---
 
 Disons que cette partie est un bonus si vous n’avez pas encore saturé ! Depuis le vous devez bien avoir remarqué que l’on utilise log4j 2 et que les logs ne s’affichent pas. À la place on a un message d’erreur qui dit qu’il manque un fichier de configuration. Et malheureusement, l’ajouter dans le répertoire de conf ne suffit pas, ni dans le répertoire courant. Il doit se trouver dans le classpath de `log4j2-core`. 
@@ -55,8 +53,8 @@ Pour ces raisons, je ne choisirais pas d’utiliser OSGi en production sur les p
 
 [Code source: Part 5, Fragment Bundles](https://github.com/Marthym/hello-osgi-world)
 
-* [Part 1, Introduction]({% post_url /2017/2017-08-29-Hello OSGi World, Part 1 %})
-* [Part 2, Premiers concepts OSGi]({% post_url /2017/2017-09-02-Hello OSGi World, Part 2 %})
-* [Part 3, Configuration du runner]({% post_url /2017/2017-09-09-Hello OSGi World, Part 3 %})
-* [Part 4, Injection de dépendances]({% post_url /2017/2017-09-16-Hello OSGi World, Part 4 %})
+* [Part 1, Introduction]({{% relref "/blog/2017/2017-08-29-Hello OSGi World, Part 1" %}})
+* [Part 2, Premiers concepts OSGi]({{% relref "/blog/2017/2017-09-02-Hello OSGi World, Part 2" %}})
+* [Part 3, Configuration du runner]({{% relref "/blog/2017/2017-09-09-Hello OSGi World, Part 3" %}})
+* [Part 4, Injection de dépendances]({{% relref "/blog/2017/2017-09-16-Hello OSGi World, Part 4" %}})
 * [Part 5, Fragment Bundles]()

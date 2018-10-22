@@ -1,12 +1,10 @@
 ---
-layout: post
 title: Hello OSGi World, Part 4, Injection de dépendances
+date: "2017-09-16T12:00:00-00:00"
 excerpt: "L’injection de dépendances pour OSGi avec Declarative Service & SCR"
 #modified: 2015-09-21
 tags: [OSGi, scr, declarative-service, ds, REST, java, planetlibre]
-comments: true
-image:
-  feature: osgi_back.png
+image: osgi_back.png
 ---
 
 Quelles sont donc les raisons d’utiliser OSGi ? On en a vu plusieurs jusqu’ici :
@@ -208,8 +206,8 @@ Donc voilà, on a vu comment OSGi gère les dépendances. La prochaine fois on v
 
 [Code source: Part 4, Injection de dépendances](https://github.com/Marthym/hello-osgi-world/tree/4.0)
 
-* [Part 1, Introduction]({% post_url /2017/2017-08-29-Hello OSGi World, Part 1 %})
-* [Part 2, Premiers concepts OSGi]({% post_url /2017/2017-09-02-Hello OSGi World, Part 2 %})
-* [Part 3, Configuration du runner]({% post_url /2017/2017-09-09-Hello OSGi World, Part 3 %})
+* [Part 1, Introduction]({{% relref "/blog/2017/2017-08-29-Hello OSGi World, Part 1" %}})
+* [Part 2, Premiers concepts OSGi]({{% relref "/blog/2017/2017-09-02-Hello OSGi World, Part 2" %}})
+* [Part 3, Configuration du runner]({{% relref "/blog/2017/2017-09-09-Hello OSGi World, Part 3" %}})
 * [Part 4, Injection de dépendances]()
-* [Part 5, Fragment Bundles]({% post_url /2017/2017-09-23-Hello OSGi World, Part 5 %})
+* [Part 5, Fragment Bundles]({{% relref "/blog/2017/2017-09-23-Hello OSGi World, Part 5" %}})

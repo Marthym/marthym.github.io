@@ -1,12 +1,10 @@
 ---
-layout: post
 title: Sauvegarde de données personelle
+date: "2016-10-24T12:00:00-00:00"
 excerpt: "Présentation de mon système de sauvegarde"
 #modified: 2015-09-21
 tags: [backup, NAS, hubic, sauvegarde, webdav, freenas, hébergement, planetlibre]
-comments: true
-image:
-  feature: backup.png
+image: backup.png
 ---
 
 ## Introduction
@@ -68,4 +66,4 @@ Et avec ça j'ai remplacé l'utilisation que je faisais d'ownCloud et c'est beau
 ## Sauvegarde distante
 Comme expliqué plus haut, il est rassurant d'avoir ses données dupliqué sur plusieurs supports, ça couvre 90% des risques de perte de données. Mais quand les deux supports sont situés physiquement au même endroit, il reste un risque de perte, un incendie, un cambriolage, ... La solution c'est d'exporter les données dans un lieu différent.
 
-Pour ça j'ai prix un compte chez Hubic, rapport espace de stockage / prix imbattable (10To/50€/an). La difficulté c'est que Hubic c'est des serveurs [OpenStack](https://www.openstack.org/) ce qui veut dire que tout passe par des APIs REST, pas d'accès FTP ou autres. J'ai déjà fait un billet sur le sujet des [backups distants sur HubiC]({% post_url /2015/2015-09-18-Backup-distant-sur-HubiC %}), je vous invite à le lire pour plus d'info sur la façon d'envoyer des sauvegardes sur Hubic. 
+Pour ça j'ai prix un compte chez Hubic, rapport espace de stockage / prix imbattable (10To/50€/an). La difficulté c'est que Hubic c'est des serveurs [OpenStack](https://www.openstack.org/) ce qui veut dire que tout passe par des APIs REST, pas d'accès FTP ou autres. J'ai déjà fait un billet sur le sujet des [backups distants sur HubiC]({{% relref "/blog/2015/2015-09-18-Backup-distant-sur-HubiC" %}}), je vous invite à le lire pour plus d'info sur la façon d'envoyer des sauvegardes sur Hubic. 

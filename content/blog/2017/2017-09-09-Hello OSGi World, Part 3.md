@@ -1,12 +1,10 @@
 ---
-layout: post
 title: Hello OSGi World, Part 3, Configuration du runner
+date: "2017-09-09T12:00:00-00:00"
 excerpt: "Configuration du runner OSGi et premier lancement de l’application"
 #modified: 2015-09-21
 tags: [OSGi, bundle, java, java-8, planetlibre]
-comments: true
-image:
-  feature: osgi_back.png
+image: osgi_back.png
 ---
 
 On a parlé la dernière fois de l’un des points de complexité d’OSGi que sont les bundles et le fait que toutes les dépendances du projet doivent impérativement être des bundles aussi, sans quoi il ne sera pas possible au runner de les charger.
@@ -191,10 +189,10 @@ On a vu comment packager et lancer une application OSGi basique, comment palier 
 
 [Code source: Part 3, Configuration du runner](https://github.com/Marthym/hello-osgi-world/tree/3.0)
 
-* [Part 1, Introduction]({% post_url /2017/2017-08-29-Hello OSGi World, Part 1 %})
-* [Part 2, Premiers concepts OSGi]({% post_url /2017/2017-09-02-Hello OSGi World, Part 2 %})
+* [Part 1, Introduction]({{% relref "/blog/2017/2017-08-29-Hello OSGi World, Part 1" %}})
+* [Part 2, Premiers concepts OSGi]({{% relref "/blog/2017/2017-09-02-Hello OSGi World, Part 2" %}})
 * [Part 3, Configuration du runner]()
-* [Part 4, Injection de dépendances]({% post_url /2017/2017-09-16-Hello OSGi World, Part 4 %})
-* [Part 5, Fragment Bundles]({% post_url /2017/2017-09-23-Hello OSGi World, Part 5 %})
+* [Part 4, Injection de dépendances]({{% relref "/blog/2017/2017-09-16-Hello OSGi World, Part 4" %}})
+* [Part 5, Fragment Bundles]({{% relref "/blog/2017/2017-09-23-Hello OSGi World, Part 5" %}})
 
 [felix-config]: https://felix.apache.org/documentation/subprojects/apache-felix-framework/apache-felix-framework-configuration-properties.html

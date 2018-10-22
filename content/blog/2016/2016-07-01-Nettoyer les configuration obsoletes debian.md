@@ -1,12 +1,10 @@
 ---
-layout: post
 title: Nettoyer les fichiers de configuration obsolète
+date: "2016-07-01T12:00:00-00:00"
 excerpt: "Comment nettoyer les fichiers de configuration devenus obsolète au fil des mises à jour de votre Debian"
 #modified: 2015-09-16
 tags: [debian, linux, apt, conffile, nettoyer, clean, planetlibre]
-comments: true
-image:
-  feature: debian.png
+image: debian.png
 ---
 
 Je suis tombé sur un article de [François Marier][francois-marier] expliquant comment trouver et nettoyer certains fichier de configuration obsolètes de sa Debian. J'ai trouvé ça intéressant alors je le traduit ici. Ce n'est pas une traduction fidèle à 100% alors n'hésitez pas a aller voir l'original. Pour les besoins de la traduction, les sorties consoles sont des gros copier/coller des familles. Mais quand j'ai testé sur mon PC, j'avais a peu de chose près les mêmes sorties.
@@ -84,9 +82,6 @@ Alors pourquoi faut il faire ça, d'après François Marier, il se peut que ces 
   * [reconffile]
 
 [francois-marier]: https://feeding.cloud.geek.nz/posts/cleaning-up-obsolete-config-files-debian-ubuntu/
-{:hreflang="en"}
 [clean-conffile]: https://raphaelhertzog.fr/2011/06/06/la-bonne-maniere-de-supprimer-un-fichier-de-configuration-obsolete-dans-un-paquet-debian/
-{:hreflang="fr"}
 [reconffile]: https://lists.debian.org/debian-mentors/2013/05/msg00115.html
-{:hreflang="en"}
 

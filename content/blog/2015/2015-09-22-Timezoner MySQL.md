@@ -1,16 +1,15 @@
 ---
-layout: post
 title: Timezoner son MySQL server
+date: "2015-09-22T12:00:00-00:00"
 excerpt: "Régler les problèmes de Timezone entre Java et MySQL"
 #modified: 2015-09-16
 tags: [mysql, java, database, planetlibre]
 comments: true
-image:
-  feature: database.png
+image: database.png
 ---
 Dans le cas d'un MySQL sous docker, le server MySQL n'est pas Timezoné correctement. Par exemple, quand on lance la requête suivante :
 
-~~~ sql
+``` sql
 mysql> SELECT @@global.time_zone, @@session.time_zone;
 +--------------------+---------------------+
 | @@global.time_zone | @@session.time_zone |
@@ -18,14 +17,14 @@ mysql> SELECT @@global.time_zone, @@session.time_zone;
 | SYSTEM             | SYSTEM              |
 +--------------------+---------------------+
 1 row in set (0.00 sec)
-~~~
+```
 
 Ce qui signifie que c'est la Timezone du système qui est utilisé. Un
 
-~~~ sh
+``` sh
 date +%Z
 CEST
-~~~
+```
 
 nous confirme que nous sommes bien sur `Europe/Paris`.
 
@@ -36,14 +35,14 @@ lui fourni et passe par défaut en UTC. La solution pour être certain de sa Tim
 
 * Dans un terminal:
 
-~~~ sh
+``` sh
 mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
-~~~
+```
 qui va mettre à jour la table de zonage de MySQL
 
 * Dans MySQL:
 
-~~~ sql
+``` sql
 SET GLOBAL time_zone = 'Europe/Paris';
 SET time_zone = 'Europe/Paris';
-~~~
+```

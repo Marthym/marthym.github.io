@@ -1,12 +1,11 @@
 ---
-layout: post
 title: Mettre à jour plusieurs dépôts git
+date: "2015-10-10T12:00:00-00:00"
 excerpt: "Travailler avec plusieurs dépôts git interconnecté peut s'avérer fastidieux voilà une possibilité pour gérer ça."
-modified: 2016-03-21
+modified: "2016-03-21T12:00:00-00:00"
 tags: [git, bash, planetlibre]
 comments: true
-image:
-  feature: git.png
+image: git.png
 ---
 Pour tous ceux qui travaillent avec plusieurs dépôts git, voire une multitude, il est parfois très fastidieux de les tenir à jour. Le plus simple est la boucle
 `bash` qui fait tous les updates à la suite :

@@ -1,15 +1,13 @@
 ---
-layout: post
 title: Sauvegarde intelligente sur HubiC
+date: "2016-11-02T12:00:00-00:00"
 excerpt: "Sauvegarder ses données sur un cloud HubiC avec mise à jour des modifications"
-modified: 2016-11-02
 tags: [backup,shell,admin,planetlibre,hubic]
-comments: true
 image: backup.png
 ---
 
 ## Introduction
-Il y a pas loin d'une année je publiais un script bash permettant de faire des [backups distants sur HubiC]({% post_url /2015/2015-09-18-Backup-distant-sur-HubiC %}) (complets & incrémentaux) de toutes vos données. Un an et un changement de connexion ADSL plus tard, ce script n'est pas vraiment viable. En effet, je suis passé d'une fibre optique à une connexion ADSL avec une forte atténuation. Pour transférer mes données complète ça prend pas loin d'une journée ...
+Il y a pas loin d'une année je publiais un script bash permettant de faire des [backups distants sur HubiC]({{% relref "/blog/2015/2015-09-18-Backup-distant-sur-HubiC" %}}) (complets & incrémentaux) de toutes vos données. Un an et un changement de connexion ADSL plus tard, ce script n'est pas vraiment viable. En effet, je suis passé d'une fibre optique à une connexion ADSL avec une forte atténuation. Pour transférer mes données complète ça prend pas loin d'une journée ...
 
 J'ai donc changé le script pour pallier ce problème. L'idée est toujours de sauvegarder mes données mais au lieu d'un ubert tar découpé que je transfère une fois par semaine, je suis parti sur une sauvegarde par sous-répertoire et un transfert des modifications uniquement.
 
