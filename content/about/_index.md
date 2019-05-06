@@ -12,27 +12,33 @@ weight: 10
 ---
 ## Expériences professionnelles
 
-| I-Run.fr       | Tech Lead Back               |
-|:---------------|-----------------------------:|
-| *Depuis 2018*  | *Toulouse, Launaguet*        |
+| I-Run.fr      | Technical Team Manager |
+|:--------------|-----------------------:|
+| *Depuis 2019* |  *Toulouse, Launaguet* |
 
 ---------------
 
-| Living Objects   | Ingénieur Logiciel Sénior  	|
-|:-----------------|-----------------------------:|
-| *De 2014 à 2018* | *Toulouse, Basso Cambo*      |
+| I-Run.fr         |        Tech Lead Back |
+|:-----------------|----------------------:|
+| *De 2018 à 2019* | *Toulouse, Launaguet* |
 
 ---------------
 
-| Cameleon Software | Consultant Technique Expert	  |
-|:------------------|------------------------------:|
-| *De 2007 à 2013*  | *Toulouse, Labège*            |
+| Living Objects   | Ingénieur Logiciel Sénior |
+|:-----------------|--------------------------:|
+| *De 2014 à 2018* |   *Toulouse, Basso Cambo* |
+
+---------------
+
+| Cameleon Software | Consultant Technique Expert |
+|:------------------|----------------------------:|
+| *De 2007 à 2013*  |          *Toulouse, Labège* |
 
 ------
 
-| Access-Commerce 	| Développeur d'adaptations     |
-|:------------------|------------------------------:|
-| *De 2001 à 2007*  | *Toulouse, Labège*            |
+| Access-Commerce  | Développeur d'adaptations |
+|:-----------------|--------------------------:|
+| *De 2001 à 2007* |        *Toulouse, Labège* |
 
 ## Formation
 
@@ -43,6 +49,8 @@ weight: 10
 
 ## Compétences
 
+* **Leadership** -- <br/>
+*Depuis Janvier 2019 j’use mes talent de management et de leadership en tant que Responsable de l’équipe Technique chez I-Run.fr.*
 * **Anglais** -- Lu, écrit et parlé<br/>
 *Utilisé lors des mes déplacements aux USA et durant les réunions de cadrage avec les clients étrangers.*
 * **Java 8** -- Expert<br/>
