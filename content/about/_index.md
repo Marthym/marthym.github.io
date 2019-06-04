@@ -1,5 +1,5 @@
 ---
-title: Technical Leader Backend
+title: Technical Team Manager
 linkTitle: A Propos
 tags: [about, Jekyll]
 modified: 2018-01-08T23:29:00
