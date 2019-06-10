@@ -10,4 +10,4 @@ Dans mon nouveau travail j’ai eu l’occasion de faire une présentation sur l
 
 Je la partage donc ici, les sources sont disponibles sur Github : <https://github.com/Marthym/training>
 
-<iframe style="width: 100%;height: 600px;" src="//marthym.github.io/training/i-git.html"></iframe>
+<iframe style="width: 100%;height: 600px;" src="//marthym.github.io/training/git-au-quotidien.html"></iframe>
