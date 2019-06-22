@@ -50,7 +50,7 @@ weight: 10
 ## Compétences
 
 * **Leadership** -- <br/>
-*Depuis Janvier 2019 j’use mes talent de management et de leadership en tant que Responsable de l’équipe Technique chez I-Run.fr.*
+*Depuis Janvier 2019 j’use de mes talents de management et de mon leadership en tant que Responsable de l’équipe Technique chez I-Run.fr.*
 * **Anglais** -- Lu, écrit et parlé<br/>
 *Utilisé lors des mes déplacements aux USA et durant les réunions de cadrage avec les clients étrangers.*
 * **Java 8** -- Expert<br/>
