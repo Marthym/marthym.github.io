@@ -19,19 +19,21 @@
             </section>
             {{ end }}
             {{ .Content }}
-        <hr />
-        <footer role="contentinfo">
-            <p class="byline"><strong>{{ .Title }}</strong> est paru le <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2006-01-02" }}</time>
-            {{ if isset .Params "Lastmod" }}
-            et modifié pour la dernière fois le <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "Jan 2, 2006" }}</time>
-            {{ end }}
-            </p>
-        </footer>
-            </div><!-- /.article-wrap -->
-        {{ if isset .Params "comments" }}
-            <section id="disqus_thread"></section><!-- /#disqus_thread -->
+            <hr />
+            <footer role="contentinfo">
+                <p class="byline"><strong>{{ .Title }}</strong> est paru le <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2006-01-02" }}</time>
+                {{ if isset .Params "Lastmod" }}
+                et modifié pour la dernière fois le <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "Jan 2, 2006" }}</time>
+                {{ end }}
+                </p>
+            </footer>
+        </div><!-- /.article-wrap -->
+        {{ if isset .Params "comment" }}
+        <aside>
+            <p>Cet article vous a plu, n’hésitez pas a laisser un commentaire sur le 
+                <a href="https://www.journalduhacker.net{{ .Params.comment | default "/" }}">Journal du Hacker</a></p>
+        </aside>    
         {{ end }}
-        </article>
-        </div><!-- /#main -->
-</div>
+    </article>
+</div><!-- /#main -->
 {{ end }}
