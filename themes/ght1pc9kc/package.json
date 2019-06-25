@@ -33,5 +33,10 @@
   "license": "MIT",
   "dependencies": {
     "gull": "0.0.1"
-  }
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "not dead"
+  ]
 }

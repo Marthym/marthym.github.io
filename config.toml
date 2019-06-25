@@ -1,6 +1,6 @@
 baseURL = "https://blog.ght1pc9kc.fr"
 languageCode = "fr-fr"
-title = "J’ai acheté un PC neuf cassé ..."
+title = "j’ai acheté un PC..."
 theme = "ght1pc9kc"
 uglyurls = true
 pygmentsUseClasses = true

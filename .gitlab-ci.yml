@@ -3,14 +3,28 @@ image: marthym/hugulp:1.1.0
 before_script:
   - cd "${CI_PROJECT_DIR}/themes/ght1pc9kc" && npm install --unsafe-perm
 
+dryrun:
+  stage: deploy
+  cache:
+    untracked: true
+  script:
+    - cd "${CI_PROJECT_DIR}/themes/ght1pc9kc" && gulp prod
+    - cd "${CI_PROJECT_DIR}" && hugo
+    - find public -type f -iregex '.*\.\(htm\|html\|txt\|text\|js\|css\|json\)$' -execdir gzip -f --keep {} \;
+  artifacts:
+    paths:
+     - public
+  except:
+    - master
+
 pages:
   stage: deploy
   cache:
     untracked: true
   script:
-  - cd "${CI_PROJECT_DIR}/themes/ght1pc9kc" && gulp prod
-  - cd "${CI_PROJECT_DIR}" && hugo
-  - find public -type f -iregex '.*\.\(htm\|html\|txt\|text\|js\|css\|json\)$' -execdir gzip -f --keep {} \;
+    - cd "${CI_PROJECT_DIR}/themes/ght1pc9kc" && gulp prod
+    - cd "${CI_PROJECT_DIR}" && hugo
+    - find public -type f -iregex '.*\.\(htm\|html\|txt\|text\|js\|css\|json\)$' -execdir gzip -f --keep {} \;
   artifacts:
     paths:
     - public

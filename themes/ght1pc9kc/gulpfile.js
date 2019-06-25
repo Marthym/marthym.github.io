@@ -39,7 +39,7 @@ gulp.task('dev:nowatch', function(){
 
 gulp.task('prod', function(){
     confGlobal.isDevelop = false;
-	runSequence('clean', ['js','css'], 'css:clean');
+	runSequence('clean', ['js','css'], 'css:clean', 'copy:assets:minify');
 });
 
 /* ****************************************************************************************************
