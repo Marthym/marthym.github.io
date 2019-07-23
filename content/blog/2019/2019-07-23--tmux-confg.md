@@ -4,7 +4,7 @@ date: "2019-07-23T13:09:00+02:00"
 excerpt: "Tmux est l’un des outils que j’utilise le plus dans mes journées, voici donc la configuration que j’utilise"
 tags: [tmux, tools, console, programmation, planetlibre]
 image: back.png
-#comment: /s/hzmgtu/faites_voyager_vos_entit_s_lombok
+comment: /s/44gpgk/ma_configuration_tmux
 ---
 
 Je ne partage pas mes dotfile files sur github comme le font pas mal de dev. C’est long et pas forcément optimal. En plus c’est un risque si j’ai dans mes fichiers de données sensibles comme des mots de passes. Pour mes fichiers de configuration, j’utilise un gros playbook ansible qui va installer et configurer mon environnement. Alors je pourrais le mettre lui mais idem, je suis pas sur qu’il n’y ai aucun mot de passe ou données sensible dans je préfère le garder pour l’instant. 
