@@ -4,6 +4,7 @@ date: "2019-09-23T21:00:00+02:00"
 excerpt: "Générer une Javadoc multi-module avec diagrammes"
 tags: [java, documentation, javadoc, programmation, planetlibre]
 image: back.png
+comment: /s/1ix513/javadoc_agr_g_e_avec_diagrammes
 ---
 
 Quand on fait du micro-service il est important de s’inquiéter assez tôt de la documentation. Au début c’est plus une lourdeur qu’autre chose, le code change souvent et on passe plus de temps à tenir la documentation à jour que le code. Mais rapidement, quand l’équipe va grossir, on va se rendre compte que les nouveaux arrivants payent un coût d’entrée important face à la quantité de code non documenté. Pire, sur les parties de code un peu complexe, on va se retrouver avec de la propriété.
