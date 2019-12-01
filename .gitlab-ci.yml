@@ -1,4 +1,4 @@
-image: marthym/hugulp:1.1.0
+image: marthym/hugulp:1.2.0
 
 before_script:
   - cd "${CI_PROJECT_DIR}/themes/ght1pc9kc" && npm install --unsafe-perm
