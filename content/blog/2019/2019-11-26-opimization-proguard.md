@@ -106,9 +106,17 @@ Il faut donner à proguard le point d’entrée du programme, dans notre cas le 
 
 attention il est impératif d’utiliser le nom complet des classes.
 
-Et là on a enfin un résultat. Un résultat qui a de grande chance de pas fonctionner mais un résultat. Il faut maintenant améliorer la configuration pour que tout fonctionne.
+Et là on a enfin un résultat. Un résultat qui a de grandes chances de ne pas fonctionner, mais un résultat. Il faut maintenant améliorer la configuration pour que tout fonctionne.
 
 ## Les annotations
+
+Comme proguard cherche a optimiser le code, il ne va, par défaut, pas garder les annotations. Ce qui fait que si votre code en utilise au runtime, ça ne fonctionnera plus. On va pouvoir lui dire de conserver les annotations avec cette instruction.
+
+```
+-keepattributes *Annotation*, Signature, Exception
+```
+
+Au final ça conservera un peu plus que les annotations. On va aussi conserver les types génériques des signature de méthodes et les exceptions qu’une méthode peut throw.
 
 ## L’injection de dépendances
 
