@@ -6,7 +6,7 @@
 		<nav role="navigation" id="site-nav" class="nav">
 		    <ul>
 		        {{ range .Site.Sections.ByWeight.Reverse }}
-					<li><a href="{{ .URL }}">{{ .LinkTitle }}</a></li>
+					<li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
 				{{ end }}
 		    </ul>
 		</nav>

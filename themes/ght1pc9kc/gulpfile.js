@@ -12,7 +12,7 @@ var plugins = require("gulp-load-plugins")({
   pattern: ['gulp-*', 'gulp.*'],
   replaceString: /\bgulp[\-.]/
 });
-var runSequence = require('run-sequence');
+var uncss = require('postcss-uncss');
 var gulpif = require('gulp-if');
 var del = require('del');
 var pngquant = require('imagemin-pngquant');
@@ -27,20 +27,6 @@ gulp.task('default', function() {
   gulp.run(['dev']);
 });
 
-gulp.task('dev', function(){
-  confGlobal.isDevelop = true;
-  runSequence(['js','css'], 'watch');
-});
-
-gulp.task('dev:nowatch', function(){
-  confGlobal.isDevelop = true;
-  runSequence(['js','css']);
-});
-
-gulp.task('prod', function(){
-    confGlobal.isDevelop = false;
-	runSequence('clean', ['js','css'], 'css:clean', 'copy:assets:minify');
-});
 
 /* ****************************************************************************************************
 *                                                                                                     *
@@ -64,20 +50,17 @@ gulp.task('js', function(){
 
 gulp.task('css', function(){	
     var autoprefixer = require('autoprefixer');
-    var cssgrace = require('cssgrace');
     var pseudoelements = require('postcss-pseudoelements');
 	var cssnano = require('cssnano');
 	
     var processors = [
       autoprefixer(confPlugins.autoprefixer),
-      //cssgrace,
       pseudoelements
     ];
 	
 	if (!confGlobal.isDevelop) {
 		processors = [
 		  autoprefixer(confPlugins.autoprefixer),
-		  //cssgrace,
 		  pseudoelements,
 		  cssnano
 		 ];
@@ -85,7 +68,6 @@ gulp.task('css', function(){
 	
 	return gulp.src('./src/scss/main.scss')
       .pipe(plugins.plumber({ handleError: function(err) { console.log(err); this.emit('end'); } }))
-      //.pipe(plugins.scssLint(confPlugins.scssLint))
       .pipe(plugins.sass())
       .pipe(plugins.postcss(processors))
       .pipe(gulpif(confGlobal.enableGZIP, plugins.gzip(confPlugins.gzipOptions)))
@@ -93,10 +75,9 @@ gulp.task('css', function(){
 });
 
 gulp.task('css:clean', function(){
-	console.log('Removing unused css styles...');
 	return gulp.src('./public/css/styles.css')
-      .pipe(gulpif(!confGlobal.isDevelop, plugins.uncss({ html: './public/**/*.html' })))
-      .pipe(gulp.dest('./public/css/'));
+      .pipe(gulpif(!confGlobal.isDevelop, plugins.postcss(uncss({ html: './public/**/*.html' }))))
+      .pipe(gulp.dest('./static/css/'));
 });
 
 gulp.task('watch', function(){
@@ -126,7 +107,7 @@ gulp.task('copy:assets', function(){
 });
 
 gulp.task('copy:assets:minify', function(){
-	return gulp.src(['./src/**/*.*','!./src/js/*.*','!./src/scss/*.*'])
+	return gulp.src(['./src/**/*.*','!./src/scss/**/*.*', '!./src/config/*.*'])
       .pipe(gulpif(!confGlobal.isDevelop, plugins.imagemin({
         progressive: true,
         svgoPlugins: [{
@@ -153,3 +134,12 @@ gulp.task('hugo:server:nowatch', plugins.shell.task([
 gulp.task('hugo:build', plugins.shell.task([
     'hugo'
 ]));
+
+gulp.task('dev', 
+    gulp.series(async () => confGlobal.isDevelop = true, gulp.parallel('js','css'), 'watch'));
+
+gulp.task('dev:nowatch', 
+    gulp.series(async () => confGlobal.isDevelop = true, gulp.parallel('js','css')));
+
+gulp.task('prod', 
+    gulp.series(async () => confGlobal.isDevelop = false, 'clean', gulp.parallel('js','css'), 'copy:assets:minify'));
