@@ -4,7 +4,7 @@ date: "2019-12-05T21:00:00+02:00"
 excerpt: "Comment optimiser la taille d’un jar avec proguard"
 tags: [java, proguard, picocli, command, devops, planetlibre]
 image: back.png
-# comment: /s/1ix513/javadoc_agr_g_e_avec_diagrammes
+comment: /s/j6xvnq/optimisation_de_jar_avec_proguard
 ---
 
 Il y a quelque temps, j’ai vu cette [vidéo de Nicolas Peters](https://www.youtube.com/watch?v=8ENbMwkaFyk) à Devoxx qui parlait de [picocli] et des applications en ligne de commande java. Chez i-run on a de gros besoins en outillage DevOps pour nos nouveaux projets et du coup on a eu envie de tester picocli pour développer quelques outils.
