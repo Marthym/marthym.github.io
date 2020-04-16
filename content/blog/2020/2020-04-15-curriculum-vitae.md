@@ -1,6 +1,8 @@
 ---
-title: Curriculum Vitae, le bon, la brute et le truant
+title: Curriculum Vitae, le bon, la brute et le truand
 date: 2020-04-15
+aliases:
+  - /2020/curriculum-vitae-le-bon-la-brute-et-le-truant.html
 excerpt: C’est quoi un bon CV ? Que lisent "vraiment les recruteurs sur vos CV ? Quelques conseil pour épargner la santé mentale des recruteurs.
 tags: [java, cv, recrutement, candidature, embauche, planetlibre]
 image: back.png
