@@ -17,16 +17,6 @@ var gulpif = require('gulp-if');
 var del = require('del');
 var pngquant = require('imagemin-pngquant');
 
-/* ****************************************************************************************************
-*                                                                                                     *
-*  MAIN TASKS                                                                                         *
-*                                                                                                     *
-**************************************************************************************************** */
-
-gulp.task('default', function() {
-  gulp.run(['dev']);
-});
-
 
 /* ****************************************************************************************************
 *                                                                                                     *
@@ -81,17 +71,8 @@ gulp.task('css:clean', function(){
 });
 
 gulp.task('watch', function(){
-	
-	plugins.watch('./src/scss/**/*.scss', function() {
-	  console.log('Scss file changed, processing css...');
-      gulp.run(['css']);
-    });
-
-    plugins.watch('./src/js/**/*.js', function() {
-	  console.log('Javascript file changed, processing js...');
-      gulp.run(['js']);
-    });
-	
+	gulp.watch('./src/scss/**/*.scss', gulp.series('css'));
+    gulp.watch('./src/js/**/*.js', gulp.series('js'));
 });
 
 
@@ -143,3 +124,11 @@ gulp.task('dev:nowatch',
 
 gulp.task('prod', 
     gulp.series(async () => confGlobal.isDevelop = false, 'clean', gulp.parallel('js','css'), 'copy:assets:minify'));
+
+/* ****************************************************************************************************
+*                                                                                                     *
+*  MAIN TASKS                                                                                         *
+*                                                                                                     *
+**************************************************************************************************** */
+
+gulp.task('default', gulp.series('dev'));
