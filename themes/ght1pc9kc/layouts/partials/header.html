@@ -1,18 +1,18 @@
 <div class="navigation-wrapper">
-	<div class="site-name">
-		<a href="/">{{ .Site.Title }}</a>
-	</div><!-- /.site-name -->
-	<div class="top-navigation">
-		<nav role="navigation" id="site-nav" class="nav">
-		    <ul>
-		        {{ range .Site.Sections.ByWeight.Reverse }}
-					<li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
-				{{ end }}
-		    </ul>
-		</nav>
-	</div><!-- /.top-navigation -->
+    <div class="site-name">
+        <a href="/">{{ .Site.Title }}</a>
+    </div><!-- /.site-name -->
+    <div class="top-navigation">
+        <nav role="navigation" id="site-nav" class="nav">
+            <ul>
+                {{ range .Site.Sections.ByWeight.Reverse }}
+                <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+                {{ end }}
+            </ul>
+        </nav>
+    </div><!-- /.top-navigation -->
 </div><!-- /.navigation-wrapper -->
 
-<div class="image-wrap">
+<figure class="image-wrap">
     <img src="/img/{{ .Page.Params.image }}" alt="{{ .Page.Name }}">
-</div>
+</figure>
