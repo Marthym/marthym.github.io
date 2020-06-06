@@ -1,13 +1,12 @@
 ---
 title: Comprendre la résolution DNS sous Debian
-date: 2020-05-31
+date: 2020-06-06
 excerpt: |
     La résolution DNS, c’est à la fois très simple et très complexe. On ne parlera pas d’installer un serveur mais de comprendre comment
     une debian fait pour résoudre un nom de domaine. Qu’est-ce que change systemd-resolve et resolvectl.
 tags: [dns, network, resolv, systemd, planetlibre]
 image: network.png
 toc: true
-draft: true
 #comment: /s/gjvoos/curriculum_vitae_le_bon_la_brute_et_le
 ---
 
