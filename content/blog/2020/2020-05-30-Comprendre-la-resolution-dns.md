@@ -55,7 +55,7 @@ Et c’est là que se pointe [`systemd-resolved`](https://wiki.archlinux.org/ind
 
 Il faut savoir que **sur les dernières versions de Debian, c’est lui qui gère le DNS**, pas le fichier `resolv.conf`, enfin il est prioritaire en tout cas.
 
-Il a plusieurs modes de fonctionnement, il peut soit ne plus tenir compte du tout du fichier `resolv.conf`, soit lancer son propre DNS et le mettre dans le fichier`resolv.conf` (172.0.0.53). Cela permet une migration plus en douceur vers la solution. Cela se règle au niveau du fichier `/etc/NetworkManager/NetworkManager.conf`.
+Il a plusieurs modes de fonctionnement, il peut soit ne plus tenir compte du tout du fichier `resolv.conf`, soit lancer son propre DNS et le mettre dans le fichier`resolv.conf` (127.0.0.53). Cela permet une migration plus en douceur vers la solution. Cela se règle au niveau du fichier `/etc/NetworkManager/NetworkManager.conf`.
 
 On peut tester la résolution de ce service avec la commande `resolvectl query blog.ght1pc9kc.fr`.
 
