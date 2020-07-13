@@ -2,7 +2,7 @@
 title: Technical Team Manager
 linkTitle: A Propos
 tags: [about, Jekyll]
-modified: 2018-01-08T23:29:00
+modified: 2020-04-12T23:29:00
 comments: false
 share: false
 image: about.png
@@ -12,32 +12,38 @@ weight: 10
 ---
 ## Expériences professionnelles
 
-| I-Run.fr      | Technical Team Manager |
-|:--------------|-----------------------:|
-| *Depuis 2019* |  *Toulouse, Launaguet* |
+| i-Run.fr            |           DSI Adjoint |
+| :------------------ | --------------------: |
+| *Depuis Avril 2020* | *Toulouse, Launaguet* |
 
 ---------------
 
-| I-Run.fr         |        Tech Lead Back |
-|:-----------------|----------------------:|
+| i-Run.fr               | Technical Team Manager |
+| :--------------------- | ---------------------: |
+| *De 2019 à Avril 2020* |  *Toulouse, Launaguet* |
+
+---------------
+
+| i-Run.fr         |        Tech Lead Back |
+| :--------------- | --------------------: |
 | *De 2018 à 2019* | *Toulouse, Launaguet* |
 
 ---------------
 
 | Living Objects   | Ingénieur Logiciel Sénior |
-|:-----------------|--------------------------:|
+| :--------------- | ------------------------: |
 | *De 2014 à 2018* |   *Toulouse, Basso Cambo* |
 
 ---------------
 
 | Cameleon Software | Consultant Technique Expert |
-|:------------------|----------------------------:|
+| :---------------- | --------------------------: |
 | *De 2007 à 2013*  |          *Toulouse, Labège* |
 
 ------
 
 | Access-Commerce  | Développeur d'adaptations |
-|:-----------------|--------------------------:|
+| :--------------- | ------------------------: |
 | *De 2001 à 2007* |        *Toulouse, Labège* |
 
 ## Formation
