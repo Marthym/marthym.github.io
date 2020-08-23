@@ -5,6 +5,8 @@ theme = "ght1pc9kc"
 uglyurls = true
 pygmentsUseClasses = true
 pygmentsCodeFences = true
+googleAnalytics = "UA-67836375-1"
+
 
 [permalinks]
   blog = "/:year/:title"
