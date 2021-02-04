@@ -1,6 +1,7 @@
 ---
 title: Optimisation de jar avec Proguard
-date: "2019-12-05T21:00:00+02:00"
+date: 2019-12-05
+modified: 2021-02-04
 excerpt: "Comment optimiser la taille d’un jar avec proguard"
 tags: [java, proguard, picocli, command, devops, planetlibre]
 image: back.png
@@ -10,6 +11,8 @@ comment: /s/j6xvnq/optimisation_de_jar_avec_proguard
 Il y a quelque temps, j’ai vu cette [vidéo de Nicolas Peters](https://www.youtube.com/watch?v=8ENbMwkaFyk) à Devoxx qui parlait de [picocli] et des applications en ligne de commande java. Chez [i-Run] on a de gros besoins en outillage DevOps pour nos nouveaux projets et du coup on a eu envie de tester picocli pour développer quelques outils.
 
 Cela fonctionne bien, mais au fil du temps et des dépendances, le binaire a pris du poids et, même en limitant les dépendances au strict minimum, le jar fait 1,2 Mo aujourd’hui (c’est que le début). On a donc cherché un moyen de limiter la taille du binaire pour qu’il reste facile à déployer sur les machines qui en ont besoin et que l’emprunte mémoire soit la plus réduite possible. On est naturellement arrivé à [Proguard].
+
+> Merci à [Jesse](https://community.guardsquare.com/u/Jesse) de [GuardSquare](https://community.guardsquare.com/) pour la [traduction anglaise](https://community.guardsquare.com/t/jar-optimization-with-proguard/487)
 
 ## Proguard
 
