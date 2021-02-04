@@ -7,17 +7,17 @@ image: back.png
 comment: /s/j6xvnq/optimisation_de_jar_avec_proguard
 ---
 
-Il y a quelque temps, j’ai vu cette [vidéo de Nicolas Peters](https://www.youtube.com/watch?v=8ENbMwkaFyk) à Devoxx qui parlait de [picocli] et des applications en ligne de commande java. Chez i-run on a de gros besoins en outillage DevOps pour nos nouveaux projets et du coup on a eu envie de tester picocli pour développer quelques outils.
+Il y a quelque temps, j’ai vu cette [vidéo de Nicolas Peters](https://www.youtube.com/watch?v=8ENbMwkaFyk) à Devoxx qui parlait de [picocli] et des applications en ligne de commande java. Chez [i-Run] on a de gros besoins en outillage DevOps pour nos nouveaux projets et du coup on a eu envie de tester picocli pour développer quelques outils.
 
 Cela fonctionne bien, mais au fil du temps et des dépendances, le binaire a pris du poids et, même en limitant les dépendances au strict minimum, le jar fait 1,2 Mo aujourd’hui (c’est que le début). On a donc cherché un moyen de limiter la taille du binaire pour qu’il reste facile à déployer sur les machines qui en ont besoin et que l’emprunte mémoire soit la plus réduite possible. On est naturellement arrivé à [Proguard].
 
 ## Proguard
 
-Proguard est bien connu dans le cadre d’Android pour sa capacité à réduire et surtout obfusquer le code. Mais on y pense moins dans le cadre de projets java standard. Pourtant il répond parfaitement au besoin qu’on a chez I-Run.
+Proguard est bien connu dans le cadre d’Android pour sa capacité à réduire et surtout obfusquer le code. Mais on y pense moins dans le cadre de projets java standard. Pourtant il répond parfaitement au besoin qu’on a chez [i-Run].
 
 Le problème c’est que Proguard n’est pas un outil intuitif et qu’il est assez facile de casser son build avec. D’autant que la plupart des explications ou des exemples, présent sur internet, portent sur des projets Android.
 
-Je vous propose de voir la configuration que l’on a mise en place chez I-Run pour notre outil.
+Je vous propose de voir la configuration que l’on a mise en place chez [i-Run] pour notre outil.
 
 ### Les principes
 
@@ -363,3 +363,4 @@ Pour les quelques notes restantes qui n’impacte pas le code :
 [type-safe/config]: https://github.com/lightbend/config
 [nano-json]: https://github.com/mmastrac/nanojson
 [Proguard]: https://www.guardsquare.com/en/products/proguard
+[i-Run]: https://blog.i-run.si/
