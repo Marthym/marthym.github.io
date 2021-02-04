@@ -12,7 +12,7 @@ Il y a quelque temps, j’ai vu cette [vidéo de Nicolas Peters](https://www.you
 
 Cela fonctionne bien, mais au fil du temps et des dépendances, le binaire a pris du poids et, même en limitant les dépendances au strict minimum, le jar fait 1,2 Mo aujourd’hui (c’est que le début). On a donc cherché un moyen de limiter la taille du binaire pour qu’il reste facile à déployer sur les machines qui en ont besoin et que l’emprunte mémoire soit la plus réduite possible. On est naturellement arrivé à [Proguard].
 
-> Merci à [Jesse](https://community.guardsquare.com/u/Jesse) de [GuardSquare](https://community.guardsquare.com/) pour la [traduction anglaise](https://community.guardsquare.com/t/jar-optimization-with-proguard/487)
+> Merci à [Jesse](https://community.guardsquare.com/u/Jesse) de [GuardSquare](https://community.guardsquare.com/) pour la [traduction anglaise](https://community.guardsquare.com/t/jar-optimization-with-proguard/488)
 
 ## Proguard
 
