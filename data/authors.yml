@@ -1,16 +1,13 @@
 fcombes:
   name: Frédéric Combes
-  web: http://thewhip.com
   email: fred.blog (at) ght1pc9kc (dot) fr
-  bio: ""
+  bio: "DSI Adjoint @ i-Run"
   avatar: fcombes.jpg
-  google:
-    plus: FrédéricCombes
   linkedin: combesfrederic
   github: Marthym
   stackoverflow: 3710542/marthym
   languages: [Français, Anglais]
-  skills: [Java 8, Spring, Git, Docker, Maven, Oracle, MySQL, Linux]
+  skills: [Management, Agile, Java, Spring, Git, Docker, MySQL, Linux]
 
 marthym:
   name: Marthym

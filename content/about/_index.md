@@ -1,8 +1,8 @@
 ---
-title: Technical Team Manager
+title: Chef Information Officer
 linkTitle: A Propos
-tags: [about, Jekyll]
-modified: 2020-04-12T23:29:00
+tags: [about, i-Run, manager, team]
+modified: 2021-02-04
 comments: false
 share: false
 image: about.png
