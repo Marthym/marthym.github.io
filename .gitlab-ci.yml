@@ -19,7 +19,7 @@ build:theme:
 
 build:pages:
   stage: build
-  image: monachus/hugo:v0.58.3
+  image: registry.gitlab.com/pages/hugo/hugo_extended:0.80.0
   dependencies:
     - build:theme
   script:
