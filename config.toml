@@ -10,3 +10,6 @@ googleAnalytics = "UA-67836375-1"
 
 [permalinks]
   blog = "/:year/:title"
+
+[markup.goldmark.renderer]
+  unsafe= true
