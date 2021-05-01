@@ -1,13 +1,13 @@
 ---
 title: Les Critères de recherche avec Juery
-date: 2021-04-30
+date: 2021-05-01
 excerpt: |
     Juery est une librairie java permettant de gérer simplement des critères de filtre et de recherche ainsi que de la pagination
     dans vos api REST sans JPA.
 tags: [java, jpa, rest, planetlibre]
 image: top.jpg
 toc: true
-# comment: /s/gjvoos/curriculum_vitae_le_bon_la_brute_et_le
+comment: /s/s6d5d1/les_crit_res_de_recherche_avec_juery
 ---
 
 Chaque fois que j’entreprends un nouveau projet, que ce soit professionnel ou perso, il y a des bouts de code que l’on ré-écrit chaque fois. L’api de critère de recherche et de filtre en fait partie. Biensur il existe des librairies notamment dans Spring qui sont prêtent à l’emploi mais **toutes ou presque se basent sur JPA**. Ce qui, quand on utilise pas <abbr title="Java Persistence API">JPA</abbr>, impose une quantité de dépendances inutiles à embarquer dans votre build.
