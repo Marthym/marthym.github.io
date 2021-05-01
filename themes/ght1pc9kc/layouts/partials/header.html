@@ -13,6 +13,17 @@
     </div><!-- /.top-navigation -->
 </div><!-- /.navigation-wrapper -->
 
+{{ $topImage := "/img/back.png" }}
+{{ if .Page.Params.image }}
+    {{ $topImage = .Page.Params.image }}
+    {{ if not (findRE "^(/|http(s?)://)" $topImage) }}
+        {{ with .Page.Resources.GetMatch $topImage }}
+            {{ $topImage = .RelPermalink }}
+        {{ else }}
+            {{ $topImage = print "/img/" $topImage }}
+        {{ end }}
+    {{ end }}
+{{ end }}
 <figure class="image-wrap">
-    <img src="/img/{{ .Page.Params.image }}" alt="{{ .Page.Name }}">
+    <img src="{{ $topImage }}" alt="{{ .Page.Name }}">
 </figure>
