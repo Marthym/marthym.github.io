@@ -9,7 +9,11 @@ toc: false
 # comment: /s/s6d5d1/les_crit_res_de_recherche_avec_juery
 ---
 
-Si vous avez un projet à base de **Spring Boot et de Vue.js** (ou un autre framework, ça marche aussi) et que vous cherchez à le packager facilement, voilà une façon de le faire avec Maven. **Attention, c’est valable pour des petits projets** ou des <abbr title="Prouf Of Concept">POC</abbr>, si vous avez des projets plus conséquent ou à fort traffic, il faudra étudier une solution plus appropiée, à base de nginx par exemple.
+Combien de projet se fondent sur un backend à base de Spring Boot et sur une UI à base d’Angular, de React ou de Vue.js ? Il existe des dizaines de façon d’intégrer et de release ce type de projet. Chaque équipe a son pipeline pour faire ça avec plus ou moins de réussite. Mais force est de constater que savant les outils backend sont souvent plus abouti et plus facile a gérer.
+
+Voilà un façon de packager et de release un application mixte front/back tout en Maven.
+
+**Attention, ce type de déploiement est valable pour des petits projets** ou des <abbr title="Prouf Of Concept">POC</abbr>, si vous avez des projets plus conséquent ou à fort trafic, il faudra étudier une solution plus appropiée, à base de nginx par exemple.
 
 ## Description du projet
 
@@ -38,6 +42,22 @@ projet
 ```
 
 ## Le développement
+
+Spring sait servir des fichiers statiques, mais ce n’est sa fonction principale comme un nginx et il ne possède donc que les fonctionnalités basique. Par exemple, il ne sais pas comprendre seul que si vous demandez `/` il faut qui vous serve `/index.html`. Pour palier ce comportement, il suffira de rajouter un filtre.
+
+```java
+@Component
+public class HomePageWebFilter implements WebFilter {
+    @Override
+    public @NotNull Mono<Void> filter(ServerWebExchange exchange, @NotNull WebFilterChain chain) {
+        if (exchange.getRequest().getURI().getPath().equals("/")) {
+            return chain.filter(exchange.mutate().request(exchange.getRequest().mutate().path("/index.html").build()).build());
+        }
+
+        return chain.filter(exchange);
+    }
+}
+```
 
 ### Sur le backend
 
