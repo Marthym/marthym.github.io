@@ -2,24 +2,24 @@
 title: Vue.js / Spring Boot Maven Project
 date: 2021-05-04
 excerpt: |
-    Quelques trucs & astuces pratique pour développer et builder un projet front / back à base de Vue.js et de Spring Boot. Le tout avec une relativement simple configuration Maven.
-tags: [java, maven, vue.js, planetlibre]
+    Quelques astuces pratiques pour développer et builder un projet front / back à base de Vue.js et de Spring Boot. Le tout avec une configuration Maven simple.
+tags: [java, maven, vue, planetlibre]
 image: top.jpg
 toc: false
 # comment: /s/s6d5d1/les_crit_res_de_recherche_avec_juery
 ---
 
-Combien de projet se fondent sur un backend à base de Spring Boot et sur une UI à base d’Angular, de React ou de Vue.js ? Il existe des dizaines de façon d’intégrer et de release ce type de projet. Chaque équipe a son pipeline pour faire ça avec plus ou moins de réussite. Mais force est de constater que savant les outils backend sont souvent plus abouti et plus facile a gérer.
+Nombre de projets actuels se fondent sur des stacks à base de Spring Boot et Angular/React/Vue. Il existe des dizaines de façons d’intégrer et de release ce type de stack. Chaque équipe a son pipeline pour faire ce type d’opérations avec plus ou moins de réussite. Mais force est de constater que les outils de build backend sont souvent plus matures que leurs homologues frontend.
 
-Voilà un façon de packager et de release un application mixte front/back tout en Maven.
+Ce tutoriel propose une configuration tout en Maven pour builder, packager et de release une application mixte front/back.
 
-**Attention, ce type de déploiement est valable pour des petits projets** ou des <abbr title="Prouf Of Concept">POC</abbr>, si vous avez des projets plus conséquent ou à fort trafic, il faudra étudier une solution plus appropiée, à base de nginx par exemple.
+**Attention, ce type de déploiement est valable pour des petits projets** ou des <abbr title="Prouf Of Concept">POC</abbr>, si vous avez des projets plus conséquents ou à fort trafic, il faudra étudier une solution plus appropriée, à base de nginx par exemple.
 
 ## Description du projet
 
-On prend pour exemple un projet avec une interface en Vue.js et un backend en Spring Boot. Le front appelle la route `/api` pour tout ce qui est des appels REST. On part du principe que les outils de développement sont déjà installé: Java, Maven, Node et NPM.
+On prend pour exemple un projet avec une interface en Vue.js et un backend en Spring Boot. Le front utilise des routes commençant par `/api` pour tout ce qui est des appels REST. On part du principe que les outils de développement sont déjà installés : Java, Maven, Node et NPM.
 
-Pour l’exemple, on partira d’un projet [Maven](https://maven.apache.org/) contenant pour l’instant deux sous-modules. Le premier pour le frontend, le deuxième pour le backend.
+Il s’agit d’un projet [Maven](https://maven.apache.org/) contenant pour l’instant deux sous-modules. Le premier pour le frontend, le deuxième pour le backend.
 
 L’arborescence ressemble à ça :
 
@@ -43,7 +43,7 @@ projet
 
 ## Le développement
 
-Spring sait servir des fichiers statiques, mais ce n’est sa fonction principale comme un nginx et il ne possède donc que les fonctionnalités basique. Par exemple, il ne sais pas comprendre seul que si vous demandez `/` il faut qui vous serve `/index.html`. Pour palier ce comportement, il suffira de rajouter un filtre.
+Spring sait servir des fichiers statiques, mais ce n’est sa fonction principale comme un nginx et il ne possède donc que les fonctionnalités basiques. Par exemple, il ne sait pas comprendre seul que si vous demandez `/` il faut qui vous serve `/index.html`. Pour palier ce comportement, il suffira de rajouter un filtre.
 
 ```java
 @Component
@@ -61,7 +61,7 @@ public class HomePageWebFilter implements WebFilter {
 
 ### Sur le backend
 
-On prendra soin de se fixer une racine commune à toutes les API, pour le front et le back. Spring propose une propriété pour ça :
+On prendra soin de fixer une racine commune à toutes les API, dans le front et le back. Spring propose une propriété pour ça :
 
 ```properties
 spring.webflux.base-path=/api
@@ -70,9 +70,9 @@ server.servlet.context-path=/api
 
 Selon que vous êtes en MVC ou en Webflux.
 
-Et ceci va permettre de configurer votre environnement de test `Vue.js`. De manière a avoir votre front qui redirige vers spring, sans avoir a configurer le serveur back dans unvariable d’environnement et sans avoir les classique problèmes de CORS. 
+Ceci va permettre de configurer votre environnement de test `Vue.js`. De manière à avoir le serveur de développement front (`vue-cli-service serve`) qui redirige vers Spring, sans avoir à configurer l’URL de base dans une variable d’environnement et sans avoir les classiques problèmes de CORS.
 
-De plus, spring sait servir les fichiers static, mais si vous voulez accéder au fichier `index.html` via le répertoire, il faut rajouter un filtre qui explique à Spring que quand on lui demande un répertoire, il faut aller chercher le fichier `index.html`. 
+De plus, Spring sait servir les fichiers statiques, mais si vous voulez accéder au fichier `index.html` via le répertoire (`/`), il faut rajouter un filtre qui explique à Spring que quand on lui demande un répertoire, il faut aller chercher le fichier `index.html`. 
 
 ```java
 @Component
@@ -109,23 +109,23 @@ module.exports = {
 }
 ```
 
-Attention de changer le port du serveur node ou de spring, les deux sont sur 8080 par défaut.
+Attention de bien changer le port du serveur node ou de Spring, les deux sont sur `8080` par défaut.
 
-Maintenant quand vous lancez les deux serveurs, le serveur node de test vous reverse-proxifie vers le spring. Pour votre navigateur, plus de problème de CORS. Beaucoup de paramètres sont possible pour ce reverse proxy dans la documentation de [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware#http-proxy-options).
+Maintenant quand vous lancez les deux serveurs, le serveur node de test vous reverse-proxifie vers le Spring. Pour votre navigateur, plus de problème de CORS puisque tout est sur le même domaine. Vous trouverez beaucoup d’autres paramètres intéressant pour ce reverse proxy dans la documentation de [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware#http-proxy-options).
 
 ## Le packaging
 
-Maintenant que le projet est bien avancé, il faut le packager pour le releaser et le déployer. Le but n’est pas d’expliquer le fonctionnement de Maven ou de Webpack. **Mais plutôt de proposer un format simple**.
+Maintenant que le projet est bien avancé, il faut le packager pour le versionner et le déployer. Le but n’est pas d’expliquer le fonctionnement de Maven ou de Webpack. **Mais plutôt de proposer une configuration efficace pour le projet**.
 
-**Spring est capable de servir des pages statiques**, par défaut il prend ce qui se trouve dans les répertoires suivant : `/static, /public, /resources, /META-INF/resources`.
+On l’a vu précédemment, **Spring est capable de servir des pages statiques**, par défaut il prend ce qui se trouve dans les répertoires suivant : `/static, /public, /resources, /META-INF/resources`.
 
-A partir de là, **il est possible de builder la partie front du projet dans un [WebJars](https://www.webjars.org/)** pour que Spring retrouve le fichiers et les serve.
+À partir de là, **il est possible de builder la partie front du projet dans un [WebJars](https://www.webjars.org/)** pour que Spring retrouve les fichiers et les serve.
 
 On se servira du plugin `exec-maven-plugin` pour lancer le build du front. Et du plugin `maven-resources-plugin` pour copier le résultat dans un jar. Enfin le plugin `maven-assembly-plugin` permettra de construire un `tar.gz` contenant tout le projet.
 
 ### Construction du WebJar
 
-Dans le sous-module frontend, modifier le `pom.xml` pour lui faire executer le build webpack et packager dans un jar.
+Dans le sous-module frontend, modifier le `pom.xml` pour lui faire exécuter le build webpack et packager dans un jar.
 
 ```xml
             <plugin>
@@ -183,7 +183,7 @@ Dans le sous-module frontend, modifier le `pom.xml` pour lui faire executer le b
             </plugin>
 ```
 
-A noter qu’il peut être intéressant de modifier la configuration du clean pour supprimer aussi `node_modules` et `dist`.
+À noter qu’il peut être intéressant de modifier la configuration du clean pour supprimer aussi `node_modules` et `dist`.
 
 ```xml
             <plugin>
