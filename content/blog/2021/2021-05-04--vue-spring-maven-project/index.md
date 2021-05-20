@@ -9,7 +9,7 @@ toc: false
 # comment: /s/s6d5d1/les_crit_res_de_recherche_avec_juery
 ---
 
-Combien de projet se fondent sur un backend à base de Spring Boot et sur une UI à base d’Angular, de React ou de Vue.js ? Il existe des dizaines de façons d’intégrer et de releaser ce type de projet. Chaque équipe a son pipeline pour faire ça avec plus ou moins de réussite. Mais force est de constater que savant les outils backend sont souvent plus aboutis et plus faciles à gérer.
+Combien de projet se fondent sur un backend à base de Spring Boot et sur une UI à base d’Angular, de React ou de Vue.js ? Il existe des dizaines de façons d’intégrer et de releaser ce type de projet. Chaque équipe a son pipeline pour faire ça avec plus ou moins de réussite. Mais force est de constater que les outils backend sont souvent plus aboutis et plus faciles à gérer.
 
 Voilà une façon de packager et de releaser une application mixte front/back tout en Maven.
 
@@ -90,7 +90,7 @@ module.exports = {
 
 Attention de penser à changer le port du serveur node ou de spring, les deux sont sur `8080` par défaut.
 
-Maintenant quand vous lancez les deux serveurs, le serveur node de test vous reverse-proxifie vers le Spring. Pour votre navigateur, plus de problème de CORS puisque tout est sur le même domaine. Vous trouverez beaucoup d’autres paramètres intéressant pour ce reverse proxy dans la documentation de [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware#http-proxy-options).
+Maintenant quand vous lancez les deux serveurs, le serveur node de test vous reverse-proxifie vers le Spring. Pour votre navigateur, plus de problème de CORS puisque tout est sur le même domaine. Vous trouverez beaucoup d’autres paramètres intéressants pour ce reverse proxy dans la documentation de [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware#http-proxy-options).
 
 ## Le packaging
 
