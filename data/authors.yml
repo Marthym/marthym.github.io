@@ -1,15 +1,5 @@
-fcombes:
-  name: Frédéric Combes
-  email: fred.blog (at) ght1pc9kc (dot) fr
-  bio: "DSI Adjoint @ i-Run"
-  avatar: fcombes.jpg
-  linkedin: combesfrederic
-  github: Marthym
-  stackoverflow: 3710542/marthym
-  languages: [Français, Anglais]
-  skills: [Management, Agile, Java, Spring, Git, Docker, MySQL, Linux]
-
 marthym:
   name: Marthym
+  email: fred.blog (at) ght1pc9kc (dot) fr
   bio: Fred, un Nième développeur qui partage n’importe quoi ...
   avatar: bio-marthym.png
