@@ -1,6 +1,7 @@
 ---
 title: Les Critères de recherche avec Juery
 date: 2021-05-01
+modified: 2021-11-04
 excerpt: |
     Juery est une librairie java permettant de gérer simplement des critères de filtre et de recherche ainsi que de la pagination
     dans vos api REST sans JPA.
@@ -10,9 +11,20 @@ toc: true
 comment: /s/s6d5d1/les_crit_res_de_recherche_avec_juery
 ---
 
-Chaque fois que j’entreprends un nouveau projet, que ce soit professionnel ou perso, il y a des bouts de code que l’on ré-écrit chaque fois. L’api de critère de recherche et de filtre en fait partie. Biensur il existe des librairies notamment dans Spring qui sont prêtent à l’emploi mais **toutes ou presque se basent sur JPA**. Ce qui, quand on utilise pas <abbr title="Java Persistence API">JPA</abbr>, impose une quantité de dépendances inutiles à embarquer dans votre build.
+Chaque fois que j’entreprends un nouveau projet, que ce soit professionnel ou perso, il y a des bouts de code que l’on ré-écrit chaque fois. L’api de critère de recherche et de filtre en fait partie. Bien sur il existe des librairies notamment dans Spring qui sont prêtent à l’emploi, mais **toutes ou presque se basent sur JPA**. Ce qui, quand on n'utilise pas <abbr title="Java Persistence API">JPA</abbr>, impose une quantité de dépendances inutiles à embarquer dans votre build.
 
 De ce constat est née **[`Juery`](https://github.com/Marthym/juery)**.
+
+
+### Édit : 4 novembre 2021
+
+Sorti de la version 1.2.0 avec comme changements :
+
+* Ajout des opérateurs `contains`, `endWith` et `startWith`
+* Prise en compte de l'opérateur `in`, `lowerThan` et `greaterThan` dans le parsing des query string
+* Possibilité de paginer par offset plutôt que par numéro de page
+* Possibilité de configurer les noms des paramètres de pagination dans la query string
+* Prise en compte des paramètres temporel lors du parsing de la query string
 
 ## Description
 
@@ -55,26 +67,26 @@ L’api fait *25 kb* et ne dépend de rien, donc très léger si vous surveillez
 <dependency>
     <groupId>fr.ght1pc9kc</groupId>
     <artifactId>juery-api</artifactId>
-    <version>1.0.0</version>
+    <version>1.2.0</version>
 </dependency>
 <dependency>
     <groupId>fr.ght1pc9kc</groupId>
     <artifactId>juery-basic</artifactId>
-    <version>1.0.0</version>
+    <version>1.2.0</version>
 </dependency>
 <dependency>
     <groupId>fr.ght1pc9kc</groupId>
     <artifactId>juery-jooq</artifactId>
-    <version>1.0.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
 ou pour gradle
 
 ```gradle
-compile "fr.ght1pc9kc:juery-api:1.0.0"
-compile "fr.ght1pc9kc:juery-basic:1.0.0"
-compile "fr.ght1pc9kc:juery-jooq:1.0.0"
+compile "fr.ght1pc9kc:juery-api:1.2.0"
+compile "fr.ght1pc9kc:juery-basic:1.2.0"
+compile "fr.ght1pc9kc:juery-jooq:1.2.0"
 ```
 
 ## Utilisation
