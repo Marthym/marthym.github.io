@@ -23,7 +23,7 @@ build:pages:
   dependencies:
     - build:theme
   script:
-    - hugo
+    - hugo --minify
   artifacts:
     paths:
      - public
