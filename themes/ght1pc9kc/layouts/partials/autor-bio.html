@@ -5,9 +5,9 @@
 <div itemscope itemtype="http://schema.org/Person">
 
 {{ if hasPrefix .avatar "http" }}
-	<img src="{{ .avatar }}" class="bio-photo" alt="{{ .name }} bio photo">
+	<img src="{{ .avatar }}" class="bio-photo" alt="{{ .name }} bio photo" width="150" height="150">
 {{ else }}
-	<img src="/img/{{ .avatar }}" class="bio-photo" alt="{{ .name }} bio photo">
+	<img src="/img/{{ .avatar }}" class="bio-photo" alt="{{ .name }} bio photo" width="150" height="150">
 {{ end }}
 
   <h3 itemprop="name">{{ .name }}</h3>
