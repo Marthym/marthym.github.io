@@ -1,3 +1,5 @@
 themes/ght1pc9kc/static/**
 **.lock
 **/node_modules/**
+resources/**
+.vscode
