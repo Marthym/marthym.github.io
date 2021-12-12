@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    h2 {
+        @apply text-3xl font-bold mt-6;
+    }
+
+    h3 {
+        @apply text-xl font-bold;
+    }
+}
+
+@layer components {
+    .img-ticke {
+        @apply after:content-["■"] after:rotate-45 after:absolute after:left-1/4 after:text-2xl after:-mt-4 after:text-white;
+    }
+}

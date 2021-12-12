@@ -2,16 +2,18 @@
 {{ $author := index $.Site.Data.authors $author }}
 {{ with $author }}
 
-<div itemscope itemtype="http://schema.org/Person">
+<aside class="mx-8 pt-12"
+    itemscope itemtype="http://schema.org/Person">
 
 {{ if hasPrefix .avatar "http" }}
-	<img src="{{ .avatar }}" class="bio-photo" alt="{{ .name }} bio photo" width="150" height="150">
+	<img class="rounded-full" src="{{ .avatar }}" alt="{{ .name }} bio photo" width="150" height="150">
 {{ else }}
-	<img src="/img/{{ .avatar }}" class="bio-photo" alt="{{ .name }} bio photo" width="150" height="150">
+	<img class="rounded-full" src="/img/{{ .avatar }}" alt="{{ .name }} bio photo" width="150" height="150">
 {{ end }}
 
-  <h3 itemprop="name">{{ .name }}</h3>
-  <p>{{ .bio }}</p>
+  <h3 class="my-4 " itemprop="name">{{ .name }}</h3>
+  <div class="text-lg">
+  <em>{{ .bio }}</em>
   {{ with .email }}<a href="mailto:{{ . }}" class="author-social" target="_blank"><i class="far fa-fw fa-envelope"></i> Email</a>{{ end }}
   {{ with .twitter }}<a href="http://twitter.com/{{ . }}" class="author-social" target="_blank"><i class="fas fa-fw fa-twitter-square"></i> Twitter</a>{{ end }}
   {{ with .facebook }}<a href="http://facebook.com/{{ . }}" class="author-social" target="_blank"><i class="fas fa-fw fa-facebook-square"></i> Facebook</a>{{ end }}
@@ -40,5 +42,6 @@
   <h4>Compétences</h4>
   <p>{{ delimit . ", " }}</p>
   {{ end }}
-</div>
+  </div>
+</aside>
 {{ end }}
