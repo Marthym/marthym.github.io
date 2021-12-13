@@ -1,20 +1,17 @@
 {{ define "main" }}
 <main class="leading-relaxed text-xl grid grid-cols-1 lg:grid-cols-4">
     {{ partial "autor-bio" . }}
-    <article class="max-w-prose py-12 col-span-2">
-        <div>
-            <h1><a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}">{{ .Title }}</a></h1>
-        </div><!--/ .headline-wrap -->
+    <article class="max-w-prose py-12 col-span-3">
+        <h1><a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}">{{ .Title }}</a></h1>
         <div>
             {{ if .Params.toc }}
-            <section id="table-of-contents">
-                <header>
-                    <h3>Vue d’ensemble</h3>
-                </header>
-                <div id="drawer" markdown="1">
-                {{ .TableOfContents }}
-                </div>
-            </section>
+            <aside class="toc">
+                <header class="toc-header">Vue d’ensemble</header>
+                {{ .TableOfContents | replaceRE "id=\"TableOfContents\"" "class='toc-nav'" 
+                    | replaceRE "<ul>" "<ul class='toc-list'>" 
+                    | replaceRE "<li>" "<li class='toc-element'>" 
+                    | safeHTML }}
+            </aside>
             {{ end }}
             {{ .Content }}
             <hr />

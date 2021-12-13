@@ -3,10 +3,12 @@
 @tailwind utilities;
 
 @layer base {
-    h2 {
-        @apply font-title font-bold text-3xl mt-6;
+    h1 {
+        @apply font-title font-bold text-3xl leading-8 mb-7;
     }
-
+    h2 {
+        @apply font-title font-bold text-2xl mt-6;
+    }
     h3 {
         @apply text-xl font-bold;
     }
@@ -15,6 +17,13 @@
 @layer components {
     .img-ticke {
         @apply after:content-["■"] after:rotate-45 after:absolute after:left-1/4 after:text-2xl after:-mt-4 after:text-white;
+    }
+
+    .toc {
+        @apply inline float-left w-1/6 mx-5 absolute top-20 right-0 bg-white text-white;
+    }
+    .toc-header {
+        @apply bg-gray-900 uppercase py-1 px-4 text-base font-bold;
     }
 
     pre {

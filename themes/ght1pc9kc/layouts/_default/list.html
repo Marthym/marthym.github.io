@@ -7,7 +7,7 @@
 {{ $filter := $scratch.Get "filter" }}
 <main class="leading-relaxed text-xl grid grid-cols-1 lg:grid-cols-4">
     {{ partial "autor-bio" . }}
-    <div class="max-w-prose py-12 col-span-2">
+    <div class="max-w-prose py-12 col-span-3">
         <h3><a href="/">Derniers billets</a></h3>
         {{ range $filter }}
         <article>
