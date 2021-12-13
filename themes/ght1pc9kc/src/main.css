@@ -4,7 +4,7 @@
 
 @layer base {
     h2 {
-        @apply text-3xl font-bold mt-6;
+        @apply font-title font-bold text-3xl mt-6;
     }
 
     h3 {
@@ -15,5 +15,9 @@
 @layer components {
     .img-ticke {
         @apply after:content-["■"] after:rotate-45 after:absolute after:left-1/4 after:text-2xl after:-mt-4 after:text-white;
+    }
+
+    pre {
+        @apply p-4 text-xs leading-4 overflow-x-auto;
     }
 }

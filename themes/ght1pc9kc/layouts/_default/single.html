@@ -1,13 +1,13 @@
 {{ define "main" }}
-<main class="leading-relaxed text-xl grid grid-cols-4">
+<main class="leading-relaxed text-xl grid grid-cols-1 lg:grid-cols-4">
     {{ partial "autor-bio" . }}
-    <article class="post">
-        <div class="headline-wrap">
+    <article class="max-w-prose py-12 col-span-2">
+        <div>
             <h1><a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}">{{ .Title }}</a></h1>
         </div><!--/ .headline-wrap -->
-        <div class="article-wrap">
+        <div>
             {{ if .Params.toc }}
-            <section id="table-of-contents" class="toc">
+            <section id="table-of-contents">
                 <header>
                     <h3>Vue d’ensemble</h3>
                 </header>
@@ -19,7 +19,7 @@
             {{ .Content }}
             <hr />
             <footer role="contentinfo">
-                <p class="byline"><strong>{{ .Title }}</strong> est paru le <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2006-01-02" }}</time>
+                <p><strong>{{ .Title }}</strong> est paru le <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2006-01-02" }}</time>
                 {{ if isset .Params "Lastmod" }}
                 et modifié pour la dernière fois le <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "Jan 2, 2006" }}</time>
                 {{ end }}
