@@ -1,3 +1,4 @@
+<figure class="img-ticke">
 {{ if .Page.Params.image }}
     {{ with .Resources.GetMatch .Page.Params.image }}
         {{ $image := . }}
@@ -20,9 +21,7 @@
             {{ $imgSrcSet = $imgSrcSet | append (printf "%s %dw" $srcUrl .) }}
         {{ end }}
         {{ $imgSrcSet = (delimit $imgSrcSet ",") }}
-        <figure class="img-ticke">
         <img src="{{ $image.Name }}" srcset="{{ $imgSrcSet }}" alt="{{ $.Page.Name }}" height="80">
-        </figure>
     {{ else }}
         {{ $topImage := "/img/back.png" }}
         {{ if .Page.Params.image }}
@@ -42,3 +41,4 @@
 {{else}}
     <img src="/img/back.png" alt="{{ .Page.Name }}" height="80" >
 {{end}}
+</figure>

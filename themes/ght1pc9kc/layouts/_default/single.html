@@ -1,18 +1,9 @@
 {{ define "main" }}
-<main class="leading-relaxed text-xl grid grid-cols-1 lg:grid-cols-4">
+<main class="leading-relaxed text-xl grid grid-cols-1 lg:grid-cols-7">
     {{ partial "autor-bio" . }}
-    <article class="max-w-prose py-12 col-span-3">
+    <article class="w-full px-4 py-12 lg:col-span-4 lg:max-w-prose">
         <h1><a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}">{{ .Title }}</a></h1>
         <div>
-            {{ if .Params.toc }}
-            <aside class="toc">
-                <header class="toc-header">Vue d’ensemble</header>
-                {{ .TableOfContents | replaceRE "id=\"TableOfContents\"" "class='toc-nav'" 
-                    | replaceRE "<ul>" "<ul class='toc-list'>" 
-                    | replaceRE "<li>" "<li class='toc-element'>" 
-                    | safeHTML }}
-            </aside>
-            {{ end }}
             {{ .Content }}
             <hr />
             <footer role="contentinfo">
@@ -30,5 +21,15 @@
         </aside>    
         {{ end }}
     </article>
+    {{ if .Params.toc }}
+    <aside class="ml-6 col-span-2 pt-12 pl-16 hidden lg:block">
+        <header class="font-bold text-lg">Vue d’ensemble</header>
+        {{ .TableOfContents | replaceRE "id=\"TableOfContents\"" "class='toc-nav'" 
+            | replaceRE "<ul>" "<ul class='toc-list'>" 
+            | replaceRE "<li>" "<li class='toc-element'>" 
+            | replaceRE "href" "class='toc-menulink' href" 
+            | safeHTML }}
+    </aside>
+    {{ end }}
 </main>
 {{ end }}

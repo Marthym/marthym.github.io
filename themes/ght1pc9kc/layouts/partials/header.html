@@ -1,8 +1,8 @@
-<header class="grid grid-cols-4 font-sans font-bold uppercase pt-8 pb-6">
-    <div class="ml-8">
+<header class="grid grid-raw-2 lg:grid-cols-7 font-sans font-bold uppercase pt-8 pb-6">
+    <div class="ml-4 lg:ml-8">
         <a href="/">{{ .Site.Title }}</a>
     </div><!-- /.site-name -->
-    <nav class="col-span-2">
+    <nav class="ml-4 lg:col-span-6">
         <ul>
             {{ range .Site.Sections.ByWeight.Reverse }}
             <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>

@@ -16,14 +16,16 @@
 
 @layer components {
     .img-ticke {
-        @apply after:content-["■"] after:rotate-45 after:absolute after:left-1/4 after:text-2xl after:-mt-4 after:text-white;
+        @apply after:content-["■"] after:rotate-45 after:absolute after:left-[calc(100%/7)] after:text-2xl after:-mt-4 after:text-white;
     }
-
-    .toc {
-        @apply inline float-left w-1/6 mx-5 absolute top-20 right-0 bg-white text-white;
+    .toc-nav {
+        @apply text-sm -ml-4;
     }
-    .toc-header {
-        @apply bg-gray-900 uppercase py-1 px-4 text-base font-bold;
+    .toc-list {
+        @apply pl-4;
+    }
+    .toc-menulink {
+        @apply hover:underline;
     }
 
     pre {
