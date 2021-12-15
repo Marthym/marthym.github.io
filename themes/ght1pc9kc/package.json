@@ -1,11 +1,16 @@
 {
-  "name": "ght1pc9kc",
-  "version": "1.0.0",
-  "description": "Theme for ght1pc9kc",
-  "main": "index.js",
-  "author": "marthym",
-  "license": "MIT",
-  "devDependencies": {
-    "tailwindcss": "^3.0.1"
-  }
+    "name": "ght1pc9kc",
+    "version": "1.0.0",
+    "description": "Theme for ght1pc9kc",
+    "main": "index.js",
+    "author": "marthym",
+    "license": "MIT",
+    "scripts": {
+        "syntaxcss": "tailwindcss -i src/syntax.css -o static/syntax.css --minify",
+        "maincss": "tailwindcss -i src/main.css -o static/main.css --watch",
+        "watch": "yarn run syntaxcss && yarn run maincss"
+    },
+    "devDependencies": {
+        "tailwindcss": "^3.0.1"
+    }
 }

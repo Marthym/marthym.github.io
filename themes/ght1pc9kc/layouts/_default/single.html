@@ -5,21 +5,18 @@
         <h1><a href="{{ .Permalink }}" rel="bookmark" title="{{ .Title }}">{{ .Title }}</a></h1>
         <div>
             {{ .Content }}
-            <hr />
-            <footer role="contentinfo">
+            <hr class="w-full my-8" />
+            <footer role="contentinfo" class="text-sm">
                 <p><strong>{{ .Title }}</strong> est paru le <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2006-01-02" }}</time>
                 {{ if isset .Params "Lastmod" }}
                 et modifié pour la dernière fois le <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "Jan 2, 2006" }}</time>
                 {{ end }}
-                </p>
+                {{ if isset .Params "comment" }}
+                <p>Cet article vous a plu, n’hésitez pas à laisser un commentaire sur le 
+                    <a class="underline" href="https://www.journalduhacker.net{{ .Params.comment | default "/" }}">Journal du Hacker</a></p>
+                {{ end }}
             </footer>
         </div><!-- /.article-wrap -->
-        {{ if isset .Params "comment" }}
-        <aside>
-            <p>Cet article vous a plu, n’hésitez pas à laisser un commentaire sur le 
-                <a href="https://www.journalduhacker.net{{ .Params.comment | default "/" }}">Journal du Hacker</a></p>
-        </aside>    
-        {{ end }}
     </article>
     {{ if .Params.toc }}
     <aside class="ml-6 col-span-2 pt-12 pl-16 hidden lg:block">
