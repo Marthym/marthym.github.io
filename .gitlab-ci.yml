@@ -6,11 +6,12 @@ stages:
 
 build:theme:
   stage: build:theme
-  image: node:12.13.1-slim
+  image: node:17.2.0-slim
   script:
     - cd "${CI_PROJECT_DIR}/themes/ght1pc9kc"
     - npm install --unsafe-perm
-    - node_modules/gulp/bin/gulp.js prod
+    - npx tailwindcss -i src/syntax.css -o static/syntax.css --minify
+    - npx tailwindcss -i src/main.css -o static/main.css --minify
   cache:
     untracked: true
   artifacts:
