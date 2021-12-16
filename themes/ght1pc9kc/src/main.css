@@ -31,7 +31,7 @@
         @apply after:content-["■"] after:rotate-45 after:absolute after:left-[calc(100%/7)] after:text-2xl after:-mt-4 after:text-white;
     }
     .toc-nav {
-        @apply text-sm -ml-4;
+        @apply text-sm -ml-4 border-solid border-l-2;
     }
     .toc-list {
         @apply pl-4;
