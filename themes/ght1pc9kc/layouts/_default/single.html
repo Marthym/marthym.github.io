@@ -18,15 +18,16 @@
             </footer>
         </div><!-- /.article-wrap -->
     </article>
-    {{ if .Params.toc }}
     <aside class="ml-6 col-span-2 pt-12 pl-16 hidden lg:block">
-        <header class="font-bold text-lg">Vue d’ensemble</header>
-        {{ .TableOfContents | replaceRE "id=\"TableOfContents\"" "class='toc-nav'" 
-            | replaceRE "<ul>" "<ul class='toc-list'>" 
-            | replaceRE "<li>" "<li class='toc-element'>" 
-            | replaceRE "href" "class='toc-menulink' href" 
-            | safeHTML }}
+        {{ if .Params.toc }}
+            <header class="font-bold text-lg">Vue d’ensemble</header>
+            {{ .TableOfContents | replaceRE "id=\"TableOfContents\"" "class='toc-nav'" 
+                | replaceRE "<ul>" "<ul class='toc-list'>" 
+                | replaceRE "<li>" "<li class='toc-element'>" 
+                | replaceRE "href" "class='toc-menulink' href" 
+                | safeHTML }}
+        {{ end }}
+        {{ partial "similar-post-aside" . }}
     </aside>
-    {{ end }}
 </main>
 {{ end }}

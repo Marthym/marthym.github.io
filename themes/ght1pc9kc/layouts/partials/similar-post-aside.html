@@ -1,0 +1,21 @@
+{{ $currPermalink := .Page.RelPermalink }}
+{{ $tagged := slice }}
+{{ range (.GetTerms "tags") }}
+    {{ $currTag := .LinkTitle }}
+    {{ $taggedPages := (index .Site.Taxonomies.tags (lower $currTag)).Pages }}
+    {{ range first 5 $taggedPages }}
+        {{ if not (eq .RelPermalink $currPermalink) }}
+            {{ $tagged = $tagged | append . }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+{{ if gt (len $tagged) 0 }}
+<header class="font-bold text-lg">Sur le même sujet</header>
+<nav class="toc-nav">
+    <ul class="toc-list">
+    {{ range first 5 $tagged }}
+        <li class="toc-element"><a class="toc-menulink" href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+    {{ end }}
+    </ul>
+</nav>
+{{ end }}
