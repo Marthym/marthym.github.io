@@ -1,44 +1,16 @@
 {
-  "name": "HugoGulp",
-  "version": "0.0.0",
-  "private": false,
-  "repository": {
-    "type": "git",
-    "url": "https://bitbucket.org/joranquinten/hugo-gulp"
-  },
-  "devDependencies": {
-    "autoprefixer": "^9.8.0",
-    "cssgrace": "^3.0.0",
-    "cssnano": "^4.0.3",
-    "del": "^5.1.0",
-    "es6-promise": "^4.2.4",
-    "gulp": "^4.0.2",
-    "gulp-cli": "^2.2.0",
-    "gulp-gzip": "^1.4.2",
-    "gulp-if": "^3.0.0",
-    "gulp-imagemin": "^7.0.0",
-    "gulp-load-plugins": "^2.0.1",
-    "gulp-plumber": "^1.2.0",
-    "gulp-postcss": "^8.0.0",
-    "gulp-sass": "^4.1.0",
-    "gulp-shell": "^0.8.0",
-    "gulp-sourcemaps": "^2.6.4",
-    "gulp-strip-debug": "^3.0.0",
-    "gulp-uglify": "^3.0.0",
-    "gulp-watch": "^5.0.0",
-    "imagemin-pngquant": "^9.0.0",
-    "postcss-pseudoelements": "^5.0.0",
-    "postcss-uncss": "^0.17.0",
-    "run-sequence": "^2.2.1",
-    "uncss": "^0.17.2"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "gull": "0.0.1"
-  },
-  "browserslist": [
-    "last 1 version",
-    "> 1%",
-    "not dead"
-  ]
+    "name": "ght1pc9kc",
+    "version": "1.0.0",
+    "description": "Theme for ght1pc9kc",
+    "main": "index.js",
+    "author": "marthym",
+    "license": "MIT",
+    "scripts": {
+        "syntaxcss": "tailwindcss -i src/syntax.css -o static/syntax.css --minify",
+        "maincss": "tailwindcss -i src/main.css -o static/main.css --watch",
+        "watch": "yarn run syntaxcss && yarn run maincss"
+    },
+    "devDependencies": {
+        "tailwindcss": "^3.0.1"
+    }
 }

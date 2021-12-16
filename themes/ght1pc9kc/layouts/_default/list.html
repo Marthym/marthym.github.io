@@ -5,24 +5,22 @@
 {{ $scratch.Set "filter" (first 10 (where (where .Site.Pages "Section" "blog") ".IsPage" "==" true).ByLastmod.Reverse ) }}
 {{ end }}
 {{ $filter := $scratch.Get "filter" }}
-<div id="main" role="main">
-    <div class="article-author-side">
-        {{ partial "autor-bio" . }}
-    </div>
-    <div id="index">
+<main class="leading-relaxed text-xl grid grid-cols-1 lg:grid-cols-7">
+    {{ partial "autor-bio" . }}
+    <div class="w-full px-5 py-12 lg:max-w-prose lg:col-span-6">
         <h3><a href="/">Derniers billets</a></h3>
         {{ range $filter }}
         <article>
             {{ if isset .Params "affiliatelink" }}
             {{ $url := urls.Parse .Params.affiliatelink }}
-            <em class="affiliate">{{ $url.Host }}</em>
-            <h2><a href="{{ .Params.affiliatelink }}" target="_blank" title="{{ .Title }}">{{ .Title }} </a></h2>
+            <em class="hidden lg:block float-right text-base mt-1 after:content-linkout after:text-sm">{{ $url.Host }}</em>
+            <h2 class="mb-1"><a href="{{ .Params.affiliatelink }}" target="_blank" title="{{ .Title }}">{{ .Title }} </a></h2>
             {{else}}
-            <h2><a href="{{ .Permalink }}" title="{{ .Title }}">{{ .Title }}</a></h2>
+            <h2 class="mb-1"><a href="{{ .Permalink }}" title="{{ .Title }}">{{ .Title }}</a></h2>
             {{ end }}
-            <p>{{ plainify .Params.excerpt | safeHTML | truncate 160 }}</p>
+            <p class="italic">{{ plainify .Params.excerpt | safeHTML | truncate 160 }}</p>
         </article>
         {{ end }}
     </div><!-- /#index -->
-</div><!-- /#main -->
+</main>
 {{ end }}

@@ -1,16 +1,14 @@
-<div class="navigation-wrapper">
-    <div class="site-name">
+<header class="grid grid-raw-2 lg:grid-cols-7 font-sans font-bold uppercase pt-8 pb-6">
+    <div class="ml-4 lg:ml-8">
         <a href="/">{{ .Site.Title }}</a>
     </div><!-- /.site-name -->
-    <div class="top-navigation">
-        <nav role="navigation" id="site-nav" class="nav">
-            <ul>
-                {{ range .Site.Sections.ByWeight.Reverse }}
-                <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
-                {{ end }}
-            </ul>
-        </nav>
-    </div><!-- /.top-navigation -->
-</div><!-- /.navigation-wrapper -->
+    <nav class="ml-4 lg:col-span-6">
+        <ul>
+            {{ range .Site.Sections.ByWeight.Reverse }}
+            <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+            {{ end }}
+        </ul>
+    </nav>
+</header><!-- /.navigation-wrapper -->
 
 {{ partial "header-image.html" . }}
