@@ -4,6 +4,7 @@ date: 2019-12-05
 modified: 2021-02-04
 excerpt: "Comment optimiser la taille d’un jar avec proguard"
 tags: [java, proguard, picocli, command, devops, planetlibre]
+toc: true
 image: back.png
 comment: /s/j6xvnq/optimisation_de_jar_avec_proguard
 ---
@@ -16,25 +17,25 @@ Cela fonctionne bien, mais au fil du temps et des dépendances, le binaire a pri
 
 ## Proguard
 
-Proguard est bien connu dans le cadre d’Android pour sa capacité à réduire et surtout obfusquer le code. Mais on y pense moins dans le cadre de projets java standard. Pourtant il répond parfaitement au besoin qu’on a chez [i-Run].
+Proguard est bien connu dans le cadre d’Android pour sa capacité à réduire et surtout offusquer le code. Mais on y pense moins dans le cadre de projets java standard. Pourtant, il répond parfaitement au besoin qu’on a chez [i-Run].
 
-Le problème c’est que Proguard n’est pas un outil intuitif et qu’il est assez facile de casser son build avec. D’autant que la plupart des explications ou des exemples, présent sur internet, portent sur des projets Android.
+Le problème, c'est que Proguard n’est pas un outil intuitif et qu’il est assez facile de casser son build avec. D’autant que la plupart des explications ou des exemples, présent sur internet, portent sur des projets Android.
 
 Je vous propose de voir la configuration que l’on a mise en place chez [i-Run] pour notre outil.
 
 ### Les principes
 
-Proguard va optimizer un jar en passant par plusieurs phases de traitement qu’il est important de comprendre. 
+Proguard va optimiser un jar en passant par plusieurs phases de traitement qu’il est important de comprendre. 
 
 **shrink**: Qui va élaguer tout ce qui n’est pas utilisé dans cotre code.\\
 **optimize**: Qui va aller un peu plus loin en supprimant le code mort et les paramètres de méthodes par exemple.\\
 **obfuscate**: Qui va renommer les noms de classes, de méthodes, de membres, ... et réduire leurs noms au minimum (une lettre ou deux).
 
-Et là on comprend la puissance de l’outil mais aussi les problèmes que l’on va rencontrer !
+Et là on comprend la puissance de l’outil, mais aussi les problèmes que l’on va rencontrer !
 
 ### Le résultat
 
-Au final, avec l’optimisation et l’obfuscation, le binaire est passé de 1.2 Mo à 668 Ko soit plus de **50%** de la taille initiale.
+Finalement, avec l’optimisation et l’offuscation, le binaire est passé de 1.2 Mo à 668 Ko soit plus de **50%** de la taille initiale.
 
 ## Description du projet
 
@@ -52,7 +53,7 @@ On utilise donc
 
 Déjà la configuration minimum pour que ça fonctionne, il faut indiquer où se trouvent les librairies avec `-libraryjars` et l’entrée/sortie `-injars -outjars`. 
 
-```proguard
+```PkgConfig
 -injars       coffees/target/coffees-1.3.0-SNAPSHOT-shaded.jar(!META-INF/versions/**)
 -outjars      coffees/target/coffees-1.3.0-SNAPSHOT-slim.jar
 -libraryjars  <java.home>/jmods/(!**.jar;!module-info.class) # Pour Java 11
@@ -61,7 +62,7 @@ Déjà la configuration minimum pour que ça fonctionne, il faut indiquer où se
 
 Le premier lancement affiche des pages et des pages de warnings et de notes pour se terminer en erreur.
 
-```log
+```plain
 ProGuard, version 6.2.0
 Reading program jar [/home/marthym/workspace/i-run/coffee-shell/coffees/target/coffees-1.4.0-SNAPSHOT-shaded.jar] (filtered)
 Reading library directory [/opt/jdk-jdk-11.0.5+10/jmods] (filtered)
@@ -100,25 +101,25 @@ Error: Please correct the above warnings first.
 
 On peut déjà ajouter à la configuration le fait de ne pas arrêter en cas de warning.
 
-```proguard
+```PkgConfig
 -dontwarn
 ```
 
-À ce stade on a toujours aucun résultat, à la place un message qui nous dit qu’il faut garder quelque chose pour que ça fonctionne.
+À ce stade on n'a toujours aucun résultat, à la place un message qui nous dit qu’il faut garder quelque chose pour que ça fonctionne.
 
-```log
+```plain
 Error: You have to specify '-keep' options if you want to write out kept elements with '-printseeds'.
 ```
 
 Il faut donner à proguard le point d’entrée du programme, dans notre cas le `main` du programme. La configuration de proguard ressemble à la syntaxe de java.
 
-```proguard
+```PkgConfig
 -keep class fr.irun.coffee.shell.CoffeesMainCommand {
     public static void main(java.lang.String[]);
 }
 ```
 
-attention il est impératif d’utiliser le nom complet des classes.
+Attention, il est impératif d’utiliser le nom complet des classes.
 
 Cette fois on a enfin un résultat. Un résultat qui a de grandes chances de ne pas fonctionner, mais un résultat. Il faut maintenant améliorer la configuration pour que tout fonctionne.
 
@@ -126,15 +127,15 @@ Cette fois on a enfin un résultat. Un résultat qui a de grandes chances de ne 
 
 Comme proguard cherche à optimiser le code, il ne va, par défaut, pas garder les annotations. Ce qui fait que si votre code en utilise au runtime, ça ne fonctionnera plus. On va pouvoir lui dire de conserver les annotations avec cette instruction.
 
-```proguard
+```PkgConfig
 -keepattributes *Annotation*, Signature, Exception
 ```
 
-Au final proguard conservera un peu plus que les annotations. Il va aussi conserver les types génériques des signatures de méthodes et les exceptions qu’une méthode peut throw.
+Finalement proguard conservera un peu plus que les annotations. Il va aussi conserver les types génériques des signatures de méthodes et les exceptions qu’une méthode peut throw.
 
 Autre problème avec les annotations, [picocli] instancie lui-même les classes de `Command` du coup, comme pour l’injection, proguard n’a pas moyen de savoir que ces classes sont utilisées sauf si on lui demande de les conserver. Pour cela :
 
-```proguard
+```PkgConfig
 -keep class picocli.CommandLine { *; }
 -keep class picocli.CommandLine$* { *; }
 
@@ -151,7 +152,7 @@ L’injection de dépendances casse la réflexion que fait proguard en remontant
 
 Pour palier ce problème, on peut ajouter cette configuration
 
-```proguard
+```PkgConfig
 # Keep for class injection
 -keepclassmembers class * {
     @org.codejargon.feather.Provides *;
@@ -164,11 +165,11 @@ Tout ce qui est annoté `Inject` ou `Provides`, pour l’injection de dépendanc
 
 ### La gestion de plugins
 
-L’injection de dépendance est utilisé pour gérer des plugins. Chaque sous-commande est un plugin qui implémente une interface de module `CoffeeModule`. La recherche des implémentations se fait via un `ServiceLoader` qui se configure avec des fichiers `META-INF/services/...` dans lesquels ont liste les implémentations.
+L’injection de dépendance est utilisé pour gérer des plugins. Chaque sous-commande est un plugin qui implémente une interface de module `CoffeeModule`. La recherche des implémentations se fait via un `ServiceLoader` qui se configure avec des fichiers `META-INF/services/...` dans lesquels on liste les implémentations.
 
-Si on laisse faire proguard, il va obfusquer les classes, changer les noms et du coup, la configuration de nos services ne fonctionnera pas. Pour éviter cela on ajoute les instructions suivantes :
+Si on laisse faire proguard, il va offusquer les classes, changer les noms et du coup, la configuration de nos services ne fonctionnera pas. Pour éviter cela on ajoute les instructions suivantes :
 
-```proguard
+```PkgConfig
 # Keep class used for plugin management
 -keepnames class fr.irun.coffee.swizzle.plugin.CoffeeModule
 -keepnames class * implements fr.irun.coffee.swizzle.plugin.CoffeeModule
@@ -185,9 +186,9 @@ Dans l’ordre :
 
 ## Le problème des enums
 
-Lors de la phase d’optimisation, proguard optimise les enums en constantes d’entier, “quand c’est possible”. Manifestement, quand c’est pas possible il le fait quand même. Du coup parfois on perd certaines fonctionnalités. Pour éviter que cette optimisation ne casse vos enum :
+Lors de la phase d’optimisation, proguard optimise les enums en constantes d’entier, “quand c’est possible”. Manifestement, quand ce n'est pas possible il le fait quand même. Du coup parfois on perd certaines fonctionnalités. Pour éviter que cette optimisation ne casse vos enum :
 
-```proguard
+```PkgConfig
 # Fix enum problems
 -keepclassmembers class * extends java.lang.Enum {
     <fields>;
@@ -202,7 +203,7 @@ Arrivé à ce stade, le plus gros du travail est fait. Pour aller jusqu’au bou
 
 ### can't find referenced class
 
-```log
+```plain
 Warning: com.google.common.flogger.LazyArg: can't find referenced class javax.annotation.Nullable
 Warning: com.google.common.flogger.LogContext: can't find referenced class javax.annotation.Nullable
 Warning: com.google.common.flogger.LogContext: can't find referenced class javax.annotation.Nullable
@@ -211,7 +212,7 @@ Warning: com.google.common.flogger.LogContext: can't find referenced class javax
 
 Ce genre de warning ne sont pas importants et peuvent être ignorés sans crainte. Il s’agit le plus souvent d’annotations utiles seulement pour la compilation et dont le code se trouve dans des dépendances `provided`.
 
-```proguard
+```PkgConfig
 -dontwarn org.fusesource.**
 -dontwarn lombok.**
 -dontwarn javax.annotation.**
@@ -219,9 +220,9 @@ Ce genre de warning ne sont pas importants et peuvent être ignorés sans craint
 ```
 ### accesses a declared method dynamically
 
-C’est le gros des messages qui s’affiche. Proguard nous dit qu’il voit qu’un bout de code accède à une méthode par réflection et qu’il ne sait pas à quelle classe appartient la méthode. Il nous liste alors toutes les classes candidates qu’il trouve dans le classpath. Et il y en a souvent beaucoup.
+C’est le gros des messages qui s’affiche. Proguard nous dit qu’il voit qu’un bout de code accède à une méthode par réflexion et qu’il ne sait pas à quelle classe appartient la méthode. Il nous liste alors toutes les classes candidates qu’il trouve dans le classpath. Et il y en a souvent beaucoup.
 
-```log
+```plain
 Note: picocli.CommandLine$Interpreter accesses a declared method 'parse(java.lang.CharSequence)' dynamically
       Maybe this is library method 'com.sun.xml.internal.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$5 { java.util.Date parse(java.lang.CharSequence); }'
       Maybe this is library method 'com.sun.xml.internal.bind.v2.model.impl.RuntimeBuiltinLeafInfoImpl$5 { java.lang.Object parse(java.lang.CharSequence); }'
@@ -251,26 +252,26 @@ Note: picocli.CommandLine$Interpreter accesses a declared method 'parse(java.lan
 
 Ici, pour corriger, il faut se rendre dans le code et regarder qu’elle est la classe a qui appartient la méthode appelée par réflexion. Puis le plus simple est de copier le bout de message après le `Maybe` qui correspond à la bonne classe et d’ajouter ` -keep class `.
 
-```proguard
+```PkgConfig
 -keep class java.sql.DriverManager { java.sql.Connection getConnection(java.lang.String); }
 ```
 
 Dans le cas des `java.time`, c’est [picocli] qui les utilise pour plusieurs types de classe différente. Pour les faire toutes d’un coup on peut utiliser cette configuration
 
-```proguard
+```PkgConfig
 -keep class java.time.** {
    public java.time.** parse(java.lang.CharSequence);
    public java.time.** of(java.lang.String);
 }
 ```
 
-Il ne renommera ni `parse` ni `of` dans les classes du package `java.time` car [picocli] s’en sert en réflection.
+Il ne renommera ni `parse` ni `of` dans les classes du package `java.time`, car [picocli] s’en sert en réflexion.
 
 ### Pour les notes restantes
 
 Pour les quelques notes restantes qui n’impacte pas le code :
 
-```proguard
+```PkgConfig
 -dontnote com.google.common.flogger.**
 -dontnote com.typesafe.config.**
 ```
@@ -279,7 +280,7 @@ Pour les quelques notes restantes qui n’impacte pas le code :
 
 À la fin le fichier de configuration ressemble à ça
 
-```proguard
+```PkgConfig
 -injars       coffees/target/coffees-1.3.0-SNAPSHOT-shaded.jar(!META-INF/versions/**)
 -outjars      coffees/target/coffees-1.3.0-SNAPSHOT-slim.jar
 
