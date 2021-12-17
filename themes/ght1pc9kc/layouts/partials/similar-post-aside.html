@@ -13,7 +13,7 @@
 <header class="font-bold text-lg">Sur le même sujet</header>
 <nav class="toc-nav">
     <ul class="toc-list">
-    {{ range first 5 $tagged }}
+    {{ range first 5 ($tagged | uniq) }}
         <li class="toc-element"><a class="toc-menulink" href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
     {{ end }}
     </ul>
