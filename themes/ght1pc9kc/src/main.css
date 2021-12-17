@@ -50,4 +50,8 @@
     code {
         @apply whitespace-nowrap mx-0.5 px-1 text-pink-500 bg-slate-100 rounded-md text-lg;
     }
+
+    article blockquote {
+        @apply pb-4 mb-4 px-12 text-sm bg-gray-100 before:content-["\201C"] before:relative before:top-8 before:-left-6 before:text-4xl before:font-serif;
+    }
 }

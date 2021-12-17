@@ -5,7 +5,7 @@ excerpt: |
     Quelques astuces pratiques pour développer et builder un projet front / back à base de Vue.js et de Spring Boot. Le tout avec une configuration Maven simple.
 tags: [java, maven, vue, planetlibre]
 image: top.jpg
-toc: false
+toc: true
 # comment: /s/s6d5d1/les_crit_res_de_recherche_avec_juery
 ---
 
