@@ -2,7 +2,7 @@
 title: Rien ne sert de courrir - Le retour du Jeudi
 excerpt: "Packagisation et isolation des composants"
 tags: [projet, legacy, dette, java, maven, planetlibre]
-image: back.png
+image: back.webp
 draft: true
 ---
 

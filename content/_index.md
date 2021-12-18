@@ -1,6 +1,6 @@
 ---
 #title: New Post
-image: back.png
+image: back.webp
 author: marthym
 weight: 1
 ---

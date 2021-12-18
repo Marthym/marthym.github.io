@@ -3,7 +3,7 @@ title: Javadoc agrégée avec diagrammes
 date: "2019-09-23T21:00:00+02:00"
 excerpt: "Générer une Javadoc multi-module avec diagrammes"
 tags: [java, documentation, javadoc, programmation, planetlibre]
-image: back.png
+image: back.webp
 comment: /s/1ix513/javadoc_agr_g_e_avec_diagrammes
 ---
 

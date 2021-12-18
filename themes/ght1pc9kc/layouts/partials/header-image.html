@@ -1,4 +1,7 @@
-<figure class="img-ticke">
+{{ $topImage := "/img/back.webp" }}
+{{ $topAlt := .Page.Name }}
+{{ $topSrcSet := "" }}
+
 {{ if .Page.Params.image }}
     {{ with .Resources.GetMatch .Page.Params.image }}
         {{ $image := . }}
@@ -16,14 +19,12 @@
         Note: the first URL is used as "fallback" src in $imgSrc.
         -->
         {{ range $widths }}
-            <!-- {{ . }} -->
-            {{ $srcUrl := (printf "%dx q90 Lanczos" . | $image.Resize).RelPermalink }}
+            {{ $srcUrl := (printf "%dx75 q90 Lanczos Center" . | $image.Fill).RelPermalink }}
             {{ $imgSrcSet = $imgSrcSet | append (printf "%s %dw" $srcUrl .) }}
         {{ end }}
-        {{ $imgSrcSet = (delimit $imgSrcSet ",") }}
-        <img src="{{ $image.Name }}" srcset="{{ $imgSrcSet }}" alt="{{ $.Page.Name }}" height="80">
+        {{ $topSrcSet = (delimit $imgSrcSet ",") }}
+        {{ $topImage = $image.RelPermalink }}
     {{ else }}
-        {{ $topImage := "/img/back.png" }}
         {{ if .Page.Params.image }}
             {{ $topImage = .Page.Params.image }}
             {{ if not (findRE "^(/|http(s?)://)" $topImage) }}
@@ -34,11 +35,10 @@
                 {{ end }}
             {{ end }}
         {{ end }}
-        <img src="{{ $topImage }}" alt="{{ .Page.Name }}" height="80">
-        
     {{ end }}
-
-{{else}}
-    <img src="/img/back.png" alt="{{ .Page.Name }}" height="80" >
 {{end}}
+<figure class="img-ticke">
+    <img src="{{ $topImage }}" 
+        {{ if (not (eq $topSrcSet "" )) }}srcset="{{ $topSrcSet }}"{{end}} 
+        alt="{{ $topAlt }}" height="80" class="w-full h-20 object-cover" />
 </figure>

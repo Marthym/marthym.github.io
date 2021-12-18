@@ -1,7 +1,7 @@
 ---
 title: Tous les billets
 author: marthym
-image: back.png
+image: back.webp
 ---
 
 blog

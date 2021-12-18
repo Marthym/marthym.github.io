@@ -3,7 +3,7 @@ title: Exceptions avec Logback
 date: "2018-11-01T08:00:00-00:00"
 excerpt: "Comment optimiser à moindre cout l’affichage des exceptions avec logback"
 tags: [java, log, slf4j, logback, planetlibre]
-image: back.png
+image: back.webp
 ---
 
 Un post rapide, j’ai trouvé ça hier, je ne connaissais pas et pourtant je trouve ça vraiment pratique. L’optimisation de l’affiche des exceptions Java grâce à la configuration Logback.

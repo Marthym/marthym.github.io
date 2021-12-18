@@ -4,7 +4,7 @@ date: "2017-04-21T12:00:00-00:00"
 excerpt: "Automatisation de build rapide et facile avec GitLab-CI + Docker"
 #modified: 2015-09-21
 tags: [tools, docker, gitlab, framasoft, git, latex, planetlibre]
-image: back.png
+image: back.webp
 ---
 Il y a pas loin d’un an, j’ai décrit sur l’une des nombreuses manière d’automatiser une release grace à Github et Travis CI.
 

@@ -3,7 +3,7 @@ title: Spring et connexion sécurisé via proxy
 date: "2018-04-03T12:00:00-00:00"
 excerpt: "requiresSecure() dérrière un proxy NginX"
 tags: [spring, nginx, https, java, planetlibre]
-image: back.png
+image: back.webp
 ---
 
 Dans le cadre d’un projet, j’ai une configuration Spring Secure tel que :

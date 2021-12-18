@@ -5,7 +5,7 @@ excerpt: "Configurer la réécriture du StoreId avec Squid"
 #modified: 2015-09-16
 tags: [squid, linux, network, proxy, planetlibre]
 comments: true
-image: network.png
+image: network.webp
 ---
 
 L'équipe dans laquelle je travaille utilise un environnement de développement commun créé et mis jour via des scripts
