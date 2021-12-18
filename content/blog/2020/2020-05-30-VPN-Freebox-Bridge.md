@@ -5,7 +5,7 @@ excerpt: |
   Autant il est simple d’établir un VPN routé vers une Freebox, autant un VPN Bridgé, c’est une autre affaire. 
   L’interface TAP ne se crée pas facilement et il est nécessaire de tuner un peu le fichier OpenVPN
 tags: [vpn, freebox, bridge, network, dns, planetlibre]
-image: network.png
+image: network.webp
 comment: /s/3khoqy/vpn_bridg_vers_une_freebox
 ---
 

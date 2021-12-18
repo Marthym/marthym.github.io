@@ -2,7 +2,7 @@
 title: Rien ne sert de courrir - Un nouvel espoir
 excerpt: "Quand la dette technique à pris une ampleur telle que rien ne semble plus pouvoir la résorber..."
 tags: [projet, legacy, dette, java, planetlibre]
-image: back.png
+image: back.webp
 draft: true
 ---
 

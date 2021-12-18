@@ -4,7 +4,7 @@ date: "2016-12-08T12:00:00-00:00"
 excerpt: "L'éditeur LaTeX avec aperçu instantané, pas trop lourd et qui fonctionne bien"
 #modified: 2015-09-21
 tags: [latex, latexmk, gv, pdf, planetlibre]
-image: back.png
+image: back.webp
 ---
 
 ## L'histoire

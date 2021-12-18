@@ -2,7 +2,7 @@
 title: Rien ne sert de courrir - L’équipe contre-attaque
 excerpt: "... après un état des lieux exhaustif, par quel bout peut-on prendre les problèmes ..."
 tags: [projet, legacy, dette, java, planetlibre]
-image: back.png
+image: back.webp
 toc: true
 draft: true
 ---

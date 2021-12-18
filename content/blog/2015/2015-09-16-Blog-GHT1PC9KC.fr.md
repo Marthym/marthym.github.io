@@ -6,7 +6,7 @@ excerpt: "Création du blog."
 tags: [intro, beginner, jekyll, about]
 comments: false
 toc: false
-image: back.png
+image: back.webp
 ---
 
 ## Edito

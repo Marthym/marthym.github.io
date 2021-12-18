@@ -5,7 +5,7 @@ modified: 2021-02-04
 excerpt: "Comment optimiser la taille d’un jar avec proguard"
 tags: [java, proguard, picocli, command, devops, planetlibre]
 toc: true
-image: back.png
+image: back.webp
 comment: /s/j6xvnq/optimisation_de_jar_avec_proguard
 ---
 
