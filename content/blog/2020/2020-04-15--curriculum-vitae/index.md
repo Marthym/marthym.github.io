@@ -5,7 +5,7 @@ aliases:
   - /2020/curriculum-vitae-le-bon-la-brute-et-le-truant.html
 excerpt: C’est quoi un bon CV ? Que lisent "vraiment les recruteurs sur vos CV ? Quelques conseil pour épargner la santé mentale des recruteurs.
 tags: [java, cv, recrutement, candidature, embauche, planetlibre]
-image: about.png
+image: featured-curriculum-vitae.webp
 comment: /s/gjvoos/curriculum_vitae_le_bon_la_brute_et_le
 ---
 
