@@ -7,7 +7,7 @@ excerpt: |
 tags: [mysql, shell]
 image: featured-bash-linux.webp
 # toc: true
-# comment: /s/s6d5d1/les_crit_res_de_recherche_avec_juery
+comment: /s/knmp7w/import_sql_avec_barre_de_progression
 ---
 
 Vous avez un dump sql de 15 Go à remonter sur votre base de données, vous le lancez et pendant de longues minutes vous contemplez quelque chose comme ceci :
@@ -46,3 +46,12 @@ Et voilà ! Une barre de progression qui permet de savoir où en est l’import.
 **Attention :** La commande `$(zcat data-export.gz | wc -c)` qui permet d’avoir le taille en byte du fichier décompressé est longue. Elle lit tout le fichier. Cela peut être intéressant de la sortir pour ne l’exécuter qu’une seule fois.
 
 Le truc est tiré de [stackoverflow](https://unix.stackexchange.com/a/41199).
+
+## Edit 2021-12-20
+
+Dans un [commentaire](https://www.journalduhacker.net/s/knmp7w/import_sql_avec_barre_de_progression#c_2buqhh) **hg** propose cette syntaxe qui laisse `pv` gérer la taille du dump. À tester :
+
+```shell
+pv -pret --name ' Importing.. ' data-export.gz | zcat \
+    | mysql -u measuser -p -h db_host -P 3306 mydatabase
+```
