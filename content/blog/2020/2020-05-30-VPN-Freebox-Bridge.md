@@ -16,8 +16,6 @@ Sur une Freebox, il y a deux types de connexions OpenVPN :
 
 C’est de ce dernier que je vous parle aujourd’hui. Pour le mode routé, c’est simple et le fichier de configuration du client fourni par la box fonctionne du premier coup sans modification.
 
-<!--more-->
-
 On part du principe que vous savez déjà [comment configurer la box pour obtenir le fichier de configuration client](https://blog.genma.fr/?La-Freebox-v6-dispose-d-un-serveur-et-d-un-client-VPN), et que vous avez les bases de la configuration réseau sous linux.
 
 ## Le problème 

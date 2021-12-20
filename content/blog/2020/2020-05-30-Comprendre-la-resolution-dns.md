@@ -12,8 +12,6 @@ toc: true
 
 Dans mon article précédent, j'expliquais comment configurer une connexion VPN pour une Freebox afin d’être partout chez soi. Une fois que j’ai réussi à me connecter, j’ai voulu accéder à mes machines par leur petit nom. Je ne me rappelle pas par cœur de leurs IPs ! Et c’est là qu’a commencé la vraie galère : **la Résolution DNS** !
 
-<!--more-->
-
 ## TL;DR
 
 Sur les Debians récentes, la résolution DNS est prioritairement assurée par `systemd-resolved` qui s’initialise depuis le fichier `/etc/resolv.conf`, mais qui l’ignore ensuite. Donc si l’on modifie le fichier `systemd-resolved` ne tiens pas compte des modifications. `dig` qui ne lit que le fichier `/etc/resolv.conf` utilise alors un DNS différent de `ping` qui passe par la glibc, qui passe par NSS, qui passe par `systemd-resolved`.
