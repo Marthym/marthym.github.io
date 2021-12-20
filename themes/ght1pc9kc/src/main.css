@@ -55,13 +55,9 @@
         @apply pb-4 mb-4 px-12 text-sm bg-gray-100 before:content-["\201C"] before:relative before:top-8 before:-left-6 before:text-4xl before:font-serif;
     }
 
-    article a {
+    article section a {
         @apply bg-no-repeat bg-bottom-4 rotate-180 ease-out bg-gradient-to-r from-blue-300 to-blue-300 
             transition transition-all duration-150 
             hover:bg-top hover:-translate-y-1;
-    }
-
-    h1 a, h2 a, h3 a, h4 a {
-        @apply bg-none;
     }
 }
