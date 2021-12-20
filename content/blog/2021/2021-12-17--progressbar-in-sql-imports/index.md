@@ -22,7 +22,7 @@ Est-ce que cela fonctionne ? Combien de temps avant la fin ? Est-ce que le termi
 
 ## Pipe View
 
-`pv` est un outil qui permet d’avoir en temps réel l’état d’avancement d’une tache ou d’un flux de données (https://man7.org/linux/man-pages/man1/pv.1.html).
+`pv` est un outil qui permet d’avoir en temps réel l’état d’avancement d’une tache ou d’un flux de données ( https://man7.org/linux/man-pages/man1/pv.1.html ).
 
 Pour l’installer :
 
