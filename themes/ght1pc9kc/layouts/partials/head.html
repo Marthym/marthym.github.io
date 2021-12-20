@@ -3,7 +3,7 @@
     {{ template "_internal/google_analytics_async.html" . }}
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ .Summary | default .Description | default .Params.excerpt | default .Site.Title }}">
+    <meta name="description" content="{{ .Params.excerpt | default .Summary | default .Description | default .Site.Title }}">
 
     {{ template "_internal/opengraph.html" . }}
     {{ template "_internal/twitter_cards.html" . }}

@@ -1,7 +1,7 @@
 ---
 title: VPN Bridgé vers une Freebox
 date: 2020-05-30
-excerpt: |
+summary: |
   Autant il est simple d’établir un VPN routé vers une Freebox, autant un VPN Bridgé, c’est une autre affaire. 
   L’interface TAP ne se crée pas facilement et il est nécessaire de tuner un peu le fichier OpenVPN
 tags: [vpn, freebox, bridge, network, dns, planetlibre]
