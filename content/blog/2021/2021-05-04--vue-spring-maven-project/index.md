@@ -1,7 +1,7 @@
 ---
 title: Vue.js / Spring Boot Maven Project
 date: 2021-05-17
-excerpt: |
+summary: |
     Quelques astuces pratiques pour développer et builder un projet front / back à base de Vue.js et de Spring Boot. Le tout avec une configuration Maven simple.
 tags: [java, maven, vue, planetlibre]
 image: top.jpg

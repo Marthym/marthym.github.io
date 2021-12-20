@@ -2,7 +2,7 @@
 title: Import SQL avec barre de progression
 date: 2021-12-18
 # modified: 2021-11-04
-excerpt: |
+summary: |
     Vous êtes rivés sur votre écran où rien ne se passe. Vous importez un dump MySQL de 15Go et n’avez pas la moindre idée de où il en est. Est ce qu’il ne serait pas génial d’avoir une barre de progreesion qui avance et vous donne l’état d’avencement de l’import ?
 tags: [mysql, shell]
 image: featured-bash-linux.webp
