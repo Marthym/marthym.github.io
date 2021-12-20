@@ -13,7 +13,7 @@ comment: /s/s6d5d1/les_crit_res_de_recherche_avec_juery
 
 Chaque fois que j’entreprends un nouveau projet, que ce soit professionnel ou perso, il y a des bouts de code que l’on ré-écrit chaque fois. L’api de critère de recherche et de filtre en fait partie. Bien sur il existe des librairies notamment dans Spring qui sont prêtent à l’emploi, mais **toutes ou presque se basent sur JPA**. Ce qui, quand on n'utilise pas <abbr title="Java Persistence API">JPA</abbr>, impose une quantité de dépendances inutiles à embarquer dans votre build.
 
-De ce constat est née **[`Juery`](https://github.com/Marthym/juery)**.
+De ce constat est née **[Juery](https://github.com/Marthym/juery)**.
 
 
 ### Édit : 4 novembre 2021
