@@ -8,9 +8,10 @@
     "scripts": {
         "syntaxcss": "tailwindcss -i src/syntax.css -o static/syntax.css --minify",
         "maincss": "tailwindcss -i src/main.css -o static/main.css --watch",
-        "watch": "yarn run syntaxcss && yarn run maincss"
+        "build": "tailwindcss -i src/syntax.css -o static/syntax.css --minify; tailwindcss -i src/main.css -o static/main.css",
+        "watch": "yarn run build --watch"
     },
     "devDependencies": {
-        "tailwindcss": "^3.0.5"
+        "tailwindcss": "^3.0.7"
     }
 }
