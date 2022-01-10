@@ -4,12 +4,12 @@ date: 2020-04-15
 aliases:
   - /2020/curriculum-vitae-le-bon-la-brute-et-le-truant.html
 summary: C’est quoi un bon Curriculum Vitae ? Que lisent vraiment les recruteurs sur vos CV ? Quelques conseils pour épargner la santé mentale des chasseurs de talents.
-tags: [java, cv, recrutement, candidature, embauche, planetlibre]
+tags: [curriculum, cv, recrutement, candidature, management, blog]
 image: featured-curriculum-vitae.webp
 comment: /s/gjvoos/curriculum_vitae_le_bon_la_brute_et_le
 ---
 
-En ce moment, je suis en télé-travail et ma société reste ouverte. On est même en phase de recrutement. On recrute plusieurs profils, des développeurs fullstack, un architecte front et un sysadmin. Tout ça pour dire que je vois passer beaucoup de CVs. Et je dois dire, sur la quantité que je vois passer, je suis affligé de voir le peu de soin qui est donné aux candidatures. Comme j’ai besoin de laisser sortir un peu de ma frustration de voir autant de CV si peu soigner, je partage ça ici. C’est fait pour ça un blog après tout.
+En ce moment, je suis en télétravail et ma société reste ouverte. On est même en phase de recrutement. On recrute plusieurs profils, des développeurs fullstack, un architecte front et un sysadmin. Tout ça pour dire que je vois passer beaucoup de CVs. Et je dois dire, sur la quantité que je vois passer, je suis affligé de voir le peu de soin qui est donné aux candidatures. Comme j’ai besoin de laisser sortir un peu de ma frustration de voir autant de CV si peu soigner, je partage ça ici. C’est fait pour ça un blog après tout.
 
 Je n’ai pas la prétention d’être une référence en matière de recrutement, mais je peux au moins vous dire ce que je vois ou que j’ignore sur un CV. Même si toutes les sociétés n’ont pas les mêmes stratégies d’analyse, ça vous donnera une idée.
 
