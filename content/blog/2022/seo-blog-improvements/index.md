@@ -32,12 +32,67 @@ Pour palier la quantité et la taille des fichiers a téléchargé, tout le thè
 
 En parallèle du CSS, les polices ont été remplacées par des fonts présentent par défaut sur les navigateurs. De façon à ne pas avoir à les télécharger. Ce qui vient encore réduire la part de fichier téléchargé en plus de la page HTML.
 
-## Le responsive
+## La responsivité
 
-À ce jour, être compatible et lisible sur mobile est important. Même si c’est plus important pour un site de e-commerce qu’un blog technique, il reste bon de s’y intéresser. Pour se faire une idée, sur ce blog technique, 30% des visiteurs sont sur mobile.
+À ce jour, être compatible et lisible sur mobile est important. Certes un blog technique n’a pas les mêmes enjeux qu’un site de e-commerce, mais il reste bon de s’y intéresser. Pour se faire une idée, sur ce blog technique, 30% des visiteurs sont sur mobile.
 
 En dehors de la lisibilité qui est primordiale si vous ne voulez pas voir votre taux de rebond exploser, il y a encore une fois le <accr title="Time To Interactive">TTI</accr>. Mais cette fois le problème est différent. La question ressemble plus à comment limiter le téléchargement des images en 1920x1200 prévu pour les desktop et complètement superflue pour les mobiles.
 
 ### Image adaptative avec srcset
 
 Cette fois, c’est le HTML 5 avec sa propriété `srcset` sur la balise `img`. Cette propriété va permettre d’avoir des [images adaptatives](https://developer.mozilla.org/fr/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images). Les navigateurs modernes pourront alors choisir l’image la plus adaptée à la résolution de l’écran utilisateur.
+
+Le blog est buildé par [hugo](https://gohugo.io/) et dans ses dernières versions, il permet de [manipuler les images](https://gohugo.io/content-management/image-processing/), de les retailler ou de les découper. Grâce à cette fonctionnalité, on peut stocker sur le dépôt Git l’image pour le lien de partage (qui est surement la plus grosse) et la décliner pour les différentes résolutions que l’on veut supporter.
+
+Voilà le code [hugo](https://gohugo.io/) utilisé pour l’image d’entête du blog :
+
+``` go
+{{ $topImage := "/img/back.webp" }}
+{{ $topAlt := .Page.Name }}
+{{ $topSrcSet := "" }}
+
+{{ if .Page.Params.image }}
+    {{ with .Resources.GetMatch .Page.Params.image }}
+        {{ $image := . }}
+
+        <!-- variables used for img tag -->
+        {{ $imgSrc := "" }}
+        {{ $imgSrcSet := slice }}
+
+        <!-- uses settings from config.toml depending on orientation -->
+        {{ $widths := slice 800 480 320 }}
+
+        <!--
+        Add URL for each width to $imgSrcSet variable
+        format: "/path/img_1000.jpg 1000w,/path/img_500.jpg 500w"
+        Note: the first URL is used as "fallback" src in $imgSrc.
+        -->
+        {{ range $widths }}
+            {{ $srcUrl := (printf "%dx75 q90 Lanczos Center" . | $image.Fill).RelPermalink }}
+            {{ $imgSrcSet = $imgSrcSet | append (printf "%s %dw" $srcUrl .) }}
+        {{ end }}
+        {{ $topSrcSet = (delimit $imgSrcSet ",") }}
+        {{ $topImage = $image.RelPermalink }}
+    {{ else }}
+        {{ if .Page.Params.image }}
+            {{ $topImage = .Page.Params.image }}
+            {{ if not (findRE "^(/|http(s?)://)" $topImage) }}
+                {{ with .Page.Resources.GetMatch $topImage }}
+                    {{ $topImage = .RelPermalink }}
+                {{ else }}
+                    {{ $topImage = print "/img/" $topImage }}
+                {{ end }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+{{end}}
+<figure class="img-ticke">
+    <img src="{{ $topImage }}" 
+        {{ if (not (eq $topSrcSet "" )) }}srcset="{{ $topSrcSet }}"{{end}} 
+        alt="{{ $topAlt }}" height="80" class="w-full h-20 object-cover" />
+</figure>
+```
+
+## Le maillage interne
+
+Il s’agit de l’organisation des liens entre vos différentes pages. Comment ces liens permettent de naviguer d’une page à une autre sur votre site, tout en restant dans le même domaine sémantique.
