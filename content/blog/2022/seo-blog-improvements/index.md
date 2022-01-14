@@ -4,9 +4,9 @@ date: 2022-01-05
 # modified: 2021-11-04
 summary: |
     Le SEO ou Search Engine Optimization est un ensemble de bonnes pratique pour que son site remonte plus haut dans les résultats des moteurs de recherche tel que Google ou autre. Chaque moteur de recherche a ses propres algorithmes et les garde secret.
-tags: [seo, referencement, css, blog]
+tags: [seo, referencement, tailwindcss, blog]
 image: featured-seo-improvement.webp
-# toc: true
+toc: true
 # comment: /s/knmp7w/import_sql_avec_barre_de_progression
 ---
 
@@ -96,3 +96,50 @@ Voilà le code [hugo](https://gohugo.io/) utilisé pour l’image d’entête du
 ## Le maillage interne
 
 Il s’agit de l’organisation des liens entre vos différentes pages. Comment ces liens permettent de naviguer d’une page à une autre sur votre site, tout en restant dans le même domaine sémantique.
+
+Un bon maillage permet au moins deux choses :
+
+* **Diminuer le taux de rebond**. C’est le pourcentage de visiteurs qui arrivent sur votre site par une page et en repartent pas cette même page. Ils ont rebondi sur votre site. Le maillage va proposer des liens vers d’autres pages de votre site.
+* **Améliorer le référencement**. Les moteurs de recherches tiennent compte des liens externes qui amènent à votre page, mais aussi des liens interne. 
+
+### Ajout des articles connexes
+
+Pour améliorer le maillage interne du blog, qui jusqu'alors était inexistante, une liste de 5 articles portant sur les mêmes sujets a été ajouté sur la droite. Juste en dessous de la vue d’ensemble.
+
+Une fois de plus, Hugo aide bien puisqu’il permet de liste les articles aillant les mêmes tags, par date de sortie. Voilà le code pour ce que ça intéresse.
+
+```go
+{{ $currPermalink := .Page.RelPermalink }}
+{{ $tagged := slice }}
+{{ range (.GetTerms "tags") }}
+    {{ $currTag := .LinkTitle }}
+    {{ $taggedPages := (index .Site.Taxonomies.tags (lower $currTag)).Pages }}
+    {{ range first 5 $taggedPages }}
+        {{ if not (eq .RelPermalink $currPermalink) }}
+            {{ $tagged = $tagged | append . }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+{{ if gt (len $tagged) 0 }}
+<header class="font-bold text-lg">Sur le même sujet</header>
+<nav class="toc-nav">
+    <ul class="toc-list">
+    {{ range first 5 ($tagged | uniq) }}
+        <li class="toc-element"><a class="toc-menulink" href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+    {{ end }}
+    </ul>
+</nav>
+{{ end }}
+```
+
+### Plan du site
+
+Une des bonnes pratiques est aussi de générer une page avec un plan du site. Chose qui n’est pas encore présent sur ce blog, mais qui viendra rapidement. Cela permet à la fois d’élargir le maillage interne, mais aussi de donner une vue d’ensemble aux visiteurs.
+
+## Mot de la fin
+
+Il ne s’agit là que de quelques règles parmi un océan. D’autant que les moteurs de recherches ne publient pas leurs algorithmes et les changent fréquemment. Cependant, ces quelques astuces devraient faire grimper votre blog de quelques lignes dans les résultats de recherches.
+
+Cet article était aussi l’occasion de parler de [Tailwindcss](https://tailwindcss.com/) et de montrer quelques bouts de code [hugo](https://gohugo.io/) que j’ai mis du temps à faire fonctionner.
+
+N’hésitez pas à tester et à me faire part de vos remarques.
