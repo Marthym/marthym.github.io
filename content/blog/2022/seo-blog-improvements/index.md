@@ -7,7 +7,7 @@ summary: |
 tags: [seo, referencement, tailwindcss, blog]
 image: featured-seo-improvement.webp
 toc: true
-# comment: /s/knmp7w/import_sql_avec_barre_de_progression
+comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
 ---
 
 Je ne m’en étais jamais trop préoccupé jusque-là, mais j’ai réalisé le mois dernier que le blog n’était pas très bon en termes de <accr title="Search Engine Optimization">SEO</accr>.
