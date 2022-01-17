@@ -99,7 +99,7 @@ Il s’agit de l’organisation des liens entre vos différentes pages. Comment 
 
 Un bon maillage permet au moins deux choses :
 
-* **Diminuer le taux de rebond**. C’est le pourcentage de visiteurs qui arrivent sur votre site par une page et en repartent pas cette même page. Ils ont rebondi sur votre site. Le maillage va proposer des liens vers d’autres pages de votre site et inciter le visiteur à rester sur le site.
+* **Diminuer le taux de rebond**. C’est le pourcentage de visiteurs qui arrivent sur votre site par une page et en repartent par cette même page. Ils ont rebondi sur votre site. Le maillage va proposer des liens vers d’autres pages de votre site et inciter le visiteur à rester sur le site.
 * **Améliorer le référencement**. Les moteurs de recherches tiennent compte des liens externes qui amènent à votre page, mais aussi des liens interne. 
 
 ### Ajout des articles connexes
