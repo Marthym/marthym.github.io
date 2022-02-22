@@ -14,9 +14,9 @@ La fonctionnalité est de prévenir les clients d’une application qu’un év�
 
 > ### Edit : 21/02/2021 - Nettoyage des souscriptions
 >
-> La version initale a un inconvénient majeur : les souscriptions au flux SSE se cumulent et ne se libèrent jamais. Il semble que [Netty ne détecte pas bien les fermetures](https://github.com/spring-projects/spring-framework/issues/18523) ce qui à pour conséquence d’ouvrir un nouvelle souscription chaque fois que l’on fait F5 sur la page qui ouvre la liaison SSE. Tout en gardant les précédentes. Un `EventSource#close` n’a aucun effet coté serveur.
+> La version initiale avait un inconvénient majeur : les souscriptions au flux <abbr title="Server Sent Event">SSE</abbr> se cumulent et ne se libèrent jamais. Il semble que [Netty ne détecte pas bien les fermetures](https://github.com/spring-projects/spring-framework/issues/18523) ce qui à pour conséquence d’ouvrir une nouvelle souscription chaque fois que l’on rafraichit la page qui ouvre la liaison <abbr title="Server Sent Event">SSE</abbr>, tout en gardant les précédentes. Un `EventSource#close` n’a aucun effet coté serveur.
 > 
-> Le controller a donc été revu pour inclure une mécanique de nettoyage des souscriptions, la difficulté étant de libérer le Flux quand on a pas le `Disposable`.
+> Le contrôleur a donc été revu pour inclure une mécanique de nettoyage des souscriptions. La difficulté étant de libérer le Flux quand on a pas accès au `Disposable`.
 > 
 > cf. [Libération des souscriptions](#lib%C3%A9ration-des-souscriptions)
 
@@ -203,7 +203,7 @@ Dans ce deuxième cas par contre, la souscription est laissée au `notifyService
 
 ## Libération des souscriptions
 
-Avec le contrôleurs tel qu’il est implémenté au-dessus, le code va avoir un problème majeur : **Les ressources utilisées pour la souscription au Flux** (le contexte, ...) **ne sont jamais libérées**. Pire, si un utilisateur appelle la route <abbr title="Server Sent Event">SSE</abbr> 25x d’affilée, avec ou sans `EventSource#close` le serveur va se retrouver avec 25 contextes pour 25 souscriptions. Et donc pour chaque élément envoyé dans votre flux via le `Sink`, vous aurez 25 traitements effectués avec possiblement des accés disque ou BBD. Cela lié à un [problème sur Netty](ttps://github.com/spring-projects/spring-framework/issues/18523) ou juste à la façon dont les <abbr title="Server Sent Event">SSE</abbr> fonctionnent.
+Avec le contrôleurs tel qu’il est implémenté au-dessus, le code va présenter un problème de fuite mémoire : **Les ressources utilisées pour la souscription au Flux** (le contexte, ...) **ne sont jamais libérées**. Pire, si un utilisateur appelle la route <abbr title="Server Sent Event">SSE</abbr> 25x d’affilée, avec ou sans `EventSource#close` le serveur va se retrouver avec 25 contextes pour 25 souscriptions. Chaque élément envoyé dans le flux via le `Sink` effectuera 25 traitements avec possiblement des accés disque ou BBD. Ce comportement semble lié à un [problème sur Netty](ttps://github.com/spring-projects/spring-framework/issues/18523) ou juste à la façon dont les <abbr title="Server Sent Event">SSE</abbr> fonctionnent.
 
 Voilà par exemple les logs retournés par un seul message. Il n’y a pourtant qu'un seul souscripteur.
 
@@ -228,52 +228,76 @@ DEBUG f.g.b.i.notify.NotificationController    : Event: ServerSentEvent [id = '0
 
 La solution à ce problème est envisageable selon plusieurs axes :
 
-On va d’abord ajouter un cache de `Flux` qui va permettre de toujours donner la même souscription au même utilisateur. Ainsi, si un utilisateur rafraîchit sa page en boucle, il n’aura qu’une seule souscription. **On notera le `.cache(0)`**. sans ça, le fait de mettre le flux dans un cache n’aura aucune incidence. Le cache rendra effectivement le même flux mais une nouvelle souscription sera crée. **Le `0` en paramètre indique de ne pas garder l’historique** du flux. Sans cette valeur, chaque nouvel appel au flux récupère l’ensemble des éléments déjà publiés dans cette instance du Flux.
-
-Le deuxième axe d’amélioration est dans le `.takeWhile(e -> subscriptions.containsKey(id))`. En effet, nous n’avons pas la main sur la souscription du flux et donc on ne peux pas faire de `dispose`. **Le `takeWhile`, comme le `takeUntil` vont permettre de fermer le flux automatiquement** quand la condition est validée. Dans notre cas, le `takeWhile` permet de résilier la souscription quand le Flux ne se trouve plus dans le cache. Et une route permet de supprimer l’entrée de cache pour un utilisateur. Du fait que rien ne permet d’être informé de la fermeture d’une connexion SSE, le seul moyen est de demander à l’utilisateur de prévenir le serveur. Il est important de noter que **le Flux n’est pas résilié immédiatement mais lors du passage du prochain élément** dans le Flux.
-
-Il est possible, pour finir, d’ajouter une politique de rétention au cache pour que les souscriptions non accédées depuis un certains temps soient éjectées du cache.
-
-Voilà la version du contrôleurs revue et corrigé :
+On va d’abord ajouter un cache de `Flux` qui va permettre de toujours donner la même souscription au même utilisateur. Ainsi, si un utilisateur rafraîchit sa page en boucle, il n’aura qu’une seule souscription.
 
 ```java
-public class NotificationController {
-    private final NotifyService notifyService;
-    private final StatService statService;
-    private final AuthenticationFacade authenticationFacade;
-
-    private int userBidon = 0;
-
-    private final Map<String, Flux<ServerSentEvent<Object>>> subscriptions = new ConcurrentHashMap<>();
-
-    @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<ServerSentEvent<Object>> sse() {
-        return authenticationFacade.getConnectedUser()
-                .flatMapMany(u -> subscriptions.computeIfAbsent(u.id, id ->
-                        notifyService.getFlux()
-                                .takeWhile(e -> subscriptions.containsKey(id))
-                                .flatMap(e -> e.getT2().map(s -> ServerSentEvent.builder()
-                                        .id(UlidCreator.getMonotonicUlid().toString())
-                                        .event(e.getT1().getName()).data(s)
-                                        .build())
-                                ).map(e -> {
-                                    log.debug("Event: {}", e);
-                                    return e;
-                                }).cache(0)
-                ));
-    }
-
-    @DeleteMapping
-    public Mono<ResponseEntity<Object>> disposeSse() {
-        return authenticationFacade.getConnectedUser()
-                .filter(u -> subscriptions.containsKey(u.id))
-                .map(u -> {
-                    log.debug("Dispose SSE Subscription for {}", u.id);
-                    return subscriptions.remove(u.id);
-                })
-                .map(_x -> ResponseEntity.noContent().build())
-                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
-
-    }
-}
+private final Map<String, Flux<ServerSentEvent<Object>>> subscriptions = new ConcurrentHashMap<>();
+/* ... */
+return authenticationFacade.getConnectedUser()
+        .flatMapMany(u -> subscriptions.computeIfAbsent(u.id, id ->  // <-- Cache du pauvre
+                notifyService.getFlux()
+                        .flatMap(e -> e.getT2().map(s -> ServerSentEvent.builder()
+                                .id(UlidCreator.getMonotonicUlid().toString())
+                                .event(e.getT1().getName()).data(s)
+                                .build())
+                        ).map(e -> {
+                            log.debug("Event: {}", e);
+                            return e;
+                        }).cache(0)   // <-- Important sinon cache inefficace
+        ));
 ```
+
+**On notera le `.cache(0)`**. sans ça, le fait de mettre le flux dans un cache n’aura aucune incidence. Le cache rendra effectivement le même flux mais une nouvelle souscription sera crée. **Le `0` en paramètre indique de ne pas garder l’historique** du flux. Sans cette valeur, chaque nouvel appel au flux récupère l’ensemble des éléments déjà publiés dans cette instance du Flux.
+
+Le deuxième axe d’amélioration est de faire en sorte de résilier la souscription quand elle n’est plus nécessiare.
+
+```java
+@GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+public Flux<ServerSentEvent<Object>> sse() {
+    return authenticationFacade.getConnectedUser()
+            .flatMapMany(u -> subscriptions.computeIfAbsent(u.id, id ->
+                    notifyService.getFlux()
+                            /* VVV - Résiliation de la souscription - VVV */
+                            .takeWhile(e -> subscriptions.containsKey(id))
+                            .flatMap(e -> e.getT2().map(s -> ServerSentEvent.builder()
+                                    .id(UlidCreator.getMonotonicUlid().toString())
+                                    .event(e.getT1().getName()).data(s)
+                                    .build())
+                            ).map(e -> {
+                                log.debug("Event: {}", e);
+                                return e;
+                            }).cache(0)
+            ));
+}
+
+@DeleteMapping
+public Mono<ResponseEntity<Object>> disposeSse() {
+    return authenticationFacade.getConnectedUser()
+            .filter(u -> subscriptions.containsKey(u.id))
+            .map(u -> {
+                log.debug("Dispose SSE Subscription for {}", u.id);
+                return subscriptions.remove(u.id);
+            })
+            .map(_x -> ResponseEntity.noContent().build())
+            .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
+
+}
+
+```
+
+En effet, nous n’avons pas la main sur la souscription du flux il n’est donc pas possible de faire un `dispose`. **Le `takeWhile`, comme le `takeUntil` vont permettre de fermer le flux automatiquement** quand la condition est validée. Dans notre cas, le `takeWhile` permet de résilier la souscription quand le Flux ne se trouve plus dans le cache.
+
+Enfin une route permet de supprimer l’entrée de cache pour un utilisateur. Du fait que rien ne permet au serveur d’être informé de la fermeture d’une connexion <abbr title="Server Sent Event">SSE</abbr>, le seul moyen est de demander à l’utilisateur de le prévenir. Il est important de noter que **le Flux n’est pas résilié immédiatement mais lors du passage du prochain élément** dans ce dernier.
+
+### Le code final
+
+Le code au-dessus est volontairement simplifié mais si le code complet vous intéresse, vous pouvez le trouver sur [github](https://gist.github.com/Marthym) :
+
+* le [service](https://gist.github.com/Marthym/a90e5dffae9779ffb09c290a14f4d314)
+* le [contrôleur](https://gist.github.com/Marthym/b75a7d43c2490744319265630b5eb084)
+
+Le code a été remanié pour déporter la gestion du cache dans le service. Ce dernier possède deux interfaces, une pour envoyer la notification, à l’usage de tous les services qui ont besoin de faire ça. L’autre à destination du contrôleur qui va renvoyer le Flux à l’utilisateur et récupérer les demandes de résiliations.
+
+Le cache utilisé est un vrai cache avec invalidation des entrées au bout de 30mn. Ce qui permet de ne pas garder indéfiniment les souscriptions des utilisateurs ayant brutalement fermé leur navigateur. Effet collatéral sympa, si un utilisateur garde son navigateur ouvert plus de 30mn sans rien faire, celui-ci redemande tout seul la connexion <abbr title="Server Sent Event">SSE</abbr> s’il la perd.
+
+Le contrôleur possède une fonction de test qui envoi une notification quand on l’appelle.
