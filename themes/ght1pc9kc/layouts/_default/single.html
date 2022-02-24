@@ -2,14 +2,18 @@
 <main class="leading-relaxed text-xl grid grid-cols-1 lg:grid-cols-7">
     {{ partial "autor-bio" . }}
     <article class="w-full px-4 py-12 lg:col-span-4 lg:max-w-prose">
-        <h1>{{ .Title }}</h1>
+        <h1 class="m-0">{{ .Title }}</h1>
+        <div class="text-sm italic mb-6">
+            <time datetime="{{ .PublishDate }}">{{ .PublishDate.Format "2 Jan 2006" }}</time>
+            {{ if (gt .Lastmod .Date) }}[Edit: <time datetime="{{ .Lastmod }}">{{ .Lastmod.Format "2 Jan 2006" }}</time>]{{ end }}
+            ⏱ {{ .ReadingTime }} mn</div>
         <section>
             {{ .Content }}
         </section>
         <hr class="w-full my-8" />
         <footer role="contentinfo" class="text-sm">
             <p><strong>{{ .Title }}</strong> est paru le <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2006-01-02" }}</time>
-            {{ if isset .Params "Lastmod" }}
+            {{ if (gt .Lastmod .Date) }}
             et modifié pour la dernière fois le <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "Jan 2, 2006" }}</time>
             {{ end }}
             {{ if isset .Params "comment" }}

@@ -7,10 +7,6 @@ pygmentsUseClasses = true
 pygmentsCodeFences = true
 googleAnalytics = "UA-67836375-1"
 
-[params]
-  mixpanel = "50791435686447e860177b666f803ec1"
-
-
 [permalinks]
   blog = "/:year/:title"
 
