@@ -2,10 +2,10 @@
 title: Comprendre la résolution DNS sous Debian
 date: 2020-06-06
 summary: |
-    La résolution DNS, c’est à la fois très simple et très complexe. On ne parlera pas d’installer un serveur mais de comprendre comment
+    La résolution DNS, sous Linux est très simple et très complexe. On ne parlera pas d’installer un serveur mais de comprendre comment
     une debian fait pour résoudre un nom de domaine. Qu’est-ce que change systemd-resolve et resolvectl.
-tags: [dns, network, resolv, systemd, planetlibre]
-image: network.webp
+tags: [dns, network, resolv, systemd]
+image: featured-understand-dns-resolve-debian.webp
 toc: true
 #comment: /s/gjvoos/curriculum_vitae_le_bon_la_brute_et_le
 ---
@@ -53,15 +53,15 @@ Et c’est là que se pointe [`systemd-resolved`](https://wiki.archlinux.org/ind
 
 Il faut savoir que **sur les dernières versions de Debian, c’est lui qui gère le DNS**, pas le fichier `resolv.conf`, enfin il est prioritaire en tout cas.
 
-Il a plusieurs modes de fonctionnement, il peut soit ne plus tenir compte du tout du fichier `resolv.conf`, soit lancer son propre DNS et le mettre dans le fichier `resolv.conf` (127.0.0.53). Cela permet une migration plus en douceur vers la solution. Cela se règle au niveau du fichier `/etc/NetworkManager/NetworkManager.conf`.
+Il a plusieurs modes de fonctionnement, il peut soit ne plus tenir compte du tout du fichier `resolv.conf`, soit lancer son propre DNS et le mettre dans le fichier `resolv.conf` (`127.0.0.53`). Cela permet une migration plus en douceur vers la solution. Cela se règle au niveau du fichier `/etc/NetworkManager/NetworkManager.conf`.
 
 On peut tester la résolution de ce service avec la commande `resolvectl query blog.ght1pc9kc.fr`.
 
-## ping vs nslookup,dig
+## ping vs nslookup, dig
 
 Revenons en au problème initial, pourquoi la commande `dig` ou `nslookup` ne me retournent pas la même chose que `ping` ?
 
-C’est là qu’intervient [NSS](https://fr.wikipedia.org/wiki/Name_Service_Switch). 
+C’est là qu’intervient [<abbr title="Name Service Switch">NSS</abbr>](https://fr.wikipedia.org/wiki/Name_Service_Switch). 
 
 > C’est un service qui autorise le remplacement des traditionnels fichiers Unix de configuration (par exemple /etc/passwd, /etc/group, /etc/hosts) par une ou plusieurs bases de données centralisées
 >
