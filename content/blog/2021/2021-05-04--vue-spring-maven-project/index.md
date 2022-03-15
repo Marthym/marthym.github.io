@@ -1,11 +1,15 @@
 ---
 title: Vue.js / Spring Boot Maven Project
+slug: vuejs-spring-boot-maven-project
 date: 2021-05-17
-summary: |
-    Quelques astuces pratiques pour développer et builder un projet front / back à base de Vue.js et de Spring Boot. Le tout avec une configuration Maven simple.
-tags: [java, maven, vue, planetlibre]
-image: top.jpg
+summary: >
+    Quelques astuces pratiques pour développer et builder un projet front / back à base de Vue.js et de Spring Boot.
+    Le tout avec une configuration Maven simple.
+tags: [java, maven, vue, spring]
+image: featured-spring-vuejs.webp
 toc: true
+aliases:
+    - /2021/vue.js-/-spring-boot-maven-project.html
 # comment: /s/s6d5d1/les_crit_res_de_recherche_avec_juery
 ---
 
@@ -17,7 +21,7 @@ Voilà une façon de packager et de releaser une application mixte front/back to
 
 ## Description du projet
 
-On prend pour exemple un projet avec une interface en Vue.js et un backend en Spring Boot. Le front appelle la route `/api` pour tout ce qui est des appels REST. On part du principe que les outils de développement sont déjà installés: Java, Maven, Node et NPM.
+On prend pour exemple un projet avec une interface en Vue.js et un backend en Spring Boot. Le front appelle la route `/api` pour tout ce qui est des appels <abbr title="REpresentational State Transfer">REST</abbr>. On part du principe que les outils de développement sont déjà installés : Java, Maven, Node et NPM.
 
 Il s’agit d’un projet [Maven](https://maven.apache.org/) contenant pour l’instant deux sous-modules. Le premier pour le frontend, le deuxième pour le backend.
 
@@ -47,9 +51,13 @@ projet
 
 On prendra soin de se fixer une racine commune à toutes les API, pour le front et le back. 
 
-Spring propose une propriété `spring.webflux.base-path` qui permet de changer le chemin de base. Mais cela impacte aussi les fichiers statiques ce qui enlève tout l’intérêt de la chose dans le cas qui nous intéresse. À la place, on peut ajouter un paramètre `myApp.base-path` et s’en servir dans les `@RequestMapping("${myApp.base-path}/`.
+Spring propose une propriété `spring.webflux.base-path` qui permet de changer le chemin de base. Mais cela impacte aussi les fichiers statiques ce qui enlève tout l’intérêt de la chose dans le cas qui nous intéresse. À la place, on peut ajouter un paramètre `myApp.base-path` et s’en servir dans les `@RequestMapping`
 
-Ceci va permettre de configurer votre environnement de test `Vue.js`. De manière à avoir votre front qui redirige vers Spring, sans avoir à configurer le serveur back dans une variable d’environnement et sans avoir les classiques problèmes de CORS.
+```java
+@RequestMapping("${myApp.base-path}/obiwan").
+```
+
+Ceci va permettre de configurer votre environnement de test `Vue.js`. De manière à avoir votre front qui redirige vers Spring, sans avoir à configurer le serveur back dans une variable d’environnement et sans avoir les classiques problèmes de <abbr title="Cross Origin Resource Sharing">CORS</abbr>.
 
 Autre détail, Spring sait servir des fichiers statiques, mais ce n’est sa fonction principale comme un nginx et il ne possède donc que les fonctionnalités basiques. Par exemple, il ne sait pas comprendre seul que si vous demandez `/` il faut qui vous serve `/index.html`. Pour palier ce comportement, il suffira de rajouter un filtre.
 
@@ -88,15 +96,15 @@ module.exports = {
 }
 ```
 
-Attention de penser à changer le port du serveur node ou de spring, les deux sont sur `8080` par défaut.
+Attention de penser à changer le port du serveur Node ou de Spring, les deux sont sur `8080` par défaut.
 
-Maintenant quand vous lancez les deux serveurs, le serveur node de test vous reverse-proxifie vers le Spring. Pour votre navigateur, plus de problème de CORS puisque tout est sur le même domaine. Vous trouverez beaucoup d’autres paramètres intéressants pour ce reverse proxy dans la documentation de [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware#http-proxy-options).
+Maintenant quand vous lancez les deux serveurs, le serveur Node de test vous reverse-proxifie vers le Spring. Pour votre navigateur, plus de problème de CORS puisque tout est sur le même domaine. Vous trouverez beaucoup d’autres paramètres intéressants pour ce reverse proxy dans la documentation de [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware#http-proxy-options).
 
 ## Le packaging
 
 Prochaine étape, il faut packager, releaser et déployer le projet. Le but n’est pas d’expliquer le fonctionnement de Maven ou de Webpack. **Mais plutôt de proposer un format simple de packaging**.
 
-On l’a vu, **Spring est capable de servir des pages statiques**, par défaut il prend ce qui se trouve dans les répertoires suivant : `/static, /public, /resources, /META-INF/resources`.
+On l’a vu, **Spring est capable de servir des pages statiques**, par défaut, il prend ce qui se trouve dans les répertoires suivants : `/static, /public, /resources, /META-INF/resources`.
 
 À partir de là, **il est possible de builder la partie front du projet dans un [WebJars](https://www.webjars.org/)** pour que Spring retrouve les fichiers et les serve.
 
@@ -104,80 +112,80 @@ On se servira du plugin `exec-maven-plugin` pour lancer le build du front. Et du
 
 ### Construction du WebJar
 
-Dans le sous-module frontend, modifier le `pom.xml` pour lui faire exécuter le build webpack et packager dans un jar.
+Dans le sous-module frontend, modifier le `pom.xml` pour lui faire exécuter le build Webpack et packager dans un jar.
 
 ```xml
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>NPM Install</id>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
-                                <argument>ci</argument>
-                            </arguments>
-                        </configuration>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>Webpack build</id>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <executable>npm</executable>
-                            <arguments>
-                                <argument>run</argument>
-                                <argument>build</argument>
-                            </arguments>
-                        </configuration>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/classes/META-INF/resources</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>dist</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>exec-maven-plugin</artifactId>
+    <executions>
+        <execution>
+            <id>NPM Install</id>
+            <phase>generate-resources</phase>
+            <configuration>
+                <executable>npm</executable>
+                <arguments>
+                    <argument>ci</argument>
+                </arguments>
+            </configuration>
+            <goals>
+                <goal>exec</goal>
+            </goals>
+        </execution>
+        <execution>
+            <id>Webpack build</id>
+            <phase>generate-resources</phase>
+            <configuration>
+                <executable>npm</executable>
+                <arguments>
+                    <argument>run</argument>
+                    <argument>build</argument>
+                </arguments>
+            </configuration>
+            <goals>
+                <goal>exec</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+<plugin>
+    <artifactId>maven-resources-plugin</artifactId>
+    <executions>
+        <execution>
+            <id>copy-resources</id>
+            <phase>process-resources</phase>
+            <goals>
+                <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+                <outputDirectory>${basedir}/target/classes/META-INF/resources</outputDirectory>
+                <resources>
+                    <resource>
+                        <directory>dist</directory>
+                    </resource>
+                </resources>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
 ```
 
 À noter qu’il peut être intéressant de modifier la configuration du clean pour supprimer aussi `node_modules` et `dist`.
 
 ```xml
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>node_modules</directory>
-                        </fileset>
-                        <fileset>
-                            <directory>dist</directory>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
+<plugin>
+    <artifactId>maven-clean-plugin</artifactId>
+    <configuration>
+        <filesets>
+            <fileset>
+                <directory>node_modules</directory>
+            </fileset>
+            <fileset>
+                <directory>dist</directory>
+            </fileset>
+        </filesets>
+    </configuration>
+</plugin>
 ```
 
 Un `mvn clean package` donnera alors un jar contenant les fichiers packagés sur frontend dans `META-INF/resources`. Cet artefact est déployable sur Maven Central, versionnable, comme n’importe quel autre jar.
@@ -203,36 +211,36 @@ projet
     └── pom.xml
 ```
 
-Dans le pom de l’`assembly`, on commence par déclarer les dépendances aux projets `backend` et `frontend`, puis on déclare le plugin `maven-assembly-plugin`.
+Dans le POM de l’`assembly`, on commence par déclarer les dépendances aux projets `backend` et `frontend`, puis on déclare le plugin `maven-assembly-plugin`.
 
 ```xml
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>${project.groupId}</groupId>
-                        <artifactId>${project.artifactId}</artifactId>
-                        <version>${project.version}</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <finalName>${project.name}-${project.version}</finalName>
-                            <appendAssemblyId>false</appendAssemblyId>
-                            <descriptorRefs>
-                                <descriptorRef>my-project</descriptorRef>
-                            </descriptorRefs>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-assembly-plugin</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.artifactId}</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+    <executions>
+        <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+                <goal>single</goal>
+            </goals>
+            <configuration>
+                <finalName>${project.name}-${project.version}</finalName>
+                <appendAssemblyId>false</appendAssemblyId>
+                <descriptorRefs>
+                    <descriptorRef>my-project</descriptorRef>
+                </descriptorRefs>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
 ```
 
 Enfin, on décrit l’assemblage dans le fichier de bundle `src/main/resources/assemblies/my-project.xml`.
