@@ -1,22 +1,26 @@
 ---
 title: Nettoyer sa Debian
-date: "2016-11-09T12:00:00-00:00"
-excerpt: "Après quelques années d'utilisation, même un système Linux peut s'encrasser. Voyons comment on peut le nettoyer et ainsi regagner de l'espace disque."
-tags: [planetlibre,debian,admin,apt,linux,docker]
-image: debian.png
+date: 2016-11-09
+summary: >
+    Après quelques années d’utilisation, même un système Linux peut s’encrasser, des noyaux obsolètes, des fichiers de config.
+    Voyons comment on peut le nettoyer une Debian et ainsi regagner de l’espace disque en supprimant les fichiers inutiles.
+tags: [debian, system, apt, linux, docker]
+image: featured-debian.webp
 toc: true
 ---
 
-Même si ce n'est pas dans les proportions de Windows, un Linux a tendance à accumuler des reliquats de vieux paquets et du cache pas vraiment utile qui a la longue pèsent lourd sur l'espace disque (ça ne ralenti pas le système pour autant). Voyons quelques pistes pour récupérer cet espace et rafraichir un peu le disque.
+Même si ce n’est pas dans les proportions de Windows, un Linux a tendance à accumuler des reliquats de vieux paquets et du cache pas vraiment utile qui à la longue pèsent lourd sur l’espace disque (ça ne ralenti pas le système pour autant). Voyons quelques pistes pour récupérer cet espace et rafraichir un peu le disque.
 
-Donc histoire de faire le 20ième article sur le sujet (je fais même pas l'effort de lui trouver un nom original), voilà quelques pistes pour retrouver un peu d'espace sur vos disques durs.
+Donc histoire de faire le 20ième article sur le sujet (je fais même pas l’effort de lui trouver un nom original), voilà quelques pistes pour retrouver un peu d’espace sur vos disques durs.
 
 ## Nettoyer les fichiers de conf obsolète
-C'est un article que j'avais publié il n'y a pas longtemps qui est en relation directe : <br/>
-[Nettoyer les configuration obsoletes debian]({{% relref "/blog/2016/2016-07-01-Nettoyer les configuration obsoletes debian" %}})
+
+C’est un article que j’avais publié il n’y a pas longtemps qui est en relation directe : <br/>
+[Nettoyer les configurations obsolètes Debian]({{% relref "2016-07-01--nettoyer-config-obsolete-debian/" %}})
 
 ## Localepurge
-C'est la première chose à faire, `localepurge` est un outil qui a chaque install de paquet ou de mise à jour, va faire le ménage dans les langues installées.
+
+C’est la première chose à faire, **`localepurge` est un outil qui, à chaque installation de paquet ou de mise à jour, va faire le ménage dans les langues installées**.
 Sa première utilisation va potentiellement faire gagner pas mal de place.
 
 ``` shell
@@ -24,11 +28,11 @@ apt install localepurge
 localepurge
 ```
 
-Cette opération ne se fait qu'une fois, par la suite `localepurge` se lance automatiquement avec `apt`.
+Cette opération ne se fait qu’une fois, par la suite `localepurge` se lance automatiquement avec `apt`.
 
 ## Le nettoyage régulier
 
-### Les symptomes
+### Les symptômes
 
 Si on lance la commande suivante
 
@@ -40,7 +44,8 @@ du -hs /var/cache/apt/archives
 On constate que le cache des paquets prend une place significative au sein du système pour une utilité très réduite.
 
 ### La solution
-Cette suite de commandes va permettre d'effectuer un nettoyage rapide des caches d'apt sans risque d'endommager le système :
+
+Cette suite de commandes va permettre d’effectuer un **nettoyage rapide des caches d’Apt sans risque d’endommager le système** :
 
 ``` sh
 apt-get autoclean
@@ -48,23 +53,23 @@ apt-get clean
 apt-get autoremove
 ```
 
-La première commande supprimera tous les paquets .deb présents dans le cache dont une version plus récente est installée, la deuxième supprime tous les paquets
+La première commande supprimera tous les paquets `.deb` présents dans le cache dont une version plus récente est installée, la deuxième supprime tous les paquets
 du cache, et non pas seulement ceux obsolètes comme la commande précédente, enfin la troisième commande supprime les dépendances qui ne sont plus nécessaires.
 
 Si vous faites un `du` par la suite vous verrez le gain de place.
 
 ## Gagner encore de la place
 
-Si cela n'a pas suffi, voici encore quelques façons de gratter un peu de place.
+Si cela n’a pas suffi, voici encore quelques façons de gratter un peu de place.
 
-  * **Nettoyer /var/tmp** ce dernier contient des fichiers ... temporaires non effacé
-  * **Nettoyer /var/log** qui contient les log du système
-  * **Nettoyer ~/.thumbnails** qui contient tout les aperçus des fichiers de Nautilus
+  * **Nettoyer /var/tmp** ce dernier contient des fichiers ... temporaires non effacés
+  * **Nettoyer /var/log** qui contient les journaux du système
+  * **Nettoyer ~/.thumbnails** qui contient tous les aperçus des fichiers de l’explorateur de fichier
 
 ### Nettoyer les kernels
 
 Lors des mises à jour de kernel, les anciens kernel sont conservés afin de pouvoir y revenir en cas de problème.
-Il est possible de désinstaller les anciens kernel ainsi que tout ce qui leur est associé (header, src, ...) via apt-get.
+Il est possible de désinstaller les anciens kernel ainsi que tout ce qui leur est associé (header, src, ...) via `apt`.
 
 La commande suivante vous permet de connaître le kernel actuellement utilisé
 
@@ -79,7 +84,7 @@ Celle pour les kernels installés :
 dpkg --list 'linux-image*'
 ```
 
-<pre class="console">
+```shell
 Souhait=inconnU/Installé/suppRimé/Purgé/H=à garder
 | État=Non/Installé/fichier-Config/dépaqUeté/échec-conFig/H=semi-installé/W=attend-traitement-déclenchements
 |/ Err?=(aucune)/besoin Réinstallation (État,Err: majuscule=mauvais)
@@ -97,31 +102,33 @@ ii  linux-image-4.6.0-1-amd64            4.6.4-1                amd64           
 ii  linux-image-4.7.0-1-amd64            4.7.8-1                amd64           Linux 4.7 for 64-bit PCs (signed)
 un  linux-image-4.7.0-1-amd64-unsigned   aucune                 aucune          (aucune description n'est disponible)
 ii  linux-image-amd64                    4.7+75                 amd64           Linux for 64-bit PCs (meta-package)
+```
 
-</pre>
-
-Les "**ii**" sont les packages installés, pour supprimer ceux qui ne sont plus utilisés, dans l'exemple suivant c'est le **4.6.0-1-amd64** :
+Les "**ii**" sont les packages installés, pour supprimer ceux qui ne sont plus utilisés, dans l’exemple suivant, c’est le **4.6.0-1-amd64** :
 
 ``` shell
 apt purge linux-image-4.6.0-1-amd64 linux-headers-4.6.0-1*
 ```
 
-**ATTENTION Cette commande est à utiliser avec beaucoup de parcimonie, c'est irréversible et ça casse la VM ou le PC définitivement !**
+**ATTENTION Cette commande est à utiliser avec beaucoup de parcimonie, c’est irréversible et ça casse la VM ou le PC définitivement !**
 
 ### Trouver les gros fichiers
-Un ligne de commande bien pratique pour ça :
+
+Une ligne de commande bien pratique pour ça :
 
 ``` bash
 du -hms /* | sort -nr | head
 ```
 
-Ca ne donne que le premier niveau de hiérarchie, il faudra relancer la commande pour affiner le recherche par sous-dossier.
+Cela ne donne que le premier niveau de hiérarchie, il faudra relancer la commande pour affiner la recherche par sous-dossier.
 
 ## Docker
-Allez, tant que j'y suis, quelques pistes de nettoyage autour de [Docker](https://www.docker.com/).
 
-### Nettoyage du repo local
-Les 3 commandes pour supprimer les vieux containeurs et vielles images :
+Allez, tant qu’à y être, voici quelques pistes de nettoyage autour de [Docker](https://www.docker.com/).
+
+### Nettoyage du dépôt local
+
+Les 3 commandes pour supprimer les vieux conteneurs et vielles images :
 
 ``` bash
 docker rm -v $(docker ps -a -q)
@@ -129,14 +136,23 @@ docker rmi $(docker images | grep '^<none>' | awk '{print $3}')
 docker rmi $(docker images | grep 'months ago' | awk '{print $3}')
 ```
 
-1. on supprime les containers non démarrés (attention à cette commande du coup). Remarquer le `-v` qui évite de se trouver avec des volumes orphelins.
-2. on supprime les images non tagguées
+> **Edit 2022-03-15**
+>
+> Depuis 2016 Docker à quand même un peu évolué et la commande prune permet à elle seule de gagner beaucoup de place. Même si les autres commandes restent valable.
+> 
+> ```shell
+> docker system prune
+> ```
+
+1. on supprime les conteneurs non démarrés (attention à cette commande du coup). Remarquer le `-v` qui évite de se trouver avec des volumes orphelins.
+2. on supprime les images non taguées
 3. on supprime les images vieilles de plusieurs mois
 
 Chez nous ces trois commandes sont placées dans un cron weekly sur toutes les machines qui utilisent Docker.
 
 ### Supprimer les layers orphelins dans un registry docker
-Enfin, un petit script bien pratique, notez que selon les versions du registry ce script n'est pas forcément nécessaire mais ça fait pas de mal de le connaitre.
+
+Enfin, un petit script bien pratique, notez que selon les versions du registry ce script n’est pas forcément nécessaire, mais ça ne fait pas de mal de le connaitre.
 
 ``` bash
 #!/bin/bash

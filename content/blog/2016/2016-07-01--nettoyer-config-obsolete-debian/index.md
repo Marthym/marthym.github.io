@@ -1,23 +1,26 @@
 ---
 title: Nettoyer les fichiers de configuration obsolète
-date: "2016-07-01T12:00:00-00:00"
-excerpt: "Comment nettoyer les fichiers de configuration devenus obsolète au fil des mises à jour de votre Debian"
+date: 2016-07-01
+summary: > 
+    Comment nettoyer les fichiers de configuration devenus obsolète au fil des mises à jour et des installations APT de votre Debian.
+    Les config obsolètes sont sujets a ralentissements ou à des comportement inattendu sous Linux.
 #modified: 2015-09-16
-tags: [debian, linux, apt, conffile, nettoyer, clean, planetlibre]
-image: debian.png
+tags: [debian, linux, apt, system]
+image: featured-debian.webp
+toc: true
 ---
 
-Je suis tombé sur un article de [François Marier][francois-marier] expliquant comment trouver et nettoyer certains fichier de configuration obsolètes de sa Debian. J'ai trouvé ça intéressant alors je le traduit ici. Ce n'est pas une traduction fidèle à 100% alors n'hésitez pas a aller voir l'original. Pour les besoins de la traduction, les sorties consoles sont des gros copier/coller des familles. Mais quand j'ai testé sur mon PC, j'avais a peu de chose près les mêmes sorties.
+Je suis tombé sur un article de [François Marier][francois-marier] expliquant comment trouver et nettoyer certains fichiers de configuration obsolètes de sa Debian. Voici donc une traduction aussi fidèle que possible. N’hésitez pas à allé voir l’original. Pour les besoins de la traduction, les sorties consoles sont des copier/coller en l’état, cependant après quelques tests en local les commandes utilisées présentent les mêmes sorties console.
 
 ----
 
-Comme l'explique Raphaël Hertzog [dans l'un de ses articles][clean-conffile], supprimer un fichier de configuartion obsolète n'est pas si simple que ça. Il se peut donc qu'au fil des mises à jour, des fichiers soient oublié dans les méandres du système.
+Comme l’explique Raphaël Hertzog [dans l’un de ses articles][clean-conffile], supprimer un fichier de configuration obsolète n’est pas si simple que ça. Il se peut donc qu’au fil des mises à jour, des fichiers soient oubliés dans les méandres du système.
 
 ## Procédure standard
 
-La commande qui permet de lister les fichiers de configuration osolète est la suivante
+La commande qui permet de lister les fichiers de configuration obsolète est la suivante
 
-```bash
+```shell
 dpkg-query -W -f='${Conffiles}\n' | grep 'obsolete$'
  /etc/apparmor.d/abstractions/evince ae2a1e8cf5a7577239e89435a6ceb469 obsolete
  /etc/apparmor.d/tunables/ntpd 5519e4c01535818cb26f2ef9e527f191 obsolete
@@ -31,18 +34,18 @@ dpkg-query -W -f='${Conffiles}\n' | grep 'obsolete$'
 
 Il faut ensuite connaître le package auquel chacun de ces fichiers appartient pour pouvoir le reconfigurer.
 
-```bash
+```shell
 $ dpkg -S /etc/bash_completion.d/initramfs-tools
 initramfs-tools: /etc/bash_completion.d/initramfs-tools
 ```
 
 Puis on suit les [instructions de Paul Wise][reconffile] pour supprimer les fichiers et reconfigurer le package.
 
-## Cas des fichier dbus-1
+## Cas des fichiers dbus-1
 
-Pour quelques obscures raisons, cela ne fonctionne pas avec les fichiers issue du répertoire `/etc/dbus-1/system.d/` pour ces derniers, il faudra puger puis ré-installer le package.
+Pour quelques obscures raisons, cela ne fonctionne pas avec les fichiers issus du répertoire `/etc/dbus-1/system.d/` pour ces derniers, il faudra purger puis réinstaller le package.
 
-```bash
+```shell
 $ dpkg -S /etc/dbus-1/system.d/com.redhat.NewPrinterNotification.conf
 system-config-printer-common: /etc/dbus-1/system.d/com.redhat.NewPrinterNotification.conf
 $ dpkg -S /etc/dbus-1/system.d/com.redhat.PrinterDriversInstaller.conf
@@ -54,9 +57,9 @@ $ apt install system-config-printer
 
 ## Apparmor
 
-Et biensûr apparmor est un cas encore différent. Les fichiers situé dans `/etc/apparmor.d/` ne sont pas nettoyé, même avec un purge.
+Et bien sûr `Apparmor` est un cas encore différent. Les fichiers situés dans `/etc/apparmor.d/` ne sont pas nettoyé, même avec une purge.
 
-```bash
+```shell
 $ dpkg -S /etc/apparmor.d/abstractions/evince
 evince: /etc/apparmor.d/abstractions/evince
 $ apt purge evince
@@ -65,14 +68,14 @@ $ dpkg-query -W -f='${Conffiles}\n' | grep 'obsolete$'
  /etc/apparmor.d/usr.bin.evince 08a12a7e468e1a70a86555e0070a7167 obsolete
 ```
 
-Il faut purger aussi les profils apparmor pour que cela fonctionne :
+Il faut purger aussi les profils `Apparmor` pour que cela fonctionne :
 
-```bash
+```shell
 $ apt purge apparmor-profiles apparmor-profiles-extra evince ntp
 $ apt install apparmor-profiles apparmor-profiles-extra evince ntp
 ```
 
-Alors pourquoi faut il faire ça, d'après François Marier, il se peut que ces fichiers ai été embarqué dans les packages d'apparmor puis mis à jour plus tard directement par les packages `evince` et `ntp` à la suite de quoi `dpkg` s'emmèle les pinceaux quand il faut nettoyer.
+Alors pourquoi faut-il faire ça, d’après [François Marier][francois-marier], il se peut que ces fichiers aient été embarqué dans les packages d’`Apparmor` puis mis à jour plus tard directement par les packages `evince` et `ntp` à la suite de quoi `dpkg` s’emmêle les pinceaux quand il faut nettoyer.
 
 
 ## Liens
