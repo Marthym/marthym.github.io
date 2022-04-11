@@ -17,9 +17,9 @@ La mesure d’audience (et quelle audience :) est maintenant faite via [Matomo](
 
 > L'alternative à Google Analytics qui protège vos données et la vie privée de vos clients
 
-Matomo est gratuit et Open Source, mais seulement pour les instances autohébergées. Et même si la mise en place d’une instance est simple en soit, je n’est pas l’infrastructure pour faire de l’hébergement. 
+Matomo est gratuit et Open Source, mais seulement pour les instances autohébergées. Et même si la mise en place d’une instance est simple en soit, je n’ai pas l’infrastructure pour faire de l’hébergement. 
 
-Fort heureusement, l’association [Libreon](https://libreon.fr/) propose une telle instance avec l’hébergement des données en France. 
+Fort heureusement, l’association [Libreon](https://libreon.fr/) propose une telle instance avec l’hébergement des données. 
 
 > Libreon est une association rennaise promouvant l'utilisation de logiciels libres en alternative aux services propriétaires détenus par de grandes entreprises.
 >
