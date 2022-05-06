@@ -2,7 +2,7 @@
 title: Brown Bag Lunch
 date: "2019-06-10T14:50:00+02:00"
 excerpt: "Je suis un bagger"
-tags: [formation, training, partage, blog]
+tags: [formation, training, craftsmanship, blog]
 image: featured-brown-bag-lunch.webp
 ---
 

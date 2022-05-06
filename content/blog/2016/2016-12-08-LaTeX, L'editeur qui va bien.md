@@ -3,7 +3,7 @@ title: LaTeX, L'éditeur qui va bien
 date: "2016-12-08T12:00:00-00:00"
 excerpt: "L'éditeur LaTeX avec aperçu instantané, pas trop lourd et qui fonctionne bien"
 #modified: 2015-09-21
-tags: [latex, latexmk, gv, pdf, planetlibre]
+tags: [latex, latexmk, gv, pdf]
 image: back.webp
 ---
 
