@@ -8,7 +8,10 @@ module.exports = {
             },
             transitionDelay: {
                 '0': '0ms',
-            }
+            },
+            maxWidth: {
+                '1/3': '33.333333%',
+            },    
         },
         fontFamily: {
             'title': ['Arial', 'Helvetica', 'sans-serif'],
