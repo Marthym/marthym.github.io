@@ -60,4 +60,11 @@
             transition transition-all duration-150 
             hover:bg-top hover:-translate-y-1;
     }
+
+    .img-right {
+        @apply w-full lg:w-1/3 lg:float-right;
+    }
+    .img-left {
+        @apply w-full lg:w-1/3 lg:float-left;
+    }
 }

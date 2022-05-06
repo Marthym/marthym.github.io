@@ -20,4 +20,8 @@ module.exports = {
         },
     },
     plugins: [],
+    safelist: [
+        'img-right',
+        'img-left',
+    ]
 }
