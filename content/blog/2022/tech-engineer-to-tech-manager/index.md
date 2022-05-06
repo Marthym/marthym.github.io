@@ -28,17 +28,22 @@ Si la réponse est non, cet article ne vous apportera pas grand-chose, je le cra
 
 ## Au-delà du développement
 
-**Surtout, soyez patient !** C’est vraiment le premier et le plus important des conseils. 5 années d’expérience ne constituent pas un aboutissement, mais plus le temps minimum pour avoir rencontré suffisament de situations. C’est l’expérience de ces situations qui vous donneront le recul nécessiare pour aller au delà du simple développement.
+Arrive un moment où chaque développeur se pose cette question. **Comment évoluer dans mon métier ?**
 
-Au delà du devéloppement le management n’est que l’une des voies qui se présente. L’architecture ou l’expertise sont d’autre évolution possible, tout dépend de vos préférences et de vos envie. C’est pour cela qu’il est intéressant de pouvoir tester les évolutions avant de s’engager dedans.
+Certes il est toujours possible d’apprendre de nous languages mais qu’est ce qui va nous différencier des autres, de ceux qui sortent des études avec ces mêmes nouveaux languages. On ne va pas mettre en avant nos compétences sur les languages oubliés. Mettre en avant nos compétences `Cobol` aujourd’hui revient à se tirer une balle dans le pied. Selon nos appétences le choix est vaste : l’architecture logicielle, l’expertise technique, le management.
+
+![Activité de développeur](developer_activity.svg "img-left")
+Au-delà du devéloppement le management n’est que l’une des voies qui se présente. L’architecture ou l’expertise sont d’autre évolution possible, tout dépend de vos préférences et de vos envie. C’est pour cela qu’il est intéressant de pouvoir tester les évolutions avant de s’engager dedans.
 
 Par exemple, si le management vous intéresse, commencez par prendre un charge le nouveau. Coacher les nouveaux arrivants, prendre en charge leur incorporation, vous donnera un aperçu de quelques unes des compétences sociales nécessaires à un poste de manager. Si vous êtes à l’aise, le mentoring constitue l’évolution suivante. Chaque étape vous permet de concrétiser l’idée que l’on se fait du poste et de confirmer que tous les aspects nous conviennent. Si cela n’est pas le cas, le retour arrière reste possible.
 
-> J’en profite pour parler d’un livre que j’ai vraiment trouvé bien sur le sujet :
+![Couverture The Manager Path](manager-path.webp "img-right")
+
+> J’en profite pour parler d’un livre que j’ai vraiment trouvé bien sur le sujet :<br/>
 > **The manager path** de *Camille Fournier*
 >
 > Il aborde chacune des étapes dans je viens de parler, et plus encore. C’est un bouquin facile à lire et plein de bon conseil. Il se lit en plusieurs fois, au fur et à mesure qu’on avance sur le chemin, on peut allé y prendre des conseils ou des point de vu différents.
-> Si vous ne devez en lire qu’un, lisez celui là.
+> Si vous ne devez en lire qu’un, lisez celui-là.
 
 ## A quoi s’attendre ?
 
