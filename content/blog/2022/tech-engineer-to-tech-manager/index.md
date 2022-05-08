@@ -192,7 +192,7 @@ La veille technique est un aspect important. Plus vous aurez d’information plu
 
 Plus vous êtes proche de l’opérationnel, plus votre vision doit être précise pour proposer des solutions viables. Plus vous en êtes éloigné, plus votre vision doit s’élargir pour avoir une vu d’ensemble et prendre les décision les plus cohérentes.
 
-#### Participer à la communauté
+#### Prendre part à la communauté
 
 Cela revient un peu à faire de la veille mais pas que. Il est important de se constituer un réseau de connaissance et de relation dans le monde de l’informatique. De connaissances géographiquement proche de vous mais aussi plus éloignés. Ce réseau vous permettra d’apprendre, de multiplier les point de vues mais aussi d’augmenter vos chances d’être au courant des bonnes opportunités, de poste ou de recrutement.
 
