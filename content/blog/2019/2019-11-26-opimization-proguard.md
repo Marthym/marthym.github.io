@@ -27,9 +27,9 @@ Je vous propose de voir la configuration que l’on a mise en place chez [i-Run]
 
 Proguard va optimiser un jar en passant par plusieurs phases de traitement qu’il est important de comprendre. 
 
-**shrink**: Qui va élaguer tout ce qui n’est pas utilisé dans cotre code.\\
-**optimize**: Qui va aller un peu plus loin en supprimant le code mort et les paramètres de méthodes par exemple.\\
-**obfuscate**: Qui va renommer les noms de classes, de méthodes, de membres, ... et réduire leurs noms au minimum (une lettre ou deux).
+**shrink**: Qui va élaguer tout ce qui n’est pas utilisé dans cotre code.<br/>
+**optimize**: Qui va aller un peu plus loin en supprimant le code mort et les paramètres de méthodes par exemple.<br/>
+**obfuscate**: Qui va renommer les noms de classes, de méthodes, de membres, ... et réduire leurs noms au minimum (une lettre ou deux).<br/>
 
 Et là on comprend la puissance de l’outil, mais aussi les problèmes que l’on va rencontrer !
 
