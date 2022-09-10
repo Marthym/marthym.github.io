@@ -3,7 +3,7 @@ title: Sauvegarde de données personelle
 date: "2016-10-24T12:00:00-00:00"
 excerpt: "Présentation de mon système de sauvegarde"
 #modified: 2015-09-21
-tags: [backup, NAS, hubic, sauvegarde, webdav, freenas, hébergement, planetlibre]
+tags: [backup, NAS, hubic, sauvegarde, webdav, freenas, hébergement]
 image: backup.png
 ---
 

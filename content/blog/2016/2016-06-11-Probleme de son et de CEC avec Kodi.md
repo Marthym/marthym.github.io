@@ -3,7 +3,7 @@ title: Problème de son et de CEC avec Kodi
 date: "2016-06-11T12:00:00-00:00"
 excerpt: Quand le sigle "MUTE" s'affiche en haut à droite et que la télécommande ne fonctionne plus sur votre OpenELEC, que faire ?
 #modified: 2015-09-21
-tags: [Kodi, OpenELEC, Raspberry PI, rpi, HDMI, CEC, audio, planetlibre]
+tags: [Kodi, OpenELEC, rpi, HDMI, CEC, audio]
 image: kodi.png
 ---
 
