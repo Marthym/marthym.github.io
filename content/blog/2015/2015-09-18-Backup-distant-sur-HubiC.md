@@ -3,7 +3,7 @@ title: Backups distant sur HubiC
 date: "2015-09-18T12:00:00-00:00"
 excerpt: "Protéger ses données perso d'un cataclisme en les envoyant dans le cloud"
 modified: "2015-15-25T12:00:00-00:00"
-tags: [backup, shell, admin, planetlibre, hubic]
+tags: [backup, shell]
 comments: true
 image: backup.png
 toc: true

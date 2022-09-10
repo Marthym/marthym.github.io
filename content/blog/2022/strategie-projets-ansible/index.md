@@ -4,7 +4,7 @@ date: 2022-09-10
 # modified: 2021-11-04
 summary: |
     Ansible est un outils de provisionning puissant et simple a prendre en main. Mais il est aussi facile de produire des projets complexes qui vont devenir impossible à maintenir. Voilà un vision orientée développeur de la structure d’un projet Ansible.
-tags: [infra, ansible, serveur, sysadmin]
+tags: [infra, ansible, serveur, system, devops]
 image: featured-strategy-ansible-role.webp
 #toc: true
 #comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le

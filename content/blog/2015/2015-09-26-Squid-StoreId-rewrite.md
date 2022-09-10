@@ -3,7 +3,7 @@ title: "Squid: StoreID rewrite"
 date: "2015-09-26T12:00:00-00:00"
 excerpt: "Configurer la réécriture du StoreId avec Squid"
 #modified: 2015-09-16
-tags: [squid, linux, network, proxy, planetlibre]
+tags: [squid, linux, network, proxy]
 comments: true
 image: network.webp
 ---
@@ -12,7 +12,7 @@ L'équipe dans laquelle je travaille utilise un environnement de développement 
 [Ansible](http://www.ansible.com/). Tout le monde a le même, on n'est pas perdu quand on binôme chacun y rajoute sa
 touche, ... Bref, on aime ou on n'aime pas ça dépend des développeurs.
 
-Par contre une chose est sure c'est que quand la version de Java ou de votre EDI préféré change, tout le monde se
+Par contre, une chose est sure c'est que quand la version de Java ou de votre EDI préféré change, tout le monde se
 trouve à faire le download de la nouvelle version, tout le monde tire sur la connexion internet pour télécharger X fois
 la même chose, c'est dommage et ça prend du temps pour rien.
 
