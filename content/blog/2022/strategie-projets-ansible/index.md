@@ -7,7 +7,7 @@ summary: |
 tags: [infra, ansible, serveur, system, devops]
 image: featured-strategy-ansible-role.webp
 #toc: true
-#comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
+comment: /s/zqfc8y/strat_gie_des_r_les_ansible
 ---
 
 [Ansible](https://docs.ansible.com/ansible/latest/index.html) est un outil de provisionning puissant et relativement simple à prendre en main. Tellement qu’il est vite facile de se perdre dans ses rôles si le projet n’a pas été structuré correctement dès le départ.
