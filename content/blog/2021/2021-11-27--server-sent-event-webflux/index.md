@@ -1,7 +1,7 @@
 ---
 title: Server Sent Event vs Websocket avec Spring Webflux
 date: 2021-12-11
-lastmod: 2022-02-21
+lastmod: 2022-10-15
 summary: |
     Les Websockets sont souvent évoqués pour les évènements serveur, mais ils ne sont pas la seule possibilité. Spring Boot Webflux est capable d’envoyer des Event Server out of the box. Pour changer des examples de code tirés d’application de chat, voici comment il est possible d’implémenter des notifications serveur en java.
 tags: [java, spring, webflux, network]
@@ -12,11 +12,16 @@ comment: /s/rnlrbh/server_sent_event_vs_websocket_avec
 
 La fonctionnalité est de prévenir les clients d’une application qu’un évènement s’est produit dans cette application. La première approche consiste souvent à implémenter les WebSockets. Régulièrement cités dès que l’on veut faire de la communication serveur vers clients. Mais il existe une autre approche, les **Server Sent Event**. Avec des inconvénients, mais aussi des avantages face aux WebSockets.
 
+> ### Edit : 1510/2022 - Ciblage des events
+> 
+> Une nouvelle mise à jour de la version initiale qui ne permettait que de broadcast les messages à tous les souscripteurs. Il est facilement possible de faire en sorte de cibler les évènements à un seul souscripteur.
+
+
 > ### Edit : 21/02/2021 - Nettoyage des souscriptions
 >
 > La version initiale avait un inconvénient majeur : les souscriptions au flux <abbr title="Server Sent Event">SSE</abbr> se cumulent et ne se libèrent jamais. Il semble que [Netty ne détecte pas bien les fermetures](https://github.com/spring-projects/spring-framework/issues/18523) ce qui à pour conséquence d’ouvrir une nouvelle souscription chaque fois que l’on rafraichit la page qui ouvre la liaison <abbr title="Server Sent Event">SSE</abbr>, tout en gardant les précédentes. Un `EventSource#close` n’a aucun effet coté serveur.
 > 
-> Le contrôleur a donc été revu pour inclure une mécanique de nettoyage des souscriptions. La difficulté étant de libérer le Flux quand on a pas accès au `Disposable`.
+> Le contrôleur a donc été revu pour inclure une mécanique de nettoyage des souscriptions. La difficulté étant de libérer le Flux quand on n'a pas accès au `Disposable`.
 > 
 > cf. [Libération des souscriptions](#lib%C3%A9ration-des-souscriptions)
 
@@ -203,7 +208,7 @@ Dans ce deuxième cas par contre, la souscription est laissée au `notifyService
 
 ## Libération des souscriptions
 
-Avec le contrôleurs tel qu’il est implémenté au-dessus, le code va présenter un problème de fuite mémoire : **Les ressources utilisées pour la souscription au Flux** (le contexte, ...) **ne sont jamais libérées**. Pire, si un utilisateur appelle la route <abbr title="Server Sent Event">SSE</abbr> 25x d’affilée, avec ou sans `EventSource#close` le serveur va se retrouver avec 25 contextes pour 25 souscriptions. Chaque élément envoyé dans le flux via le `Sink` effectuera 25 traitements avec possiblement des accés disque ou BBD. Ce comportement semble lié à un [problème sur Netty](ttps://github.com/spring-projects/spring-framework/issues/18523) ou juste à la façon dont les <abbr title="Server Sent Event">SSE</abbr> fonctionnent.
+Avec le contrôleur tel qu’il est implémenté au-dessus, le code va présenter un problème de fuite mémoire : **Les ressources utilisées pour la souscription au Flux** (le contexte, ...) **ne sont jamais libérées**. Pire, si un utilisateur appelle la route <abbr title="Server Sent Event">SSE</abbr> 25x d’affilée, avec ou sans `EventSource#close` le serveur va se retrouver avec 25 contextes pour 25 souscriptions. Chaque élément envoyé dans le flux via le `Sink` effectuera 25 traitements avec possiblement des accés disque ou BBD. Ce comportement semble lié à un [problème sur Netty](ttps://github.com/spring-projects/spring-framework/issues/18523) ou juste à la façon dont les <abbr title="Server Sent Event">SSE</abbr> fonctionnent.
 
 Voilà par exemple les logs retournés par un seul message. Il n’y a pourtant qu'un seul souscripteur.
 
@@ -234,7 +239,7 @@ On va d’abord ajouter un cache de `Flux` qui va permettre de toujours donner l
 private final Map<String, Flux<ServerSentEvent<Object>>> subscriptions = new ConcurrentHashMap<>();
 /* ... */
 return authenticationFacade.getConnectedUser()
-        .flatMapMany(u -> subscriptions.computeIfAbsent(u.id, id ->  // <-- Cache du pauvre
+        .flatMapMany(u -> subscriptions.computeIfAbsent(u.id, id ->  // ⟵ Cache du pauvre
                 notifyService.getFlux()
                         .flatMap(e -> e.getT2().map(s -> ServerSentEvent.builder()
                                 .id(UlidCreator.getMonotonicUlid().toString())
@@ -243,11 +248,11 @@ return authenticationFacade.getConnectedUser()
                         ).map(e -> {
                             log.debug("Event: {}", e);
                             return e;
-                        }).cache(0)   // <-- Important sinon cache inefficace
+                        }).cache(0)   // ⟵ Important sinon cache inefficace
         ));
 ```
 
-**On notera le `.cache(0)`**. sans ça, le fait de mettre le flux dans un cache n’aura aucune incidence. Le cache rendra effectivement le même flux mais une nouvelle souscription sera crée. **Le `0` en paramètre indique de ne pas garder l’historique** du flux. Sans cette valeur, chaque nouvel appel au flux récupère l’ensemble des éléments déjà publiés dans cette instance du Flux.
+**On notera le `.cache(0)`**, sans ça, le fait de mettre le flux dans un cache n’aura aucune incidence. Le cache rendra effectivement le même flux mais une nouvelle souscription sera créée. **Le `0` en paramètre indique de ne pas garder l’historique** du flux. Sans cette valeur, chaque nouvel appel au flux récupère l’ensemble des éléments déjà publiés dans cette instance du Flux.
 
 Le deuxième axe d’amélioration est de faire en sorte de résilier la souscription quand elle n’est plus nécessiare.
 
@@ -257,7 +262,7 @@ public Flux<ServerSentEvent<Object>> sse() {
     return authenticationFacade.getConnectedUser()
             .flatMapMany(u -> subscriptions.computeIfAbsent(u.id, id ->
                     notifyService.getFlux()
-                            /* VVV - Résiliation de la souscription - VVV */
+                            /* ⤋⤋⤋ - Résiliation de la souscription - ⤋⤋⤋ */
                             .takeWhile(e -> subscriptions.containsKey(id))
                             .flatMap(e -> e.getT2().map(s -> ServerSentEvent.builder()
                                     .id(UlidCreator.getMonotonicUlid().toString())
@@ -285,11 +290,75 @@ public Mono<ResponseEntity<Object>> disposeSse() {
 
 ```
 
-En effet, nous n’avons pas la main sur la souscription du flux il n’est donc pas possible de faire un `dispose`. **Le `takeWhile`, comme le `takeUntil` vont permettre de fermer le flux automatiquement** quand la condition est validée. Dans notre cas, le `takeWhile` permet de résilier la souscription quand le Flux ne se trouve plus dans le cache.
+En effet, nous n’avons pas la main sur la souscription du flux, il n’est donc pas possible de faire un `dispose`. **Le `takeWhile`, comme le `takeUntil` vont permettre de fermer le flux automatiquement** quand la condition est validée. Dans notre cas, le `takeWhile` permet de résilier la souscription quand le Flux ne se trouve plus dans le cache.
 
 Enfin une route permet de supprimer l’entrée de cache pour un utilisateur. Du fait que rien ne permet au serveur d’être informé de la fermeture d’une connexion <abbr title="Server Sent Event">SSE</abbr>, le seul moyen est de demander à l’utilisateur de le prévenir. Il est important de noter que **le Flux n’est pas résilié immédiatement mais lors du passage du prochain élément** dans ce dernier.
 
-### Le code final
+## Ciblage d’un souscripteur particulier
+
+À ce stade, notre service de notification n’est capable que de broadcaster des évènements à l’ensemble des souscripteurs. C’est utile pour notifier l’ensemble des utilisateurs connectés à un service qu’il faut se mettre à jour par exemple. Mais ça reste limité si on souhaite **envoyer une information à un seul des utilisateurs en particulier**.
+
+Pour faire cela, l’idée va être de ne plus avoir un seul `Sink`, mais deux. Un pour les évènements broacastés, l’autre pour les évènements relatif à l’utilisateur courant. **Il suffit ensuite de merge les deux `Sink`**. Dans notre cache, on garde alors plusieurs choses :
+
+* Le `Sink` broadcast sou forme de `Flux `
+* Le `Sink` spécifique à l’utilisateur
+
+Voilà ce que devient la méthode de souscription :
+
+```java
+    @Override
+    public Flux<ServerEvent<Object>> subscribe() {
+        if (multicast.isScanAvailable() && Boolean.TRUE.equals(multicast.scan(Scannable.Attr.TERMINATED))) {
+            return Flux.error(() -> new IllegalStateException("Publisher was closed !"));
+        }
+        return authFacade.getConnectedUser().flatMapMany(u ->
+                Objects.requireNonNull(cache.get(u.id, id -> {
+                    /* ⤋⤋ On crée le Sink spécifique à l’utilisateur courant ⤋⤋ */
+                    Sinks.Many<ServerEvent<Object>> sink = Sinks.many().multicast().directBestEffort();
+                    AtomicReference<Subscription> subscription = new AtomicReference<>();
+                    Flux<ServerEvent<Object>> multicastFlux = this.multicast.asFlux().doOnSubscribe(subscription::set);
+                    /* ⤋⤋ On merge de les deux flux ⤋⤋ */
+                    Flux<ServerEvent<Object>> eventPublisher = Flux.merge(sink.asFlux(), multicastFlux)
+                            .takeWhile(e -> cache.asMap().containsKey(id))
+                            .map(e -> {
+                                log.debug("Event: {}", e);
+                                return e;
+                            }).cache(0);
+                    return new ByUserEventPublisherCacheEntry(subscription, sink, eventPublisher);
+                })).flux());
+    }
+```
+
+On notera que dans ce code, on garde aussi la souscription au `Flux` broadcast pour pouvoir l’annuler lors de l’éviction de l’entrée du cache. On pourra code cette éviction de la manière suivante.
+
+```java
+this.cache = Caffeine.newBuilder()
+        .expireAfterAccess(Duration.ofMinutes(30))
+        .maximumSize(1000)
+        .<String, ByUserEventPublisherCacheEntry>evictionListener((key, value, cause) -> {
+            if (value != null) {
+                value.sink().tryEmitComplete();
+                Subscription subscription = value.subscription().getAndSet(null);
+                if (subscription != null) {
+                    subscription.cancel();
+                }
+            }
+        })
+        .build();
+```
+
+L’interface du service va changer comme suit :
+
+```java
+    <T> BasicEvent<T> broadcast(EventType type, T data);
+
+    <T> BasicEvent<T> send(String userId, EventType type, T data);
+```
+
+On aura deux méthodes l’une qui va pousser un évènement dans le `Sink` broadcast, l’autre qui poussera dans le `Sink` de l’utilisateur. La clé de cache choisie étant par exemple l’identifiant de session (ou l’ID utilisateur), il est facile de le retrouver dans le contexte de la requête.
+
+
+## Le code final
 
 Le code au-dessus est volontairement simplifié mais si le code complet vous intéresse, vous pouvez le trouver sur [github](https://gist.github.com/Marthym) :
 
