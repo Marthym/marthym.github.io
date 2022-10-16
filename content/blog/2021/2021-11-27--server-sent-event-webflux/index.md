@@ -375,3 +375,5 @@ Le code a été remanié pour déporter la gestion du cache dans le service. Ce 
 Le cache utilisé est un vrai cache avec invalidation des entrées au bout de 30mn. Ce qui permet de ne pas garder indéfiniment les souscriptions des utilisateurs ayant brutalement fermé leur navigateur. Effet collatéral sympa, si un utilisateur garde son navigateur ouvert plus de 30mn sans rien faire, celui-ci redemande tout seul la connexion <abbr title="Server Sent Event">SSE</abbr> s’il la perd.
 
 Le contrôleur possède une fonction de test qui envoi une notification quand on l’appelle.
+
+Les illustrations utilisées proviennent de [Cocomaterial © 2020-present](https://cocomaterial.com/).
