@@ -4,18 +4,26 @@
 {{ $alt := .Get "alt"}}
 {{ $credit := .Get "credit"}}
 {{ $caption := .Get "caption"}}
+{{ $float := .Get "float" }}
+
 
 {{ with .Page.Resources.GetMatch $src }}
     {{ $image := . }}
     {{ $imgSrcSet := slice }}
     {{ $topImage := .RelPermalink }}
-    {{ range $widths }}
-        {{ $srcUrl := (printf "%dx%d q90 Lanczos Center" . $image.Height | $image.Fill).RelPermalink }}
-        {{ $imgSrcSet = $imgSrcSet | append (printf "%s %dw" $srcUrl .) }}
+    {{ if eq $image.MediaType.SubType "svg" }}
+        {{ $imgSrcSet = $imgSrcSet | append (printf "%s %dw" $image.RelPermalink 480) }}
+    {{ else }}
+        {{ range $widths }}
+            {{ $srcUrl := (printf "%dx%d q90 Lanczos Center" . $image.Height | $image.Fill).RelPermalink }}
+            {{ $imgSrcSet = $imgSrcSet | append (printf "%s %dw" $srcUrl .) }}
+        {{ end }}
     {{ end }}
     {{ $topSrcSet := (delimit $imgSrcSet ",") }}
 
-    <figure>
+    <figure 
+        {{if eq $float "right" }}class="float-right w-1/3 pl-4"{{ end }}
+        {{if eq $float "left" }}class="float-left w-1/3 pr-4"{{ end }}>
         <img src="{{ $topImage }}" 
             {{ if (not (eq $topSrcSet "" )) }}srcset="{{ $topSrcSet }}"{{end}} 
             alt="{{ $alt }}" class="w-full object-cover" />
