@@ -29,6 +29,7 @@ La fonctionnalité est de prévenir les clients d’une application qu’un év�
 
 Server Sent Event est une norme et elle n’est pas toute jeune puisque **Opera l’a implémenté de façon expérimentale en 2006**, le **W3C l’a validé en 2013**. Du fait de son âge, elle est pleinement supportée par la plupart des navigateurs.
 
+{{< figimg src="server-send-message.svg" float="right" alt="server send event message" >}}
 Contrairement aux WebSocket, le <abbr title="Server Sent Event">SSE</abbr> fonctionne sur le **protocole HTTP** et la **communication est unilatérale**, on ne peut qu’envoyer des évènements aux clients connectés. Dernier inconvénient face aux WebSocket, les <abbr title="Server Sent Event">SSE</abbr>s ne peuvent faire transiter **que du texte, pas de binaire**, ce qui laisse quand même la possibilité d’utiliser du JSON.
 
 Je ne rentrerais pas plus dans les détails du fonctionnement ou de la norme elle-même, il est facile de trouver des informations sur le sujet. Un des avantages de la norme, est qu’il est très simple de l’implémenter dans `Spring Boot`. Utilisé avec la programmation reactive de `Reactor` et `Webflux`, les Serveurs Send Event offrent des possibilités intéressantes. 
@@ -169,6 +170,7 @@ L’`EventType` est un `enum` afin de mieux représenter les types possibles d�
 
 Comme `Reactor` exécute des fonctions de manière asynchrone et non bloquante, entre le début et la fin d’un flux de traitement, **il ne peut garantir que toutes les fonctions seront exécutées sur le même thread**. Si par exemple, une fonction effectue de l’IO ou contacte une base de données, ``Reactor`` va libérer le thread le temps que les données soient retournés, il ne le gardera pas en attente des résultats. Une fois que les résultats seront retournées, il va les traiter avec le premier thread disponible, pas forcément le même que celui de départ. Contrairement à un programme synchrone qui lui, va garder le thread en attente des résultats et l’utiliser pour traiter les résultats en retournés.
 
+{{< figimg src="keep-reactor-context.svg" float="left" alt="keep spring reactor context" >}}
 Dans ces conditions, **l’utilisation d’un `ThreadLocal` n’est pas possible**. Pour palier ça, `Reactor` maintient un contexte dans lequel il peut stocker les variables relatives au flux en cours d’exécution. C’est notamment ce contexte que `Spring` utilise pour garder l’authentification en mémoire. Car, **les contrôleurs produisant des messages <abbr title="Server Sent Event">SSE</abbr> bénéficient de `Spring Security`** comme tous les autres contrôleurs, et c’est là que c’est intéressant. Avec un seul point d’entrée <abbr title="Server Sent Event">SSE</abbr> **il est possible de fournir des réponses personnalisées à chaque utilisateur**. À condition que les fonctions du flux aient été exécutés avec le contexte de l’utilisateur. D’où l’usage d’un Mono à la place d’une valeur simple.
 
 L’exemple qui suit vient d’une application de News Reader. Le service `statService` utilise l’authentification `Spring` pour retourner le nombre de fils de news, le nombre total de news et le nombre de news non lues pour l’utilisateur connecté. Une route <abbr title="Server Sent Event">SSE</abbr> permet à l’utilisateur connecté d’avoir en direct les informations de mise à jour si par exemple une nouvelle news est publié dans un de ses fils.
@@ -208,6 +210,7 @@ Dans ce deuxième cas par contre, la souscription est laissée au `notifyService
 
 ## Libération des souscriptions
 
+{{< figimg src="free-subscriptions.svg" float="right" alt="free the subscriptions" >}}
 Avec le contrôleur tel qu’il est implémenté au-dessus, le code va présenter un problème de fuite mémoire : **Les ressources utilisées pour la souscription au Flux** (le contexte, ...) **ne sont jamais libérées**. Pire, si un utilisateur appelle la route <abbr title="Server Sent Event">SSE</abbr> 25x d’affilée, avec ou sans `EventSource#close` le serveur va se retrouver avec 25 contextes pour 25 souscriptions. Chaque élément envoyé dans le flux via le `Sink` effectuera 25 traitements avec possiblement des accés disque ou BBD. Ce comportement semble lié à un [problème sur Netty](ttps://github.com/spring-projects/spring-framework/issues/18523) ou juste à la façon dont les <abbr title="Server Sent Event">SSE</abbr> fonctionnent.
 
 Voilà par exemple les logs retournés par un seul message. Il n’y a pourtant qu'un seul souscripteur.
@@ -296,6 +299,7 @@ Enfin une route permet de supprimer l’entrée de cache pour un utilisateur. Du
 
 ## Ciblage d’un souscripteur particulier
 
+{{< figimg src="target-specific-user.svg" float="left" alt="target specific users" >}}
 À ce stade, notre service de notification n’est capable que de broadcaster des évènements à l’ensemble des souscripteurs. C’est utile pour notifier l’ensemble des utilisateurs connectés à un service qu’il faut se mettre à jour par exemple. Mais ça reste limité si on souhaite **envoyer une information à un seul des utilisateurs en particulier**.
 
 Pour faire cela, l’idée va être de ne plus avoir un seul `Sink`, mais deux. Un pour les évènements broacastés, l’autre pour les évènements relatif à l’utilisateur courant. **Il suffit ensuite de merge les deux `Sink`**. Dans notre cache, on garde alors plusieurs choses :
@@ -360,6 +364,7 @@ On aura deux méthodes l’une qui va pousser un évènement dans le `Sink` broa
 
 ## Le code final
 
+{{< figimg src="final-code-on-github.svg" float="right" alt="find the final code on github.com" >}}
 Le code au-dessus est volontairement simplifié mais si le code complet vous intéresse, vous pouvez le trouver sur [github](https://gist.github.com/Marthym) :
 
 * le [service](https://gist.github.com/Marthym/a90e5dffae9779ffb09c290a14f4d314)
