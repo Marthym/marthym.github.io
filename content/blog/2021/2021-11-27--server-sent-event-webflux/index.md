@@ -12,7 +12,7 @@ comment: /s/rnlrbh/server_sent_event_vs_websocket_avec
 
 La fonctionnalité est de prévenir les clients d’une application qu’un évènement s’est produit dans cette application. La première approche consiste souvent à implémenter les WebSockets. Régulièrement cités dès que l’on veut faire de la communication serveur vers clients. Mais il existe une autre approche, les **Server Sent Event**. Avec des inconvénients, mais aussi des avantages face aux WebSockets.
 
-> ### Edit : 1510/2022 - Ciblage des events
+> ### Edit : 15/10/2022 - Ciblage des events
 > 
 > Une nouvelle mise à jour de la version initiale qui ne permettait que de broadcast les messages à tous les souscripteurs. Il est facilement possible de faire en sorte de cibler les évènements à un seul souscripteur.
 
