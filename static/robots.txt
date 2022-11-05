@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /_headers
+
+Sitemap: https://blog.ght1pc9kc.fr/sitemap.xml
