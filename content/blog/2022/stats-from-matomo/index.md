@@ -5,7 +5,7 @@ date: 2022-03-12
 summary: |
     Remplacement de google analytics par des statistique Matomo, respectueuses de la vie privée et hébergées en France par l’association Libreon. Libreon est 
     une association qui fait partie des CHATONS.
-tags: [seo, rgpd, blog]
+tags: [rgpd, blog]
 image: featured-libreon-matomo-stats.webp
 #toc: true
 #comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
