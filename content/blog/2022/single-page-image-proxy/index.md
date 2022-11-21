@@ -8,7 +8,7 @@ summary: |
 tags: [seo, performance, spring, bw]
 image: featured-single-page-image-proxy.webp
 toc: true
-# comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
+comment: /s/rah3k2/image_proxy_et_performance_d_une_spa
 ---
 
 ## L’histoire
