@@ -3,7 +3,7 @@ title: Image proxy et performance d’une SPA
 date: 2022-11-19
 # modified: 2021-11-04
 summary: |
-    Imaginons que l’on travaille sur une application Web SAP (single page application) qui traite avec des galleries d’images et que cette
+    Imaginons que l’on travaille sur une application Web SPA (single page application) qui traite avec des galeries d’images et que cette
     application soit progressive avec des formats mobiles et desktop différents. Comment gérer mes images pour les afficher au mieux sur tous les supports. Une solution possible est de mettre en place un proxy d’images.
 tags: [seo, performance, spring, bw]
 image: featured-single-page-image-proxy.webp

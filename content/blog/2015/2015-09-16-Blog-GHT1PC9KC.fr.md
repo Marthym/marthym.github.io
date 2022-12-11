@@ -3,7 +3,7 @@ title: Blog GHT1PC9KC.fr
 date: "2015-09-16T19:20:00-05:00"
 excerpt: "Création du blog."
 #modified: 2015-09-16
-tags: [intro, beginner, jekyll, blog]
+tags: [intro, beginner, craftsmanship, blog]
 comments: false
 toc: false
 image: back.webp
