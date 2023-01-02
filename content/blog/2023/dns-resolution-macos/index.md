@@ -1,6 +1,6 @@
 ---
 title: Résolution DNS sur MacOS
-date: 2022-12-21
+date: 2023-01-02
 # modified: 2021-11-04
 summary: |
     Comment ajouter un resolver DNS sur une machine MacOS sans changer la résolution de toute la carte réseau. Après une explication très vaste sur la résolution sous Debian c’est un trick que l’on va voir dans cet article.
