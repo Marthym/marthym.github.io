@@ -1,6 +1,5 @@
 {{ $src := .Get "src"}}
 {{ $widths := slice 800 480 320 }}
-{{ $height := .Get "height"}}
 {{ $alt := .Get "alt"}}
 {{ $credit := .Get "credit"}}
 {{ $caption := .Get "caption"}}
@@ -15,7 +14,7 @@
         {{ $imgSrcSet = $imgSrcSet | append (printf "%s %dw" $image.RelPermalink 480) }}
     {{ else }}
         {{ range $widths }}
-            {{ $srcUrl := (printf "%dx%d q90 Lanczos Center" . $image.Height | $image.Fill).RelPermalink }}
+            {{ $srcUrl := (printf "%dx q90 Lanczos Center" . | $image.Resize).RelPermalink }}
             {{ $imgSrcSet = $imgSrcSet | append (printf "%s %dw" $srcUrl .) }}
         {{ end }}
     {{ end }}
@@ -27,8 +26,10 @@
         <img src="{{ $topImage }}" 
             {{ if (not (eq $topSrcSet "" )) }}srcset="{{ $topSrcSet }}"{{end}} 
             alt="{{ $alt }}" class="w-full object-cover" />
-        {{ if or ($caption) ($credit) }}
-        <figcaption class="text-xs text-right">{{ if $credit }}<cite class="italic">{{ $credit }}</cite>{{ end }}</figcaption>
+        {{ if ($credit) }}
+        <figcaption class="text-xs text-right">{{ if $credit }}<cite class="italic">{{ $credit }}</cite>{{ end }}</figcaption>        
+        {{ else if ($caption)}}
+        <figcaption class="text-base text-center">{{ if $caption }}<cite class="not-italic font-bold">{{ $caption }}</cite>{{ end }}</figcaption>
         {{ end }}
     </figure>
 {{ end }}
