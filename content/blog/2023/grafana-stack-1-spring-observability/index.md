@@ -95,29 +95,29 @@ Pour ce qui est du nom de l’application, nous en auront besoin plus tard. Pour
 ```shell
 # HELP jvm_threads_peak_threads The peak live thread count since the Java virtual machine started or peak was reset
 # TYPE jvm_threads_peak_threads gauge
-jvm_threads_peak_threads{application="MyApplication",} 45.0
+jvm_threads_peak_threads{context="MyApplication",} 45.0
 # HELP jvm_gc_overhead_percent An approximation of the percent of CPU time used by GC activities over the last lookback period or since monitoring began, whichever is shorter, in the range [0..1]
 # TYPE jvm_gc_overhead_percent gauge
-jvm_gc_overhead_percent{application="MyApplication",} 0.00497286035688716
+jvm_gc_overhead_percent{context="MyApplication",} 0.00497286035688716
 # HELP system_cpu_usage The "recent cpu usage" of the system the application is running in
 # TYPE system_cpu_usage gauge
-system_cpu_usage{application="MyApplication",} 0.0
+system_cpu_usage{context="MyApplication",} 0.0
 # HELP process_files_max_files The maximum file descriptor count
 # TYPE process_files_max_files gauge
-process_files_max_files{application="MyApplication",} 1048576.0
+process_files_max_files{context="MyApplication",} 1048576.0
 # HELP bw_news_count Total number of News
 # TYPE bw_news_count gauge
-bw_news_count{application="MyApplication",} 0.0
+bw_news_count{context="MyApplication",} 0.0
 # HELP jvm_gc_live_data_size_bytes Size of long-lived heap memory pool after reclamation
 # TYPE jvm_gc_live_data_size_bytes gauge
-jvm_gc_live_data_size_bytes{application="MyApplication",} 1.33460992E8
+jvm_gc_live_data_size_bytes{context="MyApplication",} 1.33460992E8
 # HELP hikaricp_connections_max Max connections
 # TYPE hikaricp_connections_max gauge
-hikaricp_connections_max{application="MyApplication",pool="HikariPool-1",} 10.0
+hikaricp_connections_max{context="MyApplication",pool="HikariPool-1",} 10.0
 # HELP spring_security_authorizations_seconds  
 # TYPE spring_security_authorizations_seconds summary
-spring_security_authorizations_seconds_count{application="MyApplication",error="none",spring_security_authentication_type="UsernamePasswordAuthenticationToken",spring_security_authorization_decision="true",spring_security_object="exchange",} 1.0
-spring_security_authorizations_seconds_sum{application="MyApplication",error="none",spring_security_authentication_type="UsernamePasswordAuthenticationToken",spring_security_authorization_decision="true",spring_security_object="exchange",} 0.005212113
+spring_security_authorizations_seconds_count{context="MyApplication",error="none",spring_security_authentication_type="UsernamePasswordAuthenticationToken",spring_security_authorization_decision="true",spring_security_object="exchange",} 1.0
+spring_security_authorizations_seconds_sum{context="MyApplication",error="none",spring_security_authentication_type="UsernamePasswordAuthenticationToken",spring_security_authorization_decision="true",spring_security_object="exchange",} 0.005212113
 ```
 
 Ce n’est qu’un exemple des métriques fournis de base par Spring mais il y en a sur beaucoup d’aspect : La mémoire, la consommation CPU, les routes appelées, le temps de démarrage, ...
@@ -158,18 +158,18 @@ Si on relance l’application maintenant et que l’on attend que le process de 
 ```shell
 # HELP bw_scraping_process_seconds  
 # TYPE bw_scraping_process_seconds summary
-bw_scraping_process_seconds_count{application="baywatch",error="none",reactor_status="completed",reactor_type="Mono",} 1.0
-bw_scraping_process_seconds_sum{application="baywatch",error="none",reactor_status="completed",reactor_type="Mono",} 17.026397336
+bw_scraping_process_seconds_count{context="MyApplication",error="none",reactor_status="completed",reactor_type="Mono",} 1.0
+bw_scraping_process_seconds_sum{context="MyApplication",error="none",reactor_status="completed",reactor_type="Mono",} 17.026397336
 # HELP bw_scraping_process_seconds_max  
 # TYPE bw_scraping_process_seconds_max gauge
-bw_scraping_process_seconds_max{application="baywatch",error="none",reactor_status="completed",reactor_type="Mono",} 17.026397336
+bw_scraping_process_seconds_max{context="MyApplication",error="none",reactor_status="completed",reactor_type="Mono",} 17.026397336
 # HELP bw_scraping_process_active_seconds_max  
 # TYPE bw_scraping_process_active_seconds_max gauge
-bw_scraping_process_active_seconds_max{application="baywatch",reactor_type="Mono",} 0.0
+bw_scraping_process_active_seconds_max{context="MyApplication",reactor_type="Mono",} 0.0
 # HELP bw_scraping_process_active_seconds  
 # TYPE bw_scraping_process_active_seconds summary
-bw_scraping_process_active_seconds_active_count{application="baywatch",reactor_type="Mono",} 0.0
-bw_scraping_process_active_seconds_duration_sum{application="baywatch",reactor_type="Mono",} 0.0
+bw_scraping_process_active_seconds_active_count{context="MyApplication",reactor_type="Mono",} 0.0
+bw_scraping_process_active_seconds_duration_sum{context="MyApplication",reactor_type="Mono",} 0.0
 ```
 
 L’observabilité de reactor produit en tout 2 groupes de 3 métriques :
@@ -184,3 +184,135 @@ L’observabilité de reactor produit en tout 2 groupes de 3 métriques :
 
 Ces métriques sont pratiques, mais pas simple à interpréter. Finalement, si vous souhaitez voir l’évolution de la durée du scraping au fil du temps, cela n’est pas possible. Au mieux vous avez la durée moyenne. C’est pour cela qu’il peut être intéressant de déclarer une Gauge qui va permettre cette observation.
 
+```java
+private final AtomicLong lastScrapingDuration = new AtomicLong(0);
+
+public ScraperTaskScheduler(MeterRegistry registry) {
+    TimeGauge.builder("bw_scraping_process", lastScrapingDuration::get, TimeUnit.MILLISECONDS)
+            .description("Last scraping duration")
+            .register(registry);
+}
+
+@Override
+public void run() {
+    log.info("Start scraping ...");
+    long startTime = System.currentTimeMillis();
+    scraperService.scrap(properties.conservation())
+            .doFinally(s -> lastScrapingDuration.set(System.currentTimeMillis() - startTime))
+            .subscribe();
+}
+```
+
+Les `TimeGauge` permettent d’ajouter au compteur une unité de temps.
+
+Maintenant si on relance l’application pour voir les compteurs, voilà ce que l’on a.
+
+```shell
+# HELP bw_scraping_process_seconds Last scraping duration
+# TYPE bw_scraping_process_seconds gauge
+bw_scraping_process_seconds{context="MyApplication",} 14.201
+```
+
+Bon ce n'est pas flagrant comme changement, dans le cas d’une gauge, chaque nouvelle valeur vient remplacer la précédente. Contrairement à un timer ou un compteur ou chaque nouvelle valeur s’ajoute à la précédente.
+
+### Ajout du contexte
+
+Dans toutes les métriques que j’ai collées dans cet article, on peut voir l’attribut `context=MyApplication`. Ce context est important car dans Prometheus il nous permettra de selectionner les métriques de la bonne application Spring (si vous en avez plusieurs). Pour faire ça, il faut ajouter un `MeterRegistryCustomizer`.
+
+```java
+@Configuration
+public class SpringConfiguration {
+    @Bean
+    public MeterRegistryCustomizer<MeterRegistry> metricsCommonTags(@Value("${spring.application.name}") String application) {
+        return registry -> registry.config()
+                .commonTags("context", application.toLowerCase());
+    }
+}
+```
+
+Il est possible d’en ajouter d’autre, comme l’identifiant de l’instance si vous avez un cluster.
+
+### Sécurisation
+
+Dernier point important, la sécurisation du point d’accès au métrique. Pensez à sécuriser ce point d'accès, même si y accéder ne suffiera pas à pirater l’application, les métriques laissent passer bon nombre d’informations exploitables qui permettrait à une personne mal intentionnée de dénicher d’éventuelles failles de sécurités.
+
+## Amélioration des logs
+
+Les logs par défaut de Spring sont vraiment appréciable et bien formaté. Mais des logs au format texte reste un enfer à parser. Tous ceux qui ont travaillé un peu avec Logstash ont tous leurs collections de snippet de grok pour ce genre de chose.
+
+Le plus simple est de faire en sorte que Spring sorte les logs en JSON, déjà parsé, elles seront directement lisibles par le collecteur. L’idéal serait que l’on puisse régler ça grâce à un variable d’environnement, ce qui permettrait de garder les jolis logs pendant le développement et utiliser le json pour la production.
+
+### Ajouter les dépendances
+
+```xml
+<dependency>
+    <groupId>ch.qos.logback.contrib</groupId>
+    <artifactId>logback-json-classic</artifactId>
+    <version>0.1.5</version>
+</dependency>
+<dependency>
+    <groupId>ch.qos.logback.contrib</groupId>
+    <artifactId>logback-jackson</artifactId>
+    <version>0.1.5</version>
+</dependency>
+```
+
+### Configuration logback
+
+Ensuite on configure logback comme suit dans un fichier `logback-spring.xml`:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <springProperty scope="context" name="appName" source="spring.application.name"/>
+    <springProperty scope="context" name="rootLevel" source="logging.level.root"/>
+
+    <springProfile name="json-logging">
+        <contextName>${appName}</contextName>
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+                <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter"/>
+                <timestampFormat>${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd'T'HH:mm:ss.SSS'Z'}</timestampFormat>
+                <appendLineSeparator>true</appendLineSeparator>
+                <prettyPrint>false</prettyPrint>
+            </layout>
+        </appender>
+        <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+    </springProfile>
+
+    <springProfile name="!json-logging">
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    </springProfile>
+
+    <root level="${rootLevel}">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
+```
+
+L’intéret de cette configuration, c'est qu’elle est attaché au profil. Il est donc facile de passer de cette configuration à la configuration par défaut des logs via la variable d'environnement `SPRING_PROFILES_ACTIVE=json-logging`.
+
+À noter l’utilisation de `spring.application.name` que l’on a mis à jour dans les propriétés de l’application et qui va se retrouver dans le context. Ce qui pemttra de distinguer les logs de notre application d’autres logs dans loki et qui mettra ainsi le même contexte sur nos métriques et sur les logs.
+
+### Relancer l’application
+
+Si on relance l’application avec la configuration que l’on vient de mettre en place, voila ce que cela va donner :
+
+```shell
+{"timestamp":"2023-05-30T23:07:12.880Z","level":"INFO","thread":"main","logger":"fr.ght1pc9kc.myapp.MyApplication","message":"Starting MyApplication using Java 17.0.6 with PID 31428 ( started by marthym in )","context":"MyApplication"}
+{"timestamp":"2023-05-30T23:07:12.893Z","level":"DEBUG","thread":"main","logger":"fr.ght1pc9kc.myapp.MyApplication","message":"Running with Spring Boot v3.1.0, Spring v6.0.9","context":"MyApplication"}
+{"timestamp":"2023-05-30T23:07:12.894Z","level":"INFO","thread":"main","logger":"fr.ght1pc9kc.myapp.MyApplication","message":"The following 1 profile is active: \"json-logging\"","context":"MyApplication"}
+{"timestamp":"2023-05-30T23:07:13.973Z","level":"INFO","thread":"main","logger":"org.flywaydb.core.internal.license.VersionPrinter","message":"Flyway Community Edition 9.16.3 by Redgate","context":"MyApplication"}
+{"timestamp":"2023-05-30T23:07:13.973Z","level":"INFO","thread":"main","logger":"org.flywaydb.core.internal.license.VersionPrinter","message":"See release notes here: https://rd.gt/416ObMi","context":"MyApplication"}
+{"timestamp":"2023-05-30T23:07:13.973Z","level":"INFO","thread":"main","logger":"org.flywaydb.core.internal.license.VersionPrinter","message":"","context":"MyApplication"}
+{"timestamp":"2023-05-30T23:07:13.980Z","level":"INFO","thread":"main","logger":"com.zaxxer.hikari.HikariDataSource","message":"HikariPool-1 - Starting...","context":"MyApplication"}
+{"timestamp":"2023-05-30T23:07:14.067Z","level":"INFO","thread":"main","logger":"com.zaxxer.hikari.pool.HikariPool","message":"HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@6f8667bb","context":"MyApplication"}
+{"timestamp":"2023-05-30T23:07:14.068Z","level":"INFO","thread":"main","logger":"com.zaxxer.hikari.HikariDataSource","message":"HikariPool-1 - Start completed.","context":"MyApplication"}
+```
+
+Beaucoup plus difficile à lire pour un humain, mais bien plus simlpe à parser.
+
+## Conclusion
+
+Voilà les quelques améliorations à mettre en place dans une application Spring pour simplifier la collecte des métriques. Dans le prochain article nous verons comment mettre en place un collecteur OpenTelemetry et récupérer les métriques que l’on vient de configurer.
