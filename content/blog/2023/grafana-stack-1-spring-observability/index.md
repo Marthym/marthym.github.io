@@ -5,13 +5,14 @@ date: 2023-03-17
 summary: |
     Spring Boot 3 vient avec quelques nouvelles fonctionnalités dont l’observabilité. Grace à Reactor et à Micrometer, il est très simple de mettre en place des métriques afin de suivre le comportement d’une application Spring Boot. Et grâce à la stack Grafana, il sera facile de la visualiser.
 tags: [spring, grafana, metriques, devops]
-# image: featured-azure-vs-keycloak.webp
+image: feature-grafana-stack-spring-boot-3-observability.webp
 toc: true
 # comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
 ---
 
 À mes heures perdues, je travaille sur une application de veille techno qui me permet de faire la mienne <em>(veille)</em> comme j’ai envie. Récemment, j’ai entendu parler d’<strong>[Opentelemetry](https://opentelemetry.io/) un collecteur de télémétrie</strong>. Et j’ai eu envie de le tester pour voir si je pouvais rendre mon application observable.
 
+{{< figimg src="leasure_techwatch.svg" float="right" alt="Veille techno en temps libre" >}}
 Il existe une multitude de stack de télémétrie, mais Grafana est open source et permet d’avoir assez facilement toutes les métriques sur la même application de rendu. De plus, je voulais essayer [Loki](https://grafana.com/oss/loki/) en comparaisons de <abbr title="Elastic Logstash Kibana">ELK</abbr> que j’utilise déjà au travail.
 
 Voilà donc une série d’articles détaillants comment <strong>mettre en place l’observabilité sur une application Spring Boot 3</strong>.
@@ -21,7 +22,10 @@ Voilà donc une série d’articles détaillants comment <strong>mettre en place
 Avant de commencer, parlons un peu de la stack grafana. Elle est composée de plusieurs éléments. Dans mon boulot précédent et dans mon poste actuel, j’ai beaucoup travaillé avec la stack <abbr title="Elastic Logstash Kibana">ELK</abbr>. Elle est très efficace, mais j’ai toujours trouvé qu’elle était compliquée à mettre en place et à configurer. C’est l’occasion de tester la stack Grafana plus simple à mettre en œuvre.
 
 ### Prometheus
+{{< figimg src="prometheus_god_fire.svg" float="left" alt="Prometheus à volé le feu aux dieux" >}}
 <strong>[Prometheus](https://prometheus.io/) est le moteur de stockage de métriques</strong>. Il s’agit d’un moteur de métriques dimensionnel. Chaque métrique est représentée par un nom et par des attributs, un ensemble de clé/valeur qui spécialise la donnée. Cela permet de faire des requêtes puissantes, mais il faut faire attention à <strong>ne pas avoir d’attributs dont l’ensemble de valeurs possible est trop important</strong> sans quoi les performances et l’espace de stockage vont exploser.
+
+<p class="clear-both"></p>
 
 ### Loki
 <strong>[Loki](https://grafana.com/oss/loki/) est le moteur de stockage de logs</strong>. Mais, contrairement à Elastic qui va indexer tout le contenu des logs, Loki ne va indexer que certains attributs. Loki stocke les logs comme prometheus les métriques. Chaque log possède un ensemble d’attributs clé/valeur qui sont indexés, le reste du message ne l’est pas. Comme pour les métriques on ne doit pas utiliser d’attribut avec un ensemble de valeurs trop grand sous peine de problèmes de performance et d’explosion du stockage. L’intérêt de cette approche est que l’empreinte sur le disque est bien plus faible que pour un Elastic. L’inconvénient est qu’<strong>il n’est pas possible de faire de recherche sur les champs non indexés</strong> et donc sur le contenu du message de log.
@@ -34,6 +38,8 @@ Enfin [Grafana](https://grafana.com/grafana/) propose une interface unifiée pou
 
 
 ## Spring Boot et l’observabilité
+
+{{< figimg src="spring_boot_observability.svg" float="right" alt="Spring observability" >}}
 
 L’observabilité regroupe les 3 éléments suivants :
 
@@ -238,6 +244,7 @@ Dernier point important, la sécurisation du point d’accès aux métriques. <s
 
 ## Amélioration des logs
 
+{{< figimg src="improve_logs.svg" float="left" alt="Logs de spring boot en JSON" >}}
 Les logs par défaut de Spring sont vraiment appréciables et bien formatés. Mais des logs au format texte restent un enfer à parser. Tous ceux qui ont travaillé un peu avec Logstash ont leurs collections de grok bien au chaud pour ce genre de chose.
 
 Le plus simple est de faire en sorte que Spring sorte les logs en JSON, déjà parsé, elles seront directement lisibles par le collecteur. L’idéal serait que l’on puisse régler ça grâce à une variable d’environnement, ce qui permettrait de garder les logs <em>"humain"</em> pendant le développement et d’utiliser le json pour la production.
