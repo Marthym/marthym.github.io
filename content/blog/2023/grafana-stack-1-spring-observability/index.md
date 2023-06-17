@@ -17,6 +17,11 @@ Il existe une multitude de stack de télémétrie, mais Grafana est open source 
 
 Voilà donc une série d’articles détaillants comment <strong>mettre en place l’observabilité sur une application Spring Boot 3</strong>.
 
+**Les autres articles de la série :**
+
+1. Observabilité avec Spring Boot 3
+2. [Collecte des métriques avec OpenTelemetry]({{< relref "grafana-stack-1-spring-observability" >}})
+
 ## La Stack Grafana
 
 Avant de commencer, parlons un peu de la stack grafana. Elle est composée de plusieurs éléments. Dans mon boulot précédent et dans mon poste actuel, j’ai beaucoup travaillé avec la stack <abbr title="Elastic Logstash Kibana">ELK</abbr>. Elle est très efficace, mais j’ai toujours trouvé qu’elle était compliquée à mettre en place et à configurer. C’est l’occasion de tester la stack Grafana plus simple à mettre en œuvre.
