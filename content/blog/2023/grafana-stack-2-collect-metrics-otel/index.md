@@ -10,28 +10,33 @@ toc: true
 # comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
 ---
 
-Dans l’article précédent sur [Grafana Stack 📈 1. Observabilité avec Spring Boot 3]({{< relref "grafana-stack-1-spring-observability" >}}), nous avons activé l’observabilité de Spring Boot 3 et vu comment ajouter des métriques personnalisées à une application.
+Dans l’[article précédent]({{< relref "grafana-stack-1-spring-observability" >}}), nous avons activé l’observabilité de Spring Boot 3 et vu comment ajouter des métriques personnalisées à une application.
 
 Maintenant, il est nécessaire de collecter ces métriques et de les stocker avant de pouvoir les afficher dans Grafana.
+
+**Les autres articles de la série :**
+
+1. [Observabilité avec Spring Boot 3]({{< relref "grafana-stack-1-spring-observability" >}})
+2. Collecte des métriques avec OpenTelemetry
 
 ## OpenTelemetry
 
 {{< figimg src="open-telemetry.webp" float="right" alt="Liste des cibles de prometheus" >}}
-[OpenTelemetry](https://opentelemetry.io/) est un collecteur de ... télémétrie. Cela inclut les métriques, les logs et les traces. Mais OpenTelemetry c’est aussi une communauté qui essaye décrire une [spécification](https://opentelemetry.io/docs/specs/otel/overview/) pour définir la métrologie. Par exemple la spécification propose des [conventions](https://github.com/open-telemetry/semantic-conventions) pour les noms de métriques.
+[OpenTelemetry](https://opentelemetry.io/) est un collecteur de ... télémétrie. Cela inclut les métriques, les logs et les traces. Mais OpenTelemetry, c’est aussi une communauté qui essaye de décrire une [spécification](https://opentelemetry.io/docs/specs/otel/overview/) pour définir la métrologie. Par exemple, la spécification propose des [conventions](https://github.com/open-telemetry/semantic-conventions) pour les noms de métriques.
 
 ## Prérequis au déploiement
 
 ### Docker Compose
 
-L’application que l’on a pris comme exemple dans l’article précédent est déployé via [docker-compose](https://docs.docker.com/compose/). Un Ansible pousse la configuration du service sur le serveur et il suffit de faire un `dc up -d` pour tout démarrer. Ansible peut même le faire pour vous.
+L’application que l’on a prise comme exemple dans l’[article précédent]({{< relref "grafana-stack-1-spring-observability" >}}) est déployée via [docker-compose](https://docs.docker.com/compose/). Un script Ansible automatise le déploiement de la configuration du service sur le serveur et il suffit de faire un `dc up -d` pour démarrer l’application et tous les services dépendants en production.
 
 On va rester sur la même techno pour déployer la collecte des télémétries.
 
 ### Service prometheus
 
-Comme expliqué dans l’article précédent, les métriques seront stockés par un serveur Prometheus. Il faut donc commencer par en déployer un. Rien de compliqué pour ce composant, voilà la déclaration du service dans le compose.
+Comme expliqué dans l’article précédent, les métriques seront stockées par un serveur [Prometheus](https://prometheus.io/). Il faut donc commencer par en déployer un. Rien de compliqué pour ce composant, voilà la déclaration du service dans le compose.
 
-```yaml
+```yaml {hl_lines=["8"]}
 services:
   prometheus:
     image: prom/prometheus:v2.44.0
@@ -58,9 +63,9 @@ networks:
 
 Par défaut Prometheus garde les données pendant 15 jours. Il peut être intéressant d’étendre la durée de rétention à 90 jours ou plus. Pour cela ajouter l’options `storage.tsdb.retention.time=` à la ligne de commande.
 
-Le fichier de configuration `prometheus.yml`
+Prometheus se configure au travers d’un unique fichier `prometheus.yml` passé en paramètre de la ligne de commande dans le dockerfile ci-dessus. Les paramètres de configuration sont détaillés dans la [documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/), voilà le fichier utilisé pour notre application.
 
-```yaml
+```yaml {hl_lines=["20"]}
 ---
 
 global:
@@ -85,7 +90,9 @@ scrape_configs:
         - 'targets/otel_targets.yml'
 ```
 
+
 enfin, `targets/otel_targets.yml`.
+{{< figimg src="otel-observability-satellite.webp" float="right" alt="test" >}}
 
 ```yaml
 ---
@@ -94,16 +101,18 @@ enfin, `targets/otel_targets.yml`.
   - 'opentelemetry:9091'
 ```
 
-{{< figimg src="prometheus.webp" float="left" alt="Stockage de métriques Prometheus" >}}
-L’intérêt de passer par `file_sd_configs` est que Prometheus va pouvoir faire du hot reload quand le fichier de cibles sera mis à jour. Il ne sera pas nécessaire de redémarrer le serveur pour ajouter une cible.
+L’intérêt de passer par `file_sd_configs` est que Prometheus va pouvoir faire du **hot reload** quand le fichier de cibles sera mis à jour. **Il ne sera pas nécessaire de redémarrer le serveur pour ajouter une cible**.
 
-Détail important, le service `prometheus` est placé dans un réseau `metrics`, ce qui l’isolera du réseau sur lequel l’application est placée. C’est le service `opentelemetry` qui fera le lien entre les deux.
+Détail important, le service `prometheus` est placé dans un réseau `metrics`, ce qui l’isolera du réseau sur lequel l’application est placée. C’est le service `opentelemetry` qui fera le lien entre les deux sous-réseaux de docker.
 
 ## Service OpenTelemetry
 
-Il était possible et surement plus simple de configurer le prometheus pour aller scraper directement l’application. Mais dans le cas d’infrastructure réseau plus complexe, un collecteur OpenTelemetry peu servir de collecteur intermédiaire. De plus OTEL vient avec toute une panoplie de fonctionnalité pour la collecte et le traitement des métriques qui vont grandement simplifier certaines étapes lorsque l’on ajoutera les logs et les traces.
+Il était possible et sûrement plus simple de configurer le prometheus pour aller scraper directement l’application. Mais c’est aussi beaucoup moins évolutif. En effet, dans le cas d’infrastructure réseau plus complexe, un collecteur OpenTelemetry peu servir de collecteur intermédiaire. De plus OTEL vient avec toute une panoplie de fonctionnalité pour la collecte et le traitement des métriques qui vont grandement simplifier certaines étapes lorsque l’on ajoutera les logs et les traces.
 
-La version "standard" d’OpenTelemetry ne contient pas grand chose en terme de fonctionnalitées et de plugin. C’est pourquoi nous allons déployer la distribution `contrib`.
+{{< figimg src="schema-docker-compose.svg" alt="Liste des cibles de prometheus" caption="L’infrastructure une fois le prometheus déployé" >}}
+<br>
+
+La version "standard" d’OpenTelemetry ne contient que les fonctionnalités de base. Pour mettre en place toute une stack de métrologie, il sera plus intéressant d’utiliser la distribution `contrib` qui vient avec un ensemble de plugins permettant de s’interfacer avec à peu près tout.
 
 https://github.com/open-telemetry/opentelemetry-collector-contrib
 
@@ -112,9 +121,9 @@ https://github.com/open-telemetry/opentelemetry-collector-contrib
 OTEL se configure en 4 étapes :
 
 * Les receveurs, qui récupèrent la métrologie
-* Les processeurs, qui traitent et transforment les évènements
-* Les exporteurs, qui renvoient les évènements vers leurs points de stockage
-* Le service, qui relient et ordonnent les précédentes configurations
+* Les processeurs, qui traitent et transforment les événements
+* Les exporteurs, qui renvoient les événements vers leurs points de stockage
+* Le service, qui relie et ordonne les précédentes configurations
 
 ```yaml
 receivers:
@@ -135,6 +144,8 @@ receivers:
 ```
 
 On utilise le [Prometheus Receiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/prometheusreceiver) qui va scraper la route de métrique de notre application au format prometheus. La configuration se fait exactement de la même façon que pour un scraper prometheus normal.
+
+À noter que Spring possède un exporteur vers OTEL et serait donc capable d’envoyer directement la télémétrie vers ce dernier. J’aime moins cette approche, car elle rend **l’application consciente de l’existence du collecteur**. Changer de collecteur demanderait de changer la configuration de l’application et crée une sorte de dépendance.
 
 ```yaml
 processors:
@@ -205,7 +216,8 @@ On place le service dans le réseau `metrics` pour que le service `prometheus` l
 
 On monte un volume en lecture seule pour accéder aux fichiers de configurations.
 
-L’ensemble des fichiers complets est visible sur [github](https://gist.github.com/Marthym/320fb102c473c17ee31367a067988800).
+{{< figimg src="open-telemetry-configuration.webp" alt="Image contrib pour open telemetry" >}}
+**L’ensemble des fichiers de configuration est disponible sur [github](https://gist.github.com/Marthym/320fb102c473c17ee31367a067988800).**
 
 Une fois la configuration en place, un `dc up -d` devrait démarrer tous les services et commencer la collecte des métriques.
 
@@ -235,4 +247,4 @@ En l’ajoutant au pipeline, Open Telemetry va cracher beaucoup de logs, vraimen
 
 Nous avons mis en place un collecteur et de quoi stocker les métriques de notre application. Grâce à Open Telemetry les métriques de notre application sont bien au chaud dans Prometheus.
 
-Dans l’article suivant, nous ferons la même chose avec les logs de l’application.
+Dans l’article suivant, nous ferons la même chose avec **les logs de l’application**.
