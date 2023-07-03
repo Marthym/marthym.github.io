@@ -1,109 +1,108 @@
 ---
-title: Grafana Stack 📈 2. Collecte des métriques avec OpenTelemetry
-date: 2023-06-18
+title: Grafana Stack 📈 3. Collecte des logs avec OpenTelemetry
+date: 2023-07-03
 # modified: 2021-11-04
 summary: |
-    Maintenant que l’application Spring Boot présente des métriques, il est nécessaire de les collecter. Les métriques seront stockés dans Prometheus mais pour les collecter, nous allons utiliser OpenTelemetry.
-tags: [otel, ansible, prometheus, metriques, devops]
+    Les métriques sont bien au chaud dans prometheus. On va pouvoir collecter les logs applicatives avec OpenTelemetry. Grace au plugin logback que nous avons configurer dans Spring Boot, les logs sortent en JSON et il n’est pas nécessaire de les parser avant de les pousser dans Loki.
+tags: [otel, ansible, loki, logs, devops]
 image: feature-grafana-stack-open-telemetry.webp
 toc: true
 # comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
 ---
 
-Dans l’[article précédent]({{< relref "grafana-stack-1-spring-observability" >}}), nous avons activé l’observabilité de Spring Boot 3 et vu comment ajouter des métriques personnalisées à une application.
-
-Maintenant, il est nécessaire de collecter ces métriques et de les stocker avant de pouvoir les afficher dans Grafana.
+Dans l’[article précédent]({{< relref "grafana-stack-2-collect-metrics-otel" >}}), nous avons collecté les métriques de l’application Spring. Reste maintenant à collecter les logs de cette application. Grâce à la confguration de Logback que l’on a mis en place dans le [premier article]({{< relref "grafana-stack-1-spring-observability" >}}), les logs de Spring sortent au formta JSON, ce qui va grandement simplifier les pipeline de collecte.
 
 **Les autres articles de la série :**
 
 1. [Observabilité avec Spring Boot 3]({{< relref "grafana-stack-1-spring-observability" >}})
-2. Collecte des métriques avec OpenTelemetry
-
-## OpenTelemetry
-
-{{< figimg src="open-telemetry.webp" float="right" alt="Liste des cibles de prometheus" >}}
-[OpenTelemetry](https://opentelemetry.io/) est un collecteur de ... télémétrie. Cela inclut les métriques, les logs et les traces. Mais OpenTelemetry, c’est aussi une communauté qui essaye de décrire une [spécification](https://opentelemetry.io/docs/specs/otel/overview/) pour définir la métrologie. Par exemple, la spécification propose des [conventions](https://github.com/open-telemetry/semantic-conventions) pour les noms de métriques.
+2. [Collecte des métriques avec OpenTelemetry]({{< relref "grafana-stack-2-collect-metrics-otel" >}})
+3. Collecte des logs avec OpenTelemetry
 
 ## Prérequis au déploiement
+{{< figimg src="loki-as-logs-storage.webp" alt="Loki comme stockage des logs" credit="Loki (Tom Hiddleston) dans la série de Disney+, créée par Michael Waldron et réalisée par Kate Herron. MARVEL STUDIOS" >}}
 
 ### Docker Compose
 
-L’application que l’on a prise comme exemple dans l’[article précédent]({{< relref "grafana-stack-1-spring-observability" >}}) est déployée via [docker-compose](https://docs.docker.com/compose/). Un script Ansible automatise le déploiement de la configuration du service sur le serveur et il suffit de faire un `dc up -d` pour démarrer l’application et tous les services dépendants en production.
-
-On va rester sur la même techno pour déployer la collecte des télémétries.
+Tout comme dans l’article précédent on va incrémenter le fichier `docker-compose.yml` avec un nouveau service : **[Loki](https://grafana.com/oss/loki/)**.
 
 ### Service prometheus
+Loki (toujours de Grafana Labs), est un moteur de stockage de logs. Sur le même principe que prometheus il va permettre de conserver les logs applicatives pour les restituer via des requêtes LogQL. L’approche de Loki est différentes de celle de Elastic par exemple car il ne va indexer que les meta-données des logs et non tout leur contenu.
 
-Comme expliqué dans l’article précédent, les métriques seront stockées par un serveur [Prometheus](https://prometheus.io/). Il faut donc commencer par en déployer un. Rien de compliqué pour ce composant, voilà la déclaration du service dans le compose.
+{{< figimg src="loki-tabs-with-console.svg" alt="Stockage optimisé Loki" >}}
 
-```yaml {hl_lines=["8"]}
+Voilà la déclaration du service Loki dans le compose.
+
+```yaml
 services:
-  prometheus:
-    image: prom/prometheus:v2.44.0
+  loki:
+    image: grafana/loki:2.8.1
     restart: unless-stopped
     command:
-    - --config.file=/etc/prometheus/prometheus.yml
-    - --storage.tsdb.path=/prometheus
-    # - --storage.tsdb.retention.time=90d
-    - --web.console.libraries=/usr/share/prometheus/console_libraries
-    - --web.console.templates=/usr/share/prometheus/consoles
+      - -config.file=/etc/loki/local-config.yaml
+      - -config.expand-env=true
     volumes:
-    - /opt/bw/prometheus/:/etc/prometheus/
-    - prometheus_data:/prometheus
+      - ./.compose/loki/local-config.yaml:/etc/loki/local-config.yaml
+      - loki_data:/loki
     networks:
       metrics: {}
 
 volumes:
-  prometheus_data: {}
+  loki_data: {}
 
 networks:
   metrics: {}
 
 ```
 
-Par défaut Prometheus garde les données pendant 15 jours. Il peut être intéressant d’étendre la durée de rétention à 90 jours ou plus. Pour cela ajouter l’options `storage.tsdb.retention.time=` à la ligne de commande.
+Loki se configure via le fichier `local-config.yaml` passé en paramètre de la ligne de commande dans le dockerfile ci-dessus.
+Les paramètres de configuration sont détaillés dans la [documentation](https://grafana.com/docs/loki/latest/configuration/?plcmt=learn-nav), voilà le fichier utilisé pour notre application.
 
-Prometheus se configure au travers d’un unique fichier `prometheus.yml` passé en paramètre de la ligne de commande dans le dockerfile ci-dessus. Les paramètres de configuration sont détaillés dans la [documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/), voilà le fichier utilisé pour notre application.
+On notera dans les commandes du compose le paramètre `-config.expand-env=true` qui autorise à mettre des variables d’environnement dans le fichier de configuration suivant.
 
-```yaml {hl_lines=["20"]}
+```yaml {hl_lines=["18-22"]}
 ---
+auth_enabled: false
 
-global:
-  scrape_interval:     15s # By default, scrape targets every 15 seconds.
-  evaluation_interval: 15s # By default, scrape targets every 15 seconds.
-  # scrape_timeout is set to the global default (10s).
+server:
+  http_listen_port: ${LOKI_LISTEN_PORT:-3100}
 
-# A scrape configuration containing exactly one endpoint to scrape:
-# Here it's Prometheus itself.
-scrape_configs:
+common:
+  path_prefix: /loki
+  storage:
+    filesystem:
+      chunks_directory: /loki/chunks
+      rules_directory: /loki/rules
+  replication_factor: 1
+  ring:
+    kvstore:
+      store: inmemory
 
-  # Le job pour se collecter lui même (optionel)
-  - job_name: 'prometheus'
-    static_configs:
-      - targets: ['localhost:9090']
+compactor:
+  retention_enabled: true
 
-  # Le job de collecte OpenTelemetry
-  - job_name: 'otel-exporter'
-    scrape_interval: 15s
-    file_sd_configs:
-      - files:
-        - 'targets/otel_targets.yml'
+limits_config:
+  retention_period: ${LOKI_RETENTION_PERIOD:-30d}
+
+schema_config:
+  configs:
+    - from: 2020-10-24
+      store: boltdb-shipper
+      object_store: filesystem
+      schema: v11
+      index:
+        prefix: index_
+        period: 24h
+
+ruler:
+  alertmanager_url: http://localhost:9093
 ```
 
+Il s’agit du fichier de configuration par défaut avec quelques améliorations tout de même :
 
-enfin, `targets/otel_targets.yml`.
-{{< figimg src="otel-observability-satellite.webp" float="right" alt="test" >}}
+* On active une rétention de 30 jours par défaut. Sans ça, Loki garde les logs Ad-Vitam.
+* On utilise la résolution de variables d’env pour permettre de modifier les valeurs du port et la durée de rétention.
 
-```yaml
----
-
-- targets:
-  - 'opentelemetry:9091'
-```
-
-L’intérêt de passer par `file_sd_configs` est que Prometheus va pouvoir faire du **hot reload** quand le fichier de cibles sera mis à jour. **Il ne sera pas nécessaire de redémarrer le serveur pour ajouter une cible**.
-
-Détail important, le service `prometheus` est placé dans un réseau `metrics`, ce qui l’isolera du réseau sur lequel l’application est placée. C’est le service `opentelemetry` qui fera le lien entre les deux sous-réseaux de docker.
+Le stockage `filesystem` est largement suffisant pour le cas de notre application, mais il présente l’inconvénient de na pas être scalable, contrairement à d’autres systèmes proposés.
 
 ## Service OpenTelemetry
 
