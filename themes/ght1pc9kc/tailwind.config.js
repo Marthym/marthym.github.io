@@ -1,5 +1,6 @@
 module.exports = {
     content: ["./layouts/**/*.html"],
+    safelist: ['highlight', 'chroma', 'hl'],
     theme: {
         extend: {
             colors: { 'dark-knight': '#333332', },

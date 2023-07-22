@@ -39,9 +39,21 @@
     .toc-menulink {
         @apply hover:underline;
     }
+    
+    .highlight {
+        @apply my-4;
+    }
+
+    .highlight > .chroma {
+        @apply p-4 rounded-md;
+    }
+
+    .chroma span.hl {
+        @apply bg-slate-950
+    }
 
     pre {
-        @apply p-4 leading-4 overflow-x-auto my-4 rounded-md;
+        @apply leading-4 overflow-x-auto rounded-md;
     }
     pre code {
         @apply bg-transparent whitespace-pre text-xs border-none m-0 p-0 text-inherit;

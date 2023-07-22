@@ -1,6 +1,6 @@
 ---
 title: Grafana Stack 📈 2. Collecte des métriques avec OpenTelemetry
-date: 2023-06-10
+date: 2023-06-18
 # modified: 2021-11-04
 summary: |
     Maintenant que l’application Spring Boot présente des métriques, il est nécessaire de les collecter. Les métriques seront stockés dans Prometheus mais pour les collecter, nous allons utiliser OpenTelemetry.
@@ -18,6 +18,7 @@ Maintenant, il est nécessaire de collecter ces métriques et de les stocker ava
 
 1. [Observabilité avec Spring Boot 3]({{< relref "grafana-stack-1-spring-observability" >}})
 2. Collecte des métriques avec OpenTelemetry
+3. [Collecte des logs avec OpenTelemetry]({{< relref "grafana-stack-3-collect-logs-otel" >}})
 
 ## OpenTelemetry
 
