@@ -18,6 +18,7 @@ Maintenant, il est nécessaire de collecter ces métriques et de les stocker ava
 
 1. [Observabilité avec Spring Boot 3]({{< relref "grafana-stack-1-spring-observability" >}})
 2. Collecte des métriques avec OpenTelemetry
+3. [Collecte des logs avec OpenTelemetry]({{< relref "grafana-stack-3-collect-logs-otel" >}})
 
 ## OpenTelemetry
 

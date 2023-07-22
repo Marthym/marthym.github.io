@@ -1,6 +1,6 @@
 ---
 title: Grafana Stack 📈 1. Observabilité avec Spring Boot 3
-date: 2023-06-10
+date: 2023-07-24
 # modified: 2021-11-04
 summary: |
     Spring Boot 3 vient avec quelques nouvelles fonctionnalités dont l’observabilité. Grace à Reactor et à Micrometer, il est très simple de mettre en place des métriques afin de suivre le comportement d’une application Spring Boot. Et grâce à la stack Grafana, il sera facile de la visualiser.
@@ -21,6 +21,7 @@ Voilà donc une série d’articles détaillants comment <strong>mettre en place
 
 1. Observabilité avec Spring Boot 3
 2. [Collecte des métriques avec OpenTelemetry]({{< relref "grafana-stack-1-spring-observability" >}})
+3. [Collecte des logs avec OpenTelemetry]({{< relref "grafana-stack-3-collect-logs-otel" >}})
 
 ## La Stack Grafana
 
