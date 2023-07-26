@@ -1,6 +1,6 @@
 ---
 title: Grafana Stack 📈 3. Collecte des logs avec OpenTelemetry
-date: 2023-07-03
+date: 2023-07-24
 # modified: 2021-11-04
 summary: |
     Les métriques sont bien au chaud dans prometheus. On va pouvoir collecter les logs applicatifs avec OpenTelemetry. Grace au plugin logback que nous avons configuré dans Spring Boot, les logs sortent en JSON et il n’est pas nécessaire de les parser avant de les pousser dans Loki.
