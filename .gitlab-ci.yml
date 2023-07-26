@@ -27,7 +27,7 @@ build:pages:
     - hugo --minify
   artifacts:
     paths:
-     - public
+      - public
 
 pages:
   stage: deploy
@@ -37,6 +37,7 @@ pages:
     - find public -type f -iregex '.*\.\(htm\|html\|txt\|text\|js\|css\|json\)$' -execdir gzip -f --keep {} \;
   artifacts:
     paths:
-    - public
+      - public
   only:
-  - master
+    - master
+  
