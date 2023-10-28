@@ -29,7 +29,7 @@
         {{ if ($credit) }}
         <figcaption class="text-xs text-right">{{ if $credit }}<cite class="italic">{{ $credit }}</cite>{{ end }}</figcaption>        
         {{ else if ($caption)}}
-        <figcaption class="text-base text-center">{{ if $caption }}<cite class="not-italic font-bold">{{ $caption }}</cite>{{ end }}</figcaption>
+        <figcaption class="text-base text-center">{{ if $caption }}<cite class="not-italic font-bold">{{ $caption | markdownify }}</cite>{{ end }}</figcaption>
         {{ end }}
     </figure>
 {{ end }}
