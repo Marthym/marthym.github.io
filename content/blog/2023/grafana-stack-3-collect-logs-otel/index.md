@@ -17,6 +17,7 @@ Dans l’[article précédent]({{< relref "grafana-stack-2-collect-metrics-otel"
 1. [Observabilité avec Spring Boot 3]({{< relref "grafana-stack-1-spring-observability" >}})
 2. [Collecte des métriques avec OpenTelemetry]({{< relref "grafana-stack-2-collect-metrics-otel" >}})
 3. Collecte des logs avec OpenTelemetry
+4. [Déploiement d’un Grafana]({{< relref "grafana-stack-4-grafana" >}})
 
 ## Prérequis au déploiement
 {{< figimg src="loki-as-logs-storage.webp" alt="Loki comme stockage des logs" credit="Loki (Tom Hiddleston) dans la série de Disney+, créée par Michael Waldron et réalisée par Kate Herron. MARVEL STUDIOS" >}}
