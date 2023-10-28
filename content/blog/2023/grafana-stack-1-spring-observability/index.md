@@ -20,8 +20,9 @@ Voilà donc une série d’articles détaillants comment <strong>mettre en place
 **Les autres articles de la série :**
 
 1. Observabilité avec Spring Boot 3
-2. [Collecte des métriques avec OpenTelemetry]({{< relref "grafana-stack-1-spring-observability" >}})
+2. [Collecte des métriques avec OpenTelemetry]({{< relref "grafana-stack-2-collect-metrics-otel" >}})
 3. [Collecte des logs avec OpenTelemetry]({{< relref "grafana-stack-3-collect-logs-otel" >}})
+4. [Déploiement d’un Grafana]({{< relref "grafana-stack-4-grafana" >}})
 
 ## La Stack Grafana
 
