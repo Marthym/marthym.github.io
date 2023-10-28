@@ -1,6 +1,6 @@
 ---
 title: Grafana Stack 📈 4. Déploiement d’un Grafana
-date: 2023-07-24
+date: 2023-10-28
 # modified: 2021-11-04
 summary: |
     La dernière étape pour enfin profiter des métriques que l’on a mis en place tout au long de ces articles sur OpenTelemetry et la stack Grafana. Comment déployer le serveur grafana et les dashboard permettant d’exploiter les métriques d'OpenTelemetry.
