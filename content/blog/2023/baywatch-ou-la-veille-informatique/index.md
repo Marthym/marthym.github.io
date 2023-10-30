@@ -33,8 +33,38 @@ LA fonctionnalité que je voulais vraiment avoir sur Baywatch, c’est **la déd
 
 Une autre fonctionnalité que je voulais voir dans Baywatch c’est la possibilité de gérer des équipes. Pouvoir partager un article et faire en sorte que tous les membres de l’équipe en profitent. J’avais testé un moment El Curator (RIP 🪦) qui avait une fonctionnalité similaire mais limité dans sa version gratuite.
 
-Autre point important, je voulais que Baywatch soit un minimum esthétique et qu’il soit facile de naviguer dans la liste d’articles depuis le clavier. Les touches ’k’ et ’n’ servent à passer à l’article suivant ou précédent. Il s’agit des mêmes touches que Inoreader car je voulais pas avoir à me ré-habituer.
+Autre point important, je voulais que Baywatch soit un minimum esthétique et qu’il soit facile de naviguer dans la liste d’articles depuis le clavier. Les touches ’k’ et ’n’ servent à passer à l’article suivant ou précédent. Il s’agit des mêmes touches que Inoreader car je voulais pas avoir à me réhabituer.
+
+En plus de tout ça Baywatch est complètement responsive, il était important de pouvoir faire un peu de veille n’importe où facilement.
 
 ## Les technos
 
+Coté techno, comme je le disais tout à plus haut, Baywatch m’a pas mal servi de bac à sable pour tester les nouvelles versions de Spring ou les dernières fonctionnalités de Java.
+
+Pour le backend, c’est **Spring Boot 3.x.x** avec le modèle **Webflux** et de la programmation reactive avec **Reactor**. Les APIs c’est majoritairement **GraphQL** grâce à *Spring for GraphQL* qui permet d’allier Reactor et GraphQL.
+
+Pour la base de donnée, c’est **SQLite**. J’avais fait un test avec H2 au début, mais la BDD se retrouvait régulièrement corrompue et inutilisable, c’était lié à la façon dont H2 gère ses locks qui n’est pas compatible avec une utilisation embarquée dans du docker. Bref, avec SQLite plus de problème.
+
+Le front est en **Vue.js 3** avec l’extension **class component** de [vue-facing-decorator](https://facing-dev.github.io/vue-facing-decorator/#/). Le CSS en **Tailwind CSS** et les composants front avec [DaisyUI](https://daisyui.com/). J’ai adoré Tailwind dès que j’ai testé et DaisyUI comble très bien le manque de composants. En plus les composants DaisyUI sont assez fun je trouve.
+
+Tout le projet est dans un [mono repo github](https://github.com/Marthym/baywatch) dont le build est fait via Maven, même le build du front pour lequel maven délègue à yarn. Pour plus d’information vous pouvez lire l’article [Vue.js / Spring Boot Maven Project]({{< relref "2021-05-04--vue-spring-maven-project" >}}) qui parle de ça.
+
+Le Spring tourne sur **Java 21** (depuis peu) et sert le front.
+
+Enfin le build génère une image **Docker** avec le plugin [Jib de Maven](https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin).
+
+Pour optimiser l’interface, les images sont retaillées selon le support par un serveur **[imgproxy]({{< relref "single-page-image-proxy" >}})** et mise en cache par un NginX.
+
+L’infrastructure est, quant à elle, déployée via **[Ansible]({{< relref "strategie-projets-ansible" >}})** et observé au travers d’une [Stack Grafana]({{< relref "grafana-stack-1-spring-observability" >}}) qui fournie les métriques et les logs de l’application.
+
+Finalement, Baywatch représente un terrain de jeu pour une belle brochette de technos.
+
 ## Contributions
+
+Le projet est en phase de test en production (plus ou moins). Pour l’instant, l’auto-inscription n’est pas possible, tant que je ne suis pas certain que l’application tient la charge, je vais éviter d’ouvrir les vannes. Mais si le cœur vous en dit de tester, n’hésitez pas à me contacter, via mail ou via [Github](https://github.com/Marthym/baywatch) je vous ouvrirais un compte avec plaisir.
+
+> https://bw.ght1pc9kc.fr/
+
+Si vous êtes un développeur et que vous voulez participer, pareil n’hésitez pas.
+
+Tous les retours, constructifs bien-sur, sont les bienvenus.
