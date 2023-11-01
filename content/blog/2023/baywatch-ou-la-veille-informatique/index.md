@@ -1,8 +1,10 @@
 ---
-title: Baywatch, l’outil de veille informatique
+title: Comment je fais ma veille techno ?
 slug: baywatch-outil-de-veille-techno
 date: 2023-10-29
 # modified: 2021-11-04
+excerpt: |
+    Comment et pourquoi la veille technologique ? Baywatch est une application de veille informatique avec laquelle vous suivrez en temps réel les nouvelles du monde informatique.
 summary: |
     Baywatch est une application que veille informatique. Développé en Java à l’aide de Spring Boot Webflux et de Vue.js pour l’interface. L’application utilise une base de donnée SQLite pour le stockage. Les fonctionnalitées phares de Baywatch sont la déduplication des articles, la gestion des équipes et une interface hyper intuitive.
 tags: [baywatch, java, spring, vue]
@@ -11,11 +13,28 @@ toc: true
 # comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
 ---
 
+La veille techno fait partie intégrante de l’ingénierie logicielle. Que l’on soit développeur, lead ou <abbr title="Chef Technical Officer">CTO</abbr>, se maintenir informé des dernières évolutions dans le domaine de l’informatique ou des bonnes pratiques du management est indispensable.
+
+**Baywatch** est l’outil que j’utilise pour ma veille informatique et générale.
+
+<!--more-->
+
 Après 3 années de développement sur cette application, je me décide enfin à la mettre sur Github et à la présenter sur ce blog.
 
-{{< figimg src="baywatch-capture-01.webp" alt="Capture de Baywatch avec mobile" >}}
 
-## Les origines
+## La veille techno
+
+### Pourquoi faire de la veille techno ?
+
+Dans le secteur de l’ingénierie logicielle où les technologies naissent et meurent chaque jour, la veille technologique est une activité primordiale. En tant que développeur, cela vous permettra de proposer des évolutions pertinentes à votre hiérarchie. Gardé en tête les technologies porteuses vous aidera à bien orienter votre carrière et à anticiper les changements. Actualiser vos compétences vous rendra compétitif et vous ouvrira les portes sur des postes toujours plus passionnants.
+
+En tant que manageur ou décideur, la veille informatique vous permettra de mieux comprendre et de mieux apprécier les choix techniques qui vous sont proposés. Cela vous permettra aussi d’anticiper les changements du marché et de prendre des décisions plus éclairées. La veille peut et doit aussi se faire sur les pratiques de management. Évoluer dans sa façon de manager des équipes technique facilitera l’embauche de nouveaux talents. Cela vous évitera de resté coincé en 1950 et de vous demander pourquoi vous ne parvenez pas à conserver une équipe stable.
+
+À tous les niveaux de hiérarchie, la veille est une activité stratégique grâce à laquelle vous vous adapterez plus facilement aux changements et fera de vous une ressource clé sur le marché de l’innovation.
+
+Et en dehors du secteur professionnel, une bonne culture est un atout valorisant et épanouissant personnellement.
+
+### Comment faire de la veille informatique ?
 
 J’ai toujours fait de la veille techno, à plus ou moins grande échelle, mais globalement, depuis mon deuxième boulot, j’en fais constamment. Initialement, il y avait [Google Reader](https://fr.wikipedia.org/wiki/Google_Reader) (oui, j’ai la quarantaine passée ...), mais ce dernier à fini dans le [cimetière des projets Google](https://gcemetery.co/google-reader/) en 2013.
 
@@ -27,7 +46,11 @@ C’est comme ça qu’est né **"Baywatch"**. Au début comme un terrain de jeu
 
 Depuis 3 ans maintenant, je le fais évoluer et je le maintiens à jour sur les technos.
 
-## Les fonctionnalités
+## Baywatch
+
+{{< figimg src="baywatch-capture-01.webp" alt="Capture de Baywatch avec mobile" >}}
+
+### Les fonctionnalités
 
 LA fonctionnalité que je voulais vraiment avoir sur Baywatch, c’est **la déduplication des articles**. Il arrive régulièrement qu’un même article arrive sur plusieurs des fils RSS/Atom où je suis abonné et c’est un peu lourd de faire le tri. En plus, cette fonctionnalité était payante chez Inoreader.
 
@@ -37,7 +60,7 @@ Autre point important, je voulais que Baywatch soit un minimum esthétique et qu
 
 En plus de tout ça, Baywatch est complètement responsive, il était important de pouvoir faire un peu de veille n’importe où facilement.
 
-## Les technos
+### Les technos
 
 Coté techno, comme je le disais tout à plus haut, Baywatch m’a pas mal servi de bac à sable pour tester les nouvelles versions de Spring ou les dernières fonctionnalités de Java.
 
@@ -59,7 +82,7 @@ L’infrastructure est, quant à elle, déployée via **[Ansible]({{< relref "st
 
 Finalement, Baywatch représente un terrain de jeu pour une belle brochette de technos.
 
-## Contributions
+### Contributions
 
 Le projet est en phase de test en production (plus ou moins). Pour l’instant, l’auto-inscription n’est pas possible, tant que je ne suis pas certain que l’application tient la charge, je vais éviter d’ouvrir les vannes. Mais si le cœur vous en dit de tester, n’hésitez pas à me contacter, via mail ou via [Github](https://github.com/Marthym/baywatch) je vous ouvrirais un compte avec plaisir.
 
