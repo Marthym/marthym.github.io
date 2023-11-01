@@ -1,5 +1,5 @@
 ---
-title: Comment je fais ma veille techno ?
+title: Comment réaliser une bonne veille informatique ?
 slug: baywatch-outil-de-veille-techno
 date: 2023-10-29
 # modified: 2021-11-04
@@ -26,9 +26,11 @@ Après 3 années de développement sur cette application, je me décide enfin à
 
 ### Pourquoi faire de la veille techno ?
 
-Dans le secteur de l’ingénierie logicielle où les technologies naissent et meurent chaque jour, la veille technologique est une activité primordiale. En tant que développeur, cela vous permettra de proposer des évolutions pertinentes à votre hiérarchie. Gardé en tête les technologies porteuses vous aidera à bien orienter votre carrière et à anticiper les changements. Actualiser vos compétences vous rendra compétitif et vous ouvrira les portes sur des postes toujours plus passionnants.
+{{< figimg src="veille-informatique.webp" float="right" alt="Veille Technoligique" credit="Ma première image pas trop moche avec DALL-e" >}}
 
-En tant que manageur ou décideur, la veille informatique vous permettra de mieux comprendre et de mieux apprécier les choix techniques qui vous sont proposés. Cela vous permettra aussi d’anticiper les changements du marché et de prendre des décisions plus éclairées. La veille peut et doit aussi se faire sur les pratiques de management. Évoluer dans sa façon de manager des équipes technique facilitera l’embauche de nouveaux talents. Cela vous évitera de resté coincé en 1950 et de vous demander pourquoi vous ne parvenez pas à conserver une équipe stable.
+Dans le secteur de l’ingénierie logicielle où les technologies naissent et meurent chaque jour, la veille technologique est une activité primordiale. En tant que développeur, cela vous permettra de proposer des évolutions pertinentes à votre hiérarchie. Garder en tête les technologies porteuses vous aidera à bien orienter votre carrière et à anticiper les changements. Actualiser vos compétences vous rendra compétitif et vous ouvrira les portes sur des postes toujours plus passionnants.
+
+En tant que manageur ou décideur, la veille informatique vous permettra de mieux comprendre et de mieux apprécier les choix techniques qui vous sont proposés. Cela vous permettra aussi d’anticiper les changements du marché et de prendre des décisions plus éclairées. La veille peut et doit aussi se faire sur les pratiques de management. Évoluer dans sa façon de manager des équipes technique facilitera l’embauche de nouveaux talents. Cela vous évitera de rester coincé en 1950 et de vous demander pourquoi vous ne parvenez pas à conserver une équipe stable.
 
 À tous les niveaux de hiérarchie, la veille est une activité stratégique grâce à laquelle vous vous adapterez plus facilement aux changements et fera de vous une ressource clé sur le marché de l’innovation.
 
@@ -36,62 +38,72 @@ Et en dehors du secteur professionnel, une bonne culture est un atout valorisant
 
 ### Comment faire de la veille informatique ?
 
-J’ai toujours fait de la veille techno, à plus ou moins grande échelle, mais globalement, depuis mon deuxième boulot, j’en fais constamment. Initialement, il y avait [Google Reader](https://fr.wikipedia.org/wiki/Google_Reader) (oui, j’ai la quarantaine passée ...), mais ce dernier à fini dans le [cimetière des projets Google](https://gcemetery.co/google-reader/) en 2013.
+Il y a de multiples façons de réaliser sa veille informatique. **Cela dépend du temps que vous souhaitez y consacrer**.
 
-Un tas de projets sont alors apparus pour combler le vide, dont [Inoreader](https://www.inoreader.com/fr/) qui faisant bien le taff et que j’ai utilisé de nombreuses années. Je n'ai jamais voulu payer pour ce type de service, Google Reader était gratuit (ne me coûtait pas d’argent), j’ai du mal à me dire qu’il me faut payer maintenant.
+Un des moyens que je préfère est de **participer à des événements de votre communauté**. Par exemple des meetups ou des conférences comme Devoxx ou les Devfest. Discuter avec les speakers est toujours enrichissant et cela vous permet en plus de vous créer un réseau de connaissances. Cependant, cela prend du temps et selon où vous habitez, cela n’est pas toujours évident. Les grandes villes grouillent d’événements, mais au fin fond de la Creuse, il n’est pas certain que les communautés soient très actives.
 
-Au même moment où les pubs d’Inoreader commençaient à me lasser et ou j’en avais marre de voir passer le même article 25x, j’ai commencé un travail de lead. Être lead d’une équipe de développeurs doués, ça oblige à faire beaucoup de veille pour garder une certaine longueur d’avance sur les technos. Et pas seulement de la lecture, il est aussi nécessaire de tester ce que l’on voit passer dans les articles, afin de voir par soi-même si la techno est bien sèche et utilisable ou si c’est une librairie prometteuse, mais qui manque encore de fonctionnalités.
+Vous pouvez aussi **partager vos connaissances** au travers d’un blog. Écrire un article prend du temps et demande souvent pas mal de recherches pour être complet. Plus les compétences qu’il faut acquérir si vous voulez héberger vous-même. **Partager est un très bon moyen d’apprendre !**
+Et c’est très enrichissant, de plus vos lecteurs vous ferons des retours sur les sujets traités ce qui agrandira votre réseau au passage.
 
-C’est comme ça qu’est né **"Baywatch"**. Au début comme un terrain de jeu pour tester tout ce que je trouvais dans ma veille, puis quand il a été suffisamment avancé pour que je puisse l’utiliser, mon outil de veille principal.
+Enfin, la lecture ... Lire des bouquins, suivre des blogs et lire un maximum d’articles sur les sujets qui vous passionnent. Souvent, les développeurs me disent ne pas savoir où trouver de bons articles. C’est une réalité, sur Internet on trouve de tout et n’importe quoi.
 
-Depuis 3 ans maintenant, je le fais évoluer et je le maintiens à jour sur les technos.
+La qualité d’un article est subjective, ils parleront à certains et seront jugé inutile par d’autres, c’est valable aussi pour les conférences d’ailleurs. Mais de manière générale, les articles intéressants sont souvent les plus partagés. Par exemple, sur le [Journal du Hacker](https://www.journalduhacker.net/) commencez par les articles en haut de la liste, ceux avec le plus de vote. Mais attention, les votes ne sont pas toujours la vérité divine. **Il est important de conserver son esprit critique**. Pour cela, lire le plus d’article possible vous permettra de vous faire une idée d’ensemble et de mieux jugé de la qualité d’un article si une majorité de posts vont dans le même sens.
+
+Alors c’est bien gentil tout ça, mais ça reste assez compliqué et surtout très chronophage s’il faut lire des centaines d’articles pour dénicher la pépite. C’est pour simplifier le processus de veille technologique que j’ai développé **Baywatch** *(Hé oui, tout ça pour ça 😛)*.
 
 ## Baywatch
+
+Baywatch est une application de veille informatique et générale. Elle permet d’agréger des fils de fils de news à la façon de feu *Google Reader*. Après 3 années de développement (à temps très partiel), et malgré quelques anomalies qui traînent encore "à droite à gauche", Baywatch est mature et parfaitement fonctionnelle.
+
+🎉 https://bw.ght1pc9kc.fr/
 
 {{< figimg src="baywatch-capture-01.webp" alt="Capture de Baywatch avec mobile" >}}
 
 ### Les fonctionnalités
 
-LA fonctionnalité que je voulais vraiment avoir sur Baywatch, c’est **la déduplication des articles**. Il arrive régulièrement qu’un même article arrive sur plusieurs des fils RSS/Atom où je suis abonné et c’est un peu lourd de faire le tri. En plus, cette fonctionnalité était payante chez Inoreader.
+Une des fonctionnalités majeures, est **la déduplication des articles**. Il arrive régulièrement qu’un même article apparaisse dans plusieurs des fils RSS/Atom. Il est alors nécessaire de faire le tri en ce qui est déjà lu ou pas et cela génère un bruit inutile. C’est une fonctionnalité souvent payante sur la plupart des logiciels équivalents, mais sur Baywatch c’est cadeau.
 
-Une autre fonctionnalité que je voulais voir dans Baywatch c’est la possibilité de gérer des équipes. Pouvoir partager un article et faire en sorte que tous les membres de l’équipe en profitent. J’avais testé un moment El Curator (RIP 🪦) qui avait une fonctionnalité similaire, mais limité dans sa version gratuite.
+Je parlais de la difficulté qu’ont les développeurs à trouver des fils de news intéressants et des informations avec de la valeur. Baywatch permet de **créer des équipes** et de **partager des news entre membres d’une équipe**. Ainsi les articles à forte valeur sont partagés par les membres de votre communauté ou vos collègues de travail. Vous trouvez plus facilement les contenus intéressants pour vous.
 
-Autre point important, je voulais que Baywatch soit un minimum esthétique et qu’il soit facile de naviguer dans la liste d’articles depuis le clavier. Les touches ’k’ et ’n’ servent à passer à l’article suivant ou précédent. Il s’agit des mêmes touches que Inoreader car je ne voulais pas avoir à me réhabituer.
+La fonction de **recherche permet de trouver des fils d’actualités par thème** parmi ceux qui ont été ajoutés par l’ensemble des utilisateurs de la plateforme.
 
-En plus de tout ça, Baywatch est complètement responsive, il était important de pouvoir faire un peu de veille n’importe où facilement.
+L’interface de Baywatch se veut un minimum esthétique afin qu’il soit simple de naviguer dans la liste d’articles depuis le clavier. Les touches ’k’ et ’n’ servent à passer à l’article suivant ou précédent. Après, les goûts et les couleurs, ça ne se discute pas. Mais je reste ouvert à toutes suggestions. Et Baywatch est **complètement responsive**, rien de plus simple que de naviguer dans les news tout en faisant la queue pour rentrer au Devfest.
 
-### Les technos
+### Les technologies
 
-Coté techno, comme je le disais tout à plus haut, Baywatch m’a pas mal servi de bac à sable pour tester les nouvelles versions de Spring ou les dernières fonctionnalités de Java.
+Baywatch m’a pas mal servi de bac à sable *(une autre façon de faire sa veille)* pour tester les nouvelles versions de Spring ou les dernières fonctionnalités de Java. Voici la liste des technologies embarquées dans l’application.
 
-Pour le backend, c’est **Spring Boot 3.x.x** avec le modèle **Webflux** et de la programmation reactive avec **Reactor**. Les APIs c’est majoritairement **GraphQL** grâce à *Spring for GraphQL* qui permet d’allier Reactor et GraphQL.
+Pour le backend, c’est **Spring Boot 3.x.x** avec le modèle **Webflux** et de la programmation reactive avec **Reactor**. Les APIs sont majoritairement servies via **GraphQL** grâce à *Spring for GraphQL* qui permet d’allier Reactor et GraphQL.
 
-Pour la base de données, c’est **SQLite**. J’avais fait un test avec H2 au début, mais la BDD se retrouvait régulièrement corrompue et inutilisable, c’était lié à la façon dont H2 gère ses locks qui n’est pas compatible avec une utilisation embarquée dans du docker. Bref, avec SQLite plus de problèmes.
+Pour la base de données, c’est **SQLite**. J’avais fait un test avec H2 au début, mais la BDD se retrouvait régulièrement corrompue et inutilisable. Problème lié à la façon dont H2 gère ses locks qui n’est pas compatible avec une utilisation embarquée dans du docker. Bref, avec SQLite plus de problèmes.
 
-Le front est en **Vue.js 3** avec l’extension **class component** de [vue-facing-decorator](https://facing-dev.github.io/vue-facing-decorator/#/). Le CSS en **Tailwind CSS** et les composants front avec [DaisyUI](https://daisyui.com/). J’ai adoré Tailwind dès que j’ai testé et DaisyUI comble très bien le manque de composants. En plus les composants DaisyUI sont assez fun je trouve.
+Le front est en **Vue.js 3** avec l’extension **class component de vue-facing-decorator**. Le CSS en **Tailwind CSS** et les composants front avec **DaisyUI**. J’ai adoré Tailwind dès que j’ai testé et DaisyUI comble très bien le manque de composants. En plus les composants DaisyUI sont assez fun je trouve.
 
-Tout le projet est dans un [mono repo github](https://github.com/Marthym/baywatch) dont le build est fait via Maven, même le build du front pour lequel maven délègue à yarn. Pour plus d’information vous pouvez lire l’article [Vue.js / Spring Boot Maven Project]({{< relref "2021-05-04--vue-spring-maven-project" >}}) qui parle de ça.
+Tout le projet est dans un [mono repo github](https://github.com/Marthym/baywatch) dont le build est fait via Maven, même le build du front pour lequel Maven délègue à yarn. Pour plus d’information vous pouvez lire l’article [Vue.js / Spring Boot Maven Project]({{< relref "2021-05-04--vue-spring-maven-project" >}}) qui parle de ça.
 
-Le Spring tourne sur **Java 21** (depuis peu) et sert le front.
+Le Spring tourne sur **Java 21** et sert le front.
 
-Enfin le build génère une image **Docker** avec le plugin [Jib de Maven](https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin).
+Enfin le build génère une image **Docker** avec le plugin **Jib de Maven**.
 
 Pour optimiser l’interface, les images sont retaillées selon le support par un serveur **[imgproxy]({{< relref "single-page-image-proxy" >}})** et mise en cache par un NginX.
 
 L’infrastructure est, quant à elle, déployée via **[Ansible]({{< relref "strategie-projets-ansible" >}})** et observée au travers d’une [Stack Grafana]({{< relref "grafana-stack-1-spring-observability" >}}) qui fournie les métriques et les logs de l’application.
 
-Finalement, Baywatch représente un terrain de jeu pour une belle brochette de technos.
+Finalement, Baywatch représente un terrain de jeu pour une belle brochette de technos qui va du développement logiciel à l’infrastructure en passant par le DevOps.
 
 ### Contributions
 
-Le projet est en phase de test en production (plus ou moins). Pour l’instant, l’auto-inscription n’est pas possible, tant que je ne suis pas certain que l’application tient la charge, je vais éviter d’ouvrir les vannes. Mais si le cœur vous en dit de tester, n’hésitez pas à me contacter, via mail ou via [Github](https://github.com/Marthym/baywatch) je vous ouvrirais un compte avec plaisir.
+Le projet est en phase de test en production. Pour l’instant, l’auto-inscription n’est pas possible, tant que je ne suis pas certain que l’application tienne la charge, je vais éviter d’ouvrir les vannes. Mais si le cœur vous en dit de tester, n’hésitez pas à me contacter, via mail ou via [Github](https://github.com/Marthym/baywatch) je vous ouvrirais un compte avec plaisir.
 
-> https://bw.ght1pc9kc.fr/
+Il y a plusieurs de façons de contribuer :
 
-Si vous êtes un développeur et que vous voulez participer, pareil n’hésitez pas.
+* Tester l’appli et me faire des retours sur [github](https://github.com/Marthym/baywatch/issues)
+* Pousser des corrections ou de la doc via une PR
 
-Tous les retours, constructifs bien-sur, sont les bienvenus.
+Le projet sur Github n’est pas bien fourni, mais n’hésitez pas à me contacter, il y a plein de choses à faire.
 
 ## Conclusion
 
-Baywatch est une application qui aide à faire de la veille, comme il en existe déjà plein d’autres. Elle n’a pas la prétention d’être meilleure qu’une autre, bien au contraire, il y a sûrement de bugs que je n’ai pas vu. Mais Baywatch est suffisamment mature pour être utilisé à plus grande échelle donc j’espère qu’elle servira à quelqu’un d’autre. Elle est sous licence GPLv3, n’importe qui pour la modifier, l’utiliser, la déployer ou contribuer librement.
+Baywatch est une application qui aide à faire de la veille informatique. Elle n’a pas la prétention d’être meilleure qu’une autre, bien au contraire, il y a sûrement de bugs que je n’ai pas vu. Mais Baywatch est un projet sympa et qui offre des fonctionnalités souvent payantes ailleurs. J’espère qu’elle servira à d’autres. 
+
+Elle est sous licence GPLv3, n’importe qui pour la modifier, l’utiliser, la déployer ou contribuer librement.
