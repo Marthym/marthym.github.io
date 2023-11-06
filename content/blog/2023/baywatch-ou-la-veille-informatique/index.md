@@ -1,7 +1,7 @@
 ---
 title: Comment réaliser une bonne veille informatique ?
 slug: baywatch-outil-de-veille-techno
-date: 2023-10-29
+date: 2023-11-06
 # modified: 2021-11-04
 excerpt: |
     Comment et pourquoi la veille technologique ? Baywatch est une application de veille informatique avec laquelle vous suivrez en temps réel les nouvelles du monde informatique.
@@ -10,7 +10,7 @@ summary: |
 tags: [baywatch, java, spring, vue]
 image: featured-baywatch-pour-veille-techno.webp
 toc: true
-# comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
+comment: /s/beoan4/comment_r_aliser_une_bonne_veille
 ---
 
 La veille techno fait partie intégrante de l’ingénierie logicielle. Que l’on soit développeur, lead ou <abbr title="Chef Technical Officer">CTO</abbr>, se maintenir informé des dernières évolutions dans le domaine de l’informatique ou des bonnes pratiques du management est indispensable.
