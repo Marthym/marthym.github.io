@@ -1,9 +1,14 @@
 <head>
     <title>{{ .Title }} · {{ .Site.Title }}</title>
-    {{ template "_internal/google_analytics_async.html" . }}
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ .Params.excerpt | default .Summary | default .Description | default .Site.Title }}">
+
+    {{ if .Params.canonicalUrl }}
+    <link rel="canonical" href="{{ .Params.canonicalUrl }}">
+    {{ else }}
+    <link rel="canonical" href="{{ .Permalink }}">
+    {{ end }}
 
     {{ template "_internal/opengraph.html" . }}
     {{ template "_internal/twitter_cards.html" . }}

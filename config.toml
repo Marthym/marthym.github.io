@@ -1,8 +1,8 @@
-baseURL = "https://blog.ght1pc9kc.fr"
+#baseURL = "https://blog.ght1pc9kc.fr"
 languageCode = "fr-fr"
 title = "j’ai acheté un PC..."
 theme = "ght1pc9kc"
-uglyurls = true
+uglyurls = false
 pygmentsUseClasses = true
 pygmentsCodeFences = true
 #googleAnalytics = "UA-67836375-1"

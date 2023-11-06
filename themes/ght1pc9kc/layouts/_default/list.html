@@ -23,7 +23,7 @@
                 ⏱ {{ .ReadingTime }} mn
             </div>
             {{ end }}
-            <p class="italic">{{ .Params.excerpt | default .Summary | default .Description | default .Title | plainify | truncate 160 }}</p>
+            <p class="italic">{{ default .Summary | default .Description | default .Title | plainify | truncate 160 }}</p>
         </article>
         {{ end }}
     </div><!-- /#index -->
