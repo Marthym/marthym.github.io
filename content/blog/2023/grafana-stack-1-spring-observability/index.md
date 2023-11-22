@@ -99,9 +99,13 @@ management:
   metrics:
     distribution.percentiles-histogram:
       http.server.requests: true
+    tags:
+      application: ${spring.application.name}
 ```
 
-Pour ce qui est du nom de l’application, nous en aurons besoin plus tard. Pour le reste, la ligne importante est `endpoints.web.exposure.include: prometheus` qui va activer l’api de collecte pour prometheus. Le reste des paramètres permet d'avoir un peu plus de détails dans les métriques collectées.
+Le nom de l’application va permettre d’avoir un contexte dans tous les logs et toutes les métriques. Ainsi, si vous avez plusieurs applications spring qui génère des métriques cela vous permettra de les différentier. De la même façon si vous avez un cluster de plusieurs nœuds, il sera intéressant d’ajouter ici l’identifiant du nœuds.
+
+Pour le reste, la ligne importante est `endpoints.web.exposure.include: prometheus` qui va activer l’api de collecte pour prometheus. Le reste des paramètres permet d'avoir un peu plus de détails dans les métriques collectées.
 
 À partir de là, l’application est déjà capable de fournir une grosse quantité de métriques sur le fonctionnement de Spring et de la JVM. Démarrer l’application et, avec un [postman](https://www.postman.com/) par exemple, faire une requête `GET /actuator/prometheus` qui est la route par défaut pour Prometheus.
 
@@ -230,7 +234,7 @@ Ce n’est pas flagrant comme changement mais, dans le cas d’une gauge, chaque
 
 ### Ajout du contexte
 
-Dans toutes les métriques décritent dans cet article, on peut voir l’attribut `context=MyApplication`. Ce contexte est important, car dans Prometheus, il nous permettra de selectionner les métriques de la bonne application Spring (si vous en avez plusieurs). Pour faire ça, il faut ajouter un `MeterRegistryCustomizer`.
+Il est possible d’ajouter du contexte dans les métriques programmatiquement en utilisant le `MeterRegistryCustomizer`. Il sera cependant plus simple d’utiliser les paramètres de configuration vu au début de cet article.
 
 ```java
 @Configuration
@@ -242,8 +246,6 @@ public class SpringConfiguration {
     }
 }
 ```
-
-Il est possible d’en ajouter d’autre, comme l’identifiant de l’instance si vous avez un cluster.
 
 ### Sécurisation
 
