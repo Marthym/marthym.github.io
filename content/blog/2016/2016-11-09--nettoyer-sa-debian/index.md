@@ -4,7 +4,8 @@ date: 2016-11-09
 summary: >
     Après quelques années d’utilisation, même un système Linux peut s’encrasser, des noyaux obsolètes, des fichiers de config.
     Voyons comment on peut le nettoyer une Debian et ainsi regagner de l’espace disque en supprimant les fichiers inutiles.
-tags: [debian, system, apt, linux, docker]
+categories: [linux]
+tags: [debian, linux, docker]
 image: featured-debian.webp
 toc: true
 ---

@@ -4,6 +4,7 @@ date: 2020-05-30
 summary: |
   Une connexion VPN routé vers une Freebox est simple à configurer. Par contre, une connexion VPN Bridgé, est plus complexe. 
   L’interface réseau TAP ne se crée pas automatiquement et il est nécessaire de configurer un peu finement le fichier OpenVPN.
+categories: [linux, infrastructure]
 tags: [vpn, freebox, network, dns]
 image: featured-vpn-freebox-bridge.webp
 comment: /s/3khoqy/vpn_bridg_vers_une_freebox

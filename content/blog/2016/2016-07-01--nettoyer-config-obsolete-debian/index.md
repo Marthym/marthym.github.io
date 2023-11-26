@@ -5,7 +5,8 @@ summary: >
     Comment nettoyer les fichiers de configuration devenus obsolète au fil des mises à jour et des installations APT de votre Debian.
     Les config obsolètes sont sujets a ralentissements ou à des comportement inattendu sous Linux.
 #modified: 2015-09-16
-tags: [debian, linux, apt, system]
+categories: [linux]
+tags: [debian, linux, infrastructure]
 image: featured-debian.webp
 toc: true
 ---

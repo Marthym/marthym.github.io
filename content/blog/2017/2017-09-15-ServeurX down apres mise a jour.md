@@ -2,7 +2,8 @@
 title: Serveur X qui ne démarre plus après mise à jour
 date: "2017-09-15T12:00:00-00:00"
 excerpt: "Hier, le 14 septembre, après un apt fullupgrade plus de Serveur X et pas d’erreur dans le log xorg"
-tags: [debian, xorg, xserver, pulseaudio, linux]
+categories: [linux]
+tags: [debian, xorg, linux]
 image: debian.png
 ---
 

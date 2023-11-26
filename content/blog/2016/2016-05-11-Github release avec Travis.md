@@ -3,10 +3,12 @@ title: Github release avec Travis CI
 date: "2016-05-11T12:00:00-00:00"
 excerpt: "Automatiser le processus de release sur Github avec Travis CI"
 #modified: 2015-09-21
-tags: [tools, travis, github, planetlibre]
+categories: [développement]
+tags: [devtools, travis, github]
 image: travis-github.png
 ---
 ## Introduction
+
 Vous développez un projet Open Source que vous hébergez chez Github et vous utilisez Travis CI pour le builder
 automatiquement. C'est sympa ça fait le job mais reste une étape un peu fastidieuse, la release de votre projet. Travis
 peut faire ça pour vous.

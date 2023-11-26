@@ -2,11 +2,12 @@
 title: Maven Release Plugin
 date: "2018-04-06T12:00:00-00:00"
 excerpt: "Automatisation de release avec le plugin Maven"
-tags: [maven, release, version, java, planetlibre]
+categories: [développement]
+tags: [maven, devtools, java]
 image: road.png
 ---
 
-Carrément, deux billets dans la même semaine, c’est rare. Bon rien de foufou, j’ai passé un peu de temps la semaine passé à automatiser le processus de release dans ma boite. J’avais déjà essayé d’utiliser le [Maven Release Plugin] mais j’ai jamais eu de succés.
+Carrément, deux billets dans la même semaine, c’est rare. Bon rien de foufou, j’ai passé un peu de temps la semaine passé à automatiser le processus de release dans ma boite. J’avais déjà essayé d’utiliser le [Maven Release Plugin] mais je n'ai jamais eu de succès.
 
 Cette fois j’ai quand même été un peu plus loin alors j’écris trois mots sur le sujet, en français, si ça intéresse des gens.
 

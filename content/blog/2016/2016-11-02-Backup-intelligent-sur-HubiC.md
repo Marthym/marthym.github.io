@@ -2,7 +2,8 @@
 title: Sauvegarde intelligente sur HubiC
 date: "2016-11-02T12:00:00-00:00"
 excerpt: "Sauvegarder ses données sur un cloud HubiC avec mise à jour des modifications"
-tags: [backup,shell,admin,hubic]
+categories: [sécurité]
+tags: [backup,shell,hubic]
 image: backup.png
 ---
 

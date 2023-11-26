@@ -2,7 +2,8 @@
 title: Hello OSGi World, Part 5, Fragment Bundles
 date: "2017-09-23T12:00:00-00:00"
 excerpt: "Qu’est ce qu’un Fragment Bundle et à quoi ça sert ?"
-tags: [OSGi, bundle, log4j, java, planetlibre]
+categories: [développement]
+tags: [OSGi, log4j, java]
 image: osgi_back.png
 ---
 

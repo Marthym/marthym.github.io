@@ -3,6 +3,7 @@ title: Timezoner son MySQL server
 date: "2015-09-22T12:00:00-00:00"
 excerpt: "Régler les problèmes de Timezone entre Java et MySQL"
 #modified: 2015-09-16
+categories: [database]
 tags: [mysql, database]
 image: featured-timezone.webp
 ---

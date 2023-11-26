@@ -4,6 +4,7 @@ date: 2022-01-05
 # modified: 2021-11-04
 summary: |
     Le SEO ou Search Engine Optimization est un ensemble de bonnes pratique pour que son site remonte plus haut dans les résultats des moteurs de recherche tel que Google ou autre. Chaque moteur de recherche a ses propres algorithmes et les garde secret.
+categories: [SEO]
 tags: [seo, referencement, tailwindcss, blog]
 image: featured-seo-improvement.webp
 toc: true

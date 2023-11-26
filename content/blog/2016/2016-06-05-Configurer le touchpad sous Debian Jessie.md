@@ -3,7 +3,8 @@ title: Reconfigurer le TouchPad sur Debian
 date: "2016-06-05T12:00:00-00:00"
 excerpt: "Sur Debian testing, certain touchpad ne fonctionnent plus correctement, voyons comment retrouver un touchpad fonctionnel."
 modified: "2016-07-26T12:00:00-00:00"
-tags: [debian, linux, touchpad, xorg, mouse, libinput, synaptics, planetlibre]
+categories: [linux]
+tags: [debian, linux, touchpad, xorg, mouse, synaptics]
 image: debian.png
 ---
 

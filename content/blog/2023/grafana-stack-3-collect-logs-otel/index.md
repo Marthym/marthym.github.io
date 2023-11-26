@@ -4,7 +4,8 @@ date: 2023-07-24
 # modified: 2021-11-04
 summary: |
     Les métriques sont bien au chaud dans prometheus. On va pouvoir collecter les logs applicatifs avec OpenTelemetry. Grace au plugin logback que nous avons configuré dans Spring Boot, les logs sortent en JSON et il n’est pas nécessaire de les parser avant de les pousser dans Loki.
-tags: [otel, ansible, loki, logs, devops]
+categories: [observabilité, infrastructure]
+tags: [otel, loki, infra]
 image: feature-grafana-stack-open-telemetry.webp
 toc: true
 # comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
