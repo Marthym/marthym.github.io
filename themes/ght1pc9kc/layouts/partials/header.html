@@ -2,7 +2,7 @@
     <div class="ml-4 lg:ml-8">
         <a href="/">{{ .Site.Title }}</a>
     </div><!-- /.site-name -->
-    <nav class="ml-4 lg:col-span-6">
+    <nav aria-label="primary" class="ml-4 lg:col-span-6">
         <ul>
             {{ range .Site.Sections.ByWeight.Reverse }}
             <li class="inline mr-8"><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
