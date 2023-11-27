@@ -13,7 +13,7 @@ Un post rapide, j’ai trouvé ça hier, je ne connaissais pas et pourtant je tr
 
 Dans mes dev, j’utilise pas mal [Reactor] avec [Spring webflux]. Le truc un peu lourd avec [Reactor] c’est les stacktraces. Elles ont tendance à faire plusieurs kilomètres de long à cause de l’imbrication des Flux/Mono. J’en avais qui dépassaient les 120 lignes. Du coup ça a tendance à bien pourrir les logs et si on ajoute celles de debug, c’est un peu compliqué de s’y retrouver, d’autant que la partie intéressant se retrouve en général en plein milieu du flow.
 
-C’est là qu’intervient un configuration magique de logback que je ne connaissais pas : `%rEx{depth}`.
+C’est là qu’intervient une configuration magique de logback que je ne connaissais pas : `%rEx{depth}`.
 
 Dans la doc 
 

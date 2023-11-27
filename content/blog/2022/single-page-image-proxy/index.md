@@ -5,7 +5,7 @@ date: 2022-11-19
 summary: |
     Imaginons que l’on travaille sur une application Web SAP (single page application) qui traite avec des galleries d’images et que cette
     application soit progressive avec des formats mobiles et desktop différents. Comment gérer mes images pour les afficher au mieux sur tous les supports. Une solution possible est de mettre en place un proxy d’images.
-categories: [SEO]
+categories: [seo]
 tags: [seo, performance, spring, baywatch]
 image: featured-single-page-image-proxy.webp
 toc: true

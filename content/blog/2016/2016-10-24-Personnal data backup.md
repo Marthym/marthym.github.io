@@ -3,7 +3,7 @@ title: Sauvegarde de données personelle
 date: "2016-10-24T12:00:00-00:00"
 excerpt: "Présentation de mon système de sauvegarde"
 #modified: 2015-09-21
-categories: [sécurité, loisir]
+categories: [sécurité, loisirs]
 tags: [backup, NAS, hubic, freenas]
 image: backup.png
 ---
