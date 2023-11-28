@@ -3,7 +3,7 @@ title: Optimisation de jar avec Proguard
 date: 2019-12-05
 modified: 2021-02-04
 excerpt: "Comment optimiser la taille d’un jar avec proguard"
-categories: [développement]
+categories: [development]
 tags: [java, proguard, devtools]
 toc: true
 image: back.webp

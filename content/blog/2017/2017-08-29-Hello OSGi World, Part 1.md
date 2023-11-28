@@ -3,7 +3,7 @@ title: Hello OSGi World, Part 1, Introduction
 date: "2017-08-29T12:00:00-00:00"
 excerpt: "Débuter une application REST avec OSGi & Declarative Service"
 #modified: 2015-09-21
-categories: [développement]
+categories: [development]
 tags: [OSGi, java]
 image: osgi_back.png
 ---

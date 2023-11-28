@@ -4,7 +4,7 @@ date: 2023-06-10
 # modified: 2021-11-04
 summary: |
     Spring Boot 3 vient avec quelques nouvelles fonctionnalités dont l’observabilité. Grace à Reactor et à Micrometer, il est très simple de mettre en place des métriques afin de suivre le comportement d’une application Spring Boot. Et grâce à la stack Grafana, il sera facile de la visualiser.
-categories: [observabilité]
+categories: [devops]
 tags: [spring, grafana, java, infra]
 image: feature-grafana-stack-spring-boot-3-observability.webp
 toc: true

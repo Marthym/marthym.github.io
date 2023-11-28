@@ -4,7 +4,7 @@ date: 2021-12-11
 lastmod: 2022-10-15
 summary: |
     Les Websockets sont souvent évoqués pour les évènements serveur, mais ils ne sont pas la seule possibilité. Spring Boot Webflux est capable d’envoyer des Event Server out of the box. Pour changer des examples de code tirés d’application de chat, voici comment il est possible d’implémenter des notifications serveur en java.
-categories: [développement]
+categories: [development]
 tags: [java, spring, webflux, network, baywatch]
 image: featured-spring-sse-reactor.webp
 toc: true

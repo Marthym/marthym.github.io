@@ -3,7 +3,7 @@ title: Hello OSGi World, Part 4, Injection de dépendances
 date: "2017-09-16T12:00:00-00:00"
 excerpt: "L’injection de dépendances pour OSGi avec Declarative Service & SCR"
 #modified: 2015-09-21
-categories: [développement]
+categories: [development]
 tags: [OSGi, java]
 image: osgi_back.png
 ---

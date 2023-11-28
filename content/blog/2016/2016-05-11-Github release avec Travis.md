@@ -3,7 +3,7 @@ title: Github release avec Travis CI
 date: "2016-05-11T12:00:00-00:00"
 excerpt: "Automatiser le processus de release sur Github avec Travis CI"
 #modified: 2015-09-21
-categories: [développement]
+categories: [development]
 tags: [devtools, travis, github]
 image: travis-github.png
 ---

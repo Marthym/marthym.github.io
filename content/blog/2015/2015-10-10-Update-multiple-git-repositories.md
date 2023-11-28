@@ -3,7 +3,7 @@ title: Mettre à jour plusieurs dépôts git
 date: "2015-10-10T12:00:00-00:00"
 excerpt: "Travailler avec plusieurs dépôts git interconnecté peut s'avérer fastidieux voilà une possibilité pour gérer ça."
 modified: "2016-03-21T12:00:00-00:00"
-categories: [développement]
+categories: [development]
 tags: [git, bash]
 comments: true
 image: git.png

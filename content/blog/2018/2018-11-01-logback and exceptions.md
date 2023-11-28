@@ -2,7 +2,7 @@
 title: Exceptions avec Logback
 date: "2018-11-01T08:00:00-00:00"
 excerpt: "Comment optimiser à moindre cout l’affichage des exceptions avec logback"
-categories: [développement]
+categories: [development]
 tags: [spring, java, slf4j, logback]
 image: back.webp
 ---

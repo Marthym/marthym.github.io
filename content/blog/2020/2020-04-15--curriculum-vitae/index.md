@@ -4,7 +4,7 @@ date: 2020-04-15
 aliases:
   - /2020/curriculum-vitae-le-bon-la-brute-et-le-truant.html
 summary: C’est quoi un bon Curriculum Vitae ? Que lisent vraiment les recruteurs sur vos CV ? Quelques conseils pour épargner la santé mentale des chasseurs de talents.
-categories: [management, loisirs]
+categories: [management, leisure]
 tags: [curriculum, recrutement, management, blog]
 image: featured-curriculum-vitae.webp
 comment: /s/gjvoos/curriculum_vitae_le_bon_la_brute_et_le

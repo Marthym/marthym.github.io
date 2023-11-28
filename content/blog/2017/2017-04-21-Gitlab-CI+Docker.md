@@ -3,7 +3,7 @@ title: GitLab-CI + Docker Hub
 date: "2017-04-21T12:00:00-00:00"
 excerpt: "Automatisation de build rapide et facile avec GitLab-CI + Docker"
 #modified: 2015-09-21
-categories: [développement]
+categories: [development]
 tags: [devtools, docker, gitlab, git, latex]
 image: back.webp
 ---

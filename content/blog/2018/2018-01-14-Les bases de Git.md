@@ -2,7 +2,7 @@
 title: Les bases de Git
 excerpt: "Une présentation sur les bases de Git, les branching models et quelques astuces"
 date: "2018-01-14T12:00:00-00:00"
-categories: [développement]
+categories: [development]
 tags: [git, training, devtools]
 image: git.png
 ---

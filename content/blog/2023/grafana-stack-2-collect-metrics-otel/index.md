@@ -4,7 +4,7 @@ date: 2023-06-18
 # modified: 2021-11-04
 summary: |
     Maintenant que l’application Spring Boot présente des métriques, il est nécessaire de les collecter. Les métriques seront stockés dans Prometheus mais pour les collecter, nous allons utiliser OpenTelemetry.
-categories: [observabilité, infrastructure]
+categories: [devops]
 tags: [otel, prometheus, metriques, infra]
 image: feature-grafana-stack-open-telemetry.webp
 toc: true

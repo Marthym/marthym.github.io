@@ -2,7 +2,7 @@
 title: Ma configuration Tmux
 date: "2019-07-23T13:09:00+02:00"
 excerpt: "Tmux est l’un des outils que j’utilise le plus dans mes journées, voici donc la configuration que j’utilise"
-categories: [développement, loisirs]
+categories: [development, leisure]
 tags: [tmux, devtools, console]
 image: back.webp
 comment: /s/44gpgk/ma_configuration_tmux

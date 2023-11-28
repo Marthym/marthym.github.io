@@ -2,7 +2,7 @@
 title: Maven Release Plugin
 date: "2018-04-06T12:00:00-00:00"
 excerpt: "Automatisation de release avec le plugin Maven"
-categories: [développement]
+categories: [development]
 tags: [maven, devtools, java]
 image: road.png
 ---
