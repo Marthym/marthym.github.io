@@ -6,25 +6,17 @@
         {{ range .Pages.ByLastmod.Reverse }}
         <article>
             <h2 class="mb-1"><a href="{{ .Permalink }}" title="{{ .Title }}">{{ .Title }}</a></h2>
+            {{ if .PublishDate }}
             <div class="text-sm italic">
                 <time datetime="{{ .PublishDate }}">{{ .PublishDate.Format "2 Jan 2006" }}</time>
                 {{ if (gt .Lastmod .Date) }}[Edit: <time datetime="{{ .Lastmod }}">{{ .Lastmod.Format "2 Jan 2006" }}</time>]{{ end }}
                 ⏱ {{ .ReadingTime }} mn
             </div>
+            {{ end }}
             <p class="italic">{{ default .Summary | default .Description | default .Title | plainify | truncate 160 }}</p>
         </article>
         {{ end }}
     </div>
-    <aside class="text-base ml-6 col-span-2 pt-12 pl-16 hidden lg:block">
-        <nav aria-label="secondary" aria-labelledby="aside-secondary-nav-header">
-            <h3 id="aside-secondary-nav-header">Catégories</h3>
-            <ul class="text-gray-600">
-            {{ range (first 100 $.Site.Taxonomies.categories.ByCount) }}
-                <li class="{{if ne .Name $.Name}}hover:{{ end }}text-sky-600 {{if ne .Name $.Name}}hover:{{ end }}border-l-4 {{if ne .Name $.Name}}hover:{{ end }}border-sky-600 {{if ne .Name $.Name}}hover:{{ end }}pl-3.5 border-l-2 {{if ne .Name $.Name}}pl-4{{ end }}"><a href="/categories/{{ .Name | urlize }}">{{ .Name | humanize }}
-                    <span class="bg-gray-200 text-xs me-2 px-1.5 py-0.5 rounded-full">{{ .Count }}</span></a></li>
-            {{ end }}
-            </ul>
-        </nav>
-    </aside>
+    {{ partial "aside-list-pages" . }}
 </main>
 {{ end }}

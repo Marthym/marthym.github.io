@@ -2,7 +2,7 @@
     <title>{{ .Title }} · {{ .Site.Title }}</title>
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ .Params.excerpt | default .Summary | default .Description | default .Site.Title }}">
+    <meta name="description" content="{{ trim (.Params.excerpt | default .Summary | default .Description | default .Site.Title) "\n\r" }}">
 
     {{ if .Params.canonicalUrl }}
     <link rel="canonical" href="{{ .Params.canonicalUrl }}">

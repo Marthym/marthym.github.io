@@ -1,0 +1,15 @@
+<aside class="text-base ml-6 col-span-2 pt-12 pl-16 hidden lg:block">
+    <nav aria-label="secondary" aria-labelledby="aside-secondary-nav-header">
+        {{ $categoriePage := $.Site.GetPage "categories" }}
+        <h3 id="aside-secondary-nav-header"><a href="{{ $categoriePage.Permalink }}">{{ $categoriePage.Title }}</a></h3>
+        <ul class="text-gray-600">
+        {{ range (first 100 $.Site.Taxonomies.categories.ByCount) }}
+            <li class="hover:text-sky-600 hover:border-l-4 hover:border-sky-600 hover:pl-3.5 border-l-2 pl-4">
+                <a href="{{ .Page.Permalink }}">{{ .Page.Title }}
+                    <span class="bg-gray-200 text-xs me-2 px-1.5 py-0.5 rounded-full">{{ .Count }}</span>
+                </a>
+            </li>
+        {{ end }}
+        </ul>
+    </nav>
+</aside>
