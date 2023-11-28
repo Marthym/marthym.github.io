@@ -3,11 +3,12 @@ title: Problème de son et de CEC avec Kodi
 date: "2016-06-11T12:00:00-00:00"
 excerpt: Quand le sigle "MUTE" s'affiche en haut à droite et que la télécommande ne fonctionne plus sur votre OpenELEC, que faire ?
 #modified: 2015-09-21
-tags: [Kodi, OpenELEC, rpi, HDMI, CEC, audio]
+categories: [linux, leisure]
+tags: [Kodi, OpenELEC, CEC]
 image: kodi.png
 ---
 
-Hier, je démarre mon Raspberry OpenELEC pour regarder je sais pas quoi et ... rien qui fonctionne. Impossible d'utiliser la télécommande de la TV et l'icône "MUTE" apparait en haut à droite à côté de l'heure. Pourtant deux heures plus tôt tout fonctionnait très bien ?
+Hier, je démarre mon Raspberry OpenELEC pour regarder je ne sais pas quoi et ... rien qui fonctionne. Impossible d'utiliser la télécommande de la TV et l'icône "MUTE" apparait en haut à droite à côté de l'heure. Pourtant deux heures plus tôt tout fonctionnait très bien ?
 Autre chose étrange, sur la TV dans la liste des périphériques connecté il y a un "Recorder" ?
 
 A ce stade, je tente plusieurs choses :

@@ -5,7 +5,8 @@ modified: 2021-11-04
 summary: |
     Juery est une librairie java permettant de gérer simplement des critères de filtre et de recherche ainsi que de la pagination
     dans vos api REST sans JPA.
-tags: [java, jpa, rest, planetlibre]
+categories: [development]
+tags: [java, jpa, librairy]
 image: top.jpg
 toc: true
 comment: /s/s6d5d1/les_crit_res_de_recherche_avec_juery

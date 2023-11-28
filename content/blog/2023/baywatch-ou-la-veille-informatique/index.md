@@ -7,6 +7,7 @@ excerpt: |
     Comment et pourquoi la veille technologique ? Baywatch est une application de veille informatique avec laquelle vous suivrez en temps réel les nouvelles du monde informatique.
 summary: |
     Baywatch est une application que veille informatique. Développé en Java à l’aide de Spring Boot Webflux et de Vue.js pour l’interface. L’application utilise une base de donnée SQLite pour le stockage. Les fonctionnalitées phares de Baywatch sont la déduplication des articles, la gestion des équipes et une interface hyper intuitive.
+categories: [development, leisure]
 tags: [baywatch, java, spring, vue]
 image: featured-baywatch-pour-veille-techno.webp
 toc: true

@@ -3,7 +3,8 @@ title: Hello OSGi World, Part 2, Premiers concepts OSGi
 date: "2017-09-02T12:00:00-00:00"
 excerpt: "Création de la structure initiale du projet et notions de Bundle"
 #modified: 2015-09-21
-tags: [OSGi, bundle, java, planetlibre]
+categories: [development]
+tags: [OSGi, java]
 image: osgi_back.png
 ---
 

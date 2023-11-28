@@ -3,14 +3,15 @@ title: GitLab-CI + Docker Hub
 date: "2017-04-21T12:00:00-00:00"
 excerpt: "Automatisation de build rapide et facile avec GitLab-CI + Docker"
 #modified: 2015-09-21
-tags: [tools, docker, gitlab, framasoft, git, latex, planetlibre]
+categories: [development]
+tags: [devtools, docker, gitlab, git, latex]
 image: back.webp
 ---
-Il y a pas loin d’un an, j’ai décrit sur l’une des nombreuses manière d’automatiser une release grace à Github et Travis CI.
+Il n'y a pas loin d’un an, j’ai décrit sur l’une des nombreuses manières d’automatiser une release grâce à Github et Travis CI.
 
 Depuis, les nouvelles versions de Gitlag intègre des fonctionnalités d’intégration continue. Couplé avec des services comme [Framagit](https://git.framasoft.org/) qui permettent d’avoir des repos git privé, ça permet d’avoir gratuitement accès à une infrastructure d’intégration continue gratuite pour toutes sortes de projets personnels.
 
-Je prends pour exemple une projet perso en latex [SW-Redemption](https://git.framasoft.org/sw-redemption/jdrp-sw-redemption) pour vous montrer ce qu’il est possible de faire avec gitlab-ci.
+Je prends pour exemple un projet perso en latex [SW-Redemption](https://git.framasoft.org/sw-redemption/jdrp-sw-redemption) pour vous montrer ce qu’il est possible de faire avec gitlab-ci.
 
 ## Configuration de gitlab-ci
 

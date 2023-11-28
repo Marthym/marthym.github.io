@@ -3,16 +3,17 @@ title: Tests unitaires sur base Neo4j, The new Way
 date: "2015-10-20T12:00:00-00:00"
 excerpt: "Pour reprendre le billet précédent sur les tests unitaires avec Neo4j mais cette fois sans les dépendences
           dépréciés"
-tags: [neo4j, java, database, planetlibre]
+categories: [database]
+tags: [neo4j, java, database]
 image: database.png
 ---
 
 Vous vous souvenez d'un précédent billet sur [comment faire des tests unitaires avec une base Neo4j]({{% relref "/blog/2015/2015-10-03-Test-unitaires-Neo4j-REST-API" %}}).
-La problémtique était que le code utilisé, en plus d'être compliqué était en partie déprécié. Mais récemment, nous avons
-eu à développé une extension Neo4j pour les besoin d'un projet et la procédure de test précognisé par Neo4j inclut l'utilisation
+La problématique était que le code utilisé, en plus d'être compliqué était en partie déprécié. Mais récemment, nous avons
+eu à développer une extension Neo4j pour les besoins d'un projet et la procédure de test préconisé par Neo4j inclut l'utilisation
 d'une classe `TestServerBuilders` du package `org.neo4j.harness`.
 
-A partir de cette classe, il est possible de modifier notre précédente Rule comme suit :
+À partir de cette classe, il est possible de modifier notre précédente Rule comme suit :
 
 ``` java
 ServerControls serverControls = TestServerBuilders.newInProcessBuilder().newServer();

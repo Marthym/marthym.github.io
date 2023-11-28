@@ -4,8 +4,8 @@ date: 2019-06-10
 modified: 2023-11-28
 summary: |
     Si vous êtes sur Toulouse et que vous souhaitez échanger sur des sujets technique autour de Java, l’architecture logicielle ou même du management, n’hésitez pas à me contacter via BrownBagLunch. L’échange peut se faire sous forme de présentation ou de table ronde ou simplement de discussion.
-categorie: [blog]
-tags: [formation, training, partage, blog]
+categories: [blog]
+tags: [training, blog, formation, social]
 image: featured-brown-bag-lunch.webp
 ---
 

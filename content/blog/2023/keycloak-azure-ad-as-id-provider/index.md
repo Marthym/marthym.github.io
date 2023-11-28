@@ -4,6 +4,7 @@ date: 2023-03-17
 # modified: 2021-11-04
 summary: |
     Comment configurer un Keycloak pour utiliser Azure AD comme Identity Provider. Qeuls sont les pièges à éviter et les astuces de configuration. Le tout dans un projet Spring Boot Webflux.
+categories: [devops, security]
 tags: [spring, azure, cloud, security]
 image: featured-azure-vs-keycloak.webp
 toc: true

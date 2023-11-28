@@ -3,6 +3,7 @@ title: "Squid: StoreID rewrite"
 date: "2015-09-26T12:00:00-00:00"
 excerpt: "Configurer la réécriture du StoreId avec Squid"
 #modified: 2015-09-16
+categories: [devops]
 tags: [squid, linux, network, proxy]
 comments: true
 image: network.webp

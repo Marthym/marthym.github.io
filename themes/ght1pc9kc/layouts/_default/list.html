@@ -7,25 +7,20 @@
 {{ $filter := $scratch.Get "filter" }}
 <main class="leading-relaxed text-xl grid grid-cols-1 lg:grid-cols-7">
     {{ partial "autor-bio" . }}
-    <div class="w-full px-5 py-12 lg:max-w-prose lg:col-span-6">
-        <h3><a href="/">Derniers billets</a></h3>
+    <div class="w-full px-5 py-12 lg:max-w-prose lg:col-span-4">
+        <h3><a href="/">Derniers articles</a></h3>
         {{ range $filter }}
         <article>
-            {{ if isset .Params "affiliatelink" }}
-            {{ $url := urls.Parse .Params.affiliatelink }}
-            <em class="hidden lg:block float-right text-base mt-1 after:content-linkout after:text-sm">{{ $url.Host }}</em>
-            <h2 class="mb-1"><a href="{{ .Params.affiliatelink }}" target="_blank" title="{{ .Title }}">{{ .Title }} </a></h2>
-            {{else}}
             <h2 class="mb-1"><a href="{{ .Permalink }}" title="{{ .Title }}">{{ .Title }}</a></h2>
             <div class="text-sm italic">
                 <time datetime="{{ .PublishDate }}">{{ .PublishDate.Format "2 Jan 2006" }}</time>
                 {{ if (gt .Lastmod .Date) }}[Edit: <time datetime="{{ .Lastmod }}">{{ .Lastmod.Format "2 Jan 2006" }}</time>]{{ end }}
                 ⏱ {{ .ReadingTime }} mn
             </div>
-            {{ end }}
             <p class="italic">{{ default .Summary | default .Description | default .Title | plainify | truncate 160 }}</p>
         </article>
         {{ end }}
     </div><!-- /#index -->
+    {{ partial "aside-list-pages" . }}
 </main>
 {{ end }}

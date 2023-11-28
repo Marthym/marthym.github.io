@@ -3,7 +3,8 @@ title: Hello OSGi World, Part 3, Configuration du runner
 date: "2017-09-09T12:00:00-00:00"
 excerpt: "Configuration du runner OSGi et premier lancement de l’application"
 #modified: 2015-09-21
-tags: [OSGi, bundle, java, java-8, planetlibre]
+categories: [development]
+tags: [OSGi, java]
 image: osgi_back.png
 ---
 

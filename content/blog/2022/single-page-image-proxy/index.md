@@ -5,7 +5,8 @@ date: 2022-11-19
 summary: |
     Imaginons que l’on travaille sur une application Web SAP (single page application) qui traite avec des galleries d’images et que cette
     application soit progressive avec des formats mobiles et desktop différents. Comment gérer mes images pour les afficher au mieux sur tous les supports. Une solution possible est de mettre en place un proxy d’images.
-tags: [seo, performance, spring, bw]
+categories: [seo]
+tags: [seo, performance, spring, baywatch]
 image: featured-single-page-image-proxy.webp
 toc: true
 comment: /s/rah3k2/image_proxy_et_performance_d_une_spa
@@ -13,7 +14,7 @@ comment: /s/rah3k2/image_proxy_et_performance_d_une_spa
 
 ## L’histoire
 
-Mon projet perso du moment est un aggrégateur de news pour faciliter la veille techno. On ne va pas s’étendre sur l’utilité ou l’intéret de développer une application de ce genre alors qu’il en existe plein d’autres, cela fera l’object d’un prochain article. D’autant que ce projet me sert surtout de "bac à sable" pour expérimenter des technos avant de les faire implémenter au boulot.
+Mon projet perso du moment est un agrégateur de news pour faciliter la veille techno. On ne va pas s’étendre sur l’utilité ou l’intérêt de développer une application de ce genre alors qu’il en existe plein d’autres, cela fera l’objet d’un prochain article. D’autant que ce projet me sert surtout de "bac à sable" pour expérimenter des technos avant de les faire implémenter au boulot.
 
 {{< figimg src="responsive_application.svg" float="left" alt="Application de veille responsive" >}}
 Cette application affiche donc des listes de news avec l’image [OpenGraph](https://ogp.me/ "Open Graph metas headers (en)") correspondante si elle est renseignée dans les métas. L’application est responsive et je l’utilise sur mobile avec parfois des débits très faibles.

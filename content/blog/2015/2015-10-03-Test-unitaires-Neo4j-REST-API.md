@@ -3,7 +3,8 @@ title: Tests unitaires sur base Neo4j via APIs REST
 date: "2015-10-03T12:00:00-00:00"
 excerpt: "Faire des tests unitaires sur une base Neo4j 'in-memory' accédé via les APIs REST de Neo4j"
 modified: "2015-10-20T12:00:00-00:00"
-tags: [neo4j, java, database, planetlibre]
+categories: [database]
+tags: [neo4j, java, database]
 image: database.webp
 ---
 L'usage de base Neo4j est gratuit. Par contre l'utilisation du client java ne l'est que pour les usages non-commerciaux.
