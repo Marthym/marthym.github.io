@@ -14,6 +14,8 @@ comment: /s/zqfc8y/strat_gie_des_r_les_ansible
 
 L’objectif de cet article n’est pas d’apprendre Ansible ou l’utilisation des rôles, mais plutôt de proposer une façon de structurer ses projets Ansible pour ne pas se retrouver au milieu d’un amas de rôles tous liés les uns aux autres.
 
+Notez que pour en apprendre plus sur Ansible, [Stéphane Robert](https://blog.stephane-robert.info/a-propos/) a, entre autre, écrit une [documentation très complète sur le sujet](https://blog.stephane-robert.info/docs/infra-as-code/gestion-de-configuration/ansible/introduction/).
+
 {{< figimg src="noisy-ansible-role.webp" alt="Projet Ansible mal structuré" credit="Ender's Game. All images © 2013 Summit Entertainment, LLC. All Rights Reserved" >}}
 
 ## Exemple concret
@@ -31,7 +33,8 @@ Prenons par exemple le déploiement basique d’un serveur applicatif (Nexus) pl
 Si on structure ça en rôle Ansible voilà ce que ça peut donner :
 
 * `basic`: le setup initial de la machine, création de users, locale, routing, ...
-* `ssh`: Configuration et sécurisation du serveur SSH (qui est surement pré-installé)
+* `ssh`: Configuration et sécurisation du serveur SSH
+  *Allez voir cet article sur le [durcissement d'un serveur SSH](https://blog.stephane-robert.info/docs/securiser/durcissement/ssh/)*
 * `firewall`: qui définit les règles à mettre en place
 * `fail2ban`: Installation et configuration de fail2ban
 * `docker`: Installation de docker

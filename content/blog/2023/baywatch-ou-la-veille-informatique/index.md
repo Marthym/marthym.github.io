@@ -22,7 +22,6 @@ La veille techno fait partie intégrante de l’ingénierie logicielle. Que l’
 
 Après 3 années de développement sur cette application, je me décide enfin à la mettre sur Github et à la présenter sur ce blog.
 
-
 ## La veille techno
 
 ### Pourquoi faire de la veille techno ?
@@ -35,7 +34,7 @@ En tant que manageur ou décideur, la veille informatique vous permettra de mieu
 
 À tous les niveaux de hiérarchie, la veille est une activité stratégique grâce à laquelle vous vous adapterez plus facilement aux changements et fera de vous une ressource clé sur le marché de l’innovation.
 
-Et en dehors du secteur professionnel, une bonne culture est un atout valorisant et épanouissant personnellement.
+Et en dehors du secteur professionnel, la veille techno fait partie intégrante de beaucoup de culture informatique, comme la [culture DevOps](https://blog.stephane-robert.info/docs/devops/veille/) par exemple. C'est aussi un atout valorisant pour votre [CV]({{< relref "2020-04-15--curriculum-vitae" >}}) et une source d'épanouïssement personnel.
 
 ### Comment faire de la veille informatique ?
 

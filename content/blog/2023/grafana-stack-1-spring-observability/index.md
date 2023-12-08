@@ -16,6 +16,8 @@ toc: true
 {{< figimg src="leasure_techwatch.svg" float="right" alt="Veille techno en temps libre" >}}
 Il existe une multitude de stack de télémétrie, mais Grafana est open source et permet d’avoir assez facilement toutes les métriques sur la même application de rendu. De plus, je voulais essayer [Loki](https://grafana.com/oss/loki/) en comparaisons de <abbr title="Elastic Logstash Kibana">ELK</abbr> que j’utilise déjà au travail.
 
+Pour en apprendre plus sur l'observabilité, allez jeter un oeil sur la [documentation de Stéphane Robert concernant l'Observabilité](https://blog.stephane-robert.info/docs/observer/introduction/).
+
 Voilà donc une série d’articles détaillants comment <strong>mettre en place l’observabilité sur une application Spring Boot 3</strong>.
 
 **Les autres articles de la série :**
