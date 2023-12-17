@@ -22,6 +22,7 @@
 <link rel="preload" href="/syntax.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="/syntax.css"></noscript>
 
+{{ if not hugo.IsServer }}
 <!-- Otela -->
 <script>
     var _ota=window._ota=window._ota||{};_ota.t="ota.ght1pc9kc.fr";
@@ -47,3 +48,4 @@
     })();
 </script>
 <!-- End Matomo Code -->
+{{ end }}
