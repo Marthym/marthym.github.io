@@ -5,7 +5,7 @@ date: 2023-10-28
 summary: |
     La dernière étape pour enfin profiter des métriques que l’on a mis en place tout au long de ces articles sur OpenTelemetry et la stack Grafana. Comment déployer le serveur grafana et les dashboard permettant d’exploiter les métriques d'OpenTelemetry.
 categories: [devops]
-tags: [otel, metriques, logs, infra]
+tags: [otel, metrics, logs, infra]
 image: feature-grafana-stack-deploy-grafana.webp
 toc: true
 # comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
