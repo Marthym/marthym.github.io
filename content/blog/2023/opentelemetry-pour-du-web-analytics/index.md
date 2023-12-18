@@ -1,7 +1,7 @@
 ---
 title: Mesurer l’audience d’un blog avec OpenTelemetry
 slug: web-analytics-avec-opentelemetry
-date: 2023-12-16
+date: 2023-12-18
 # modified: 2021-11-04
 summary: |
     Comment mettre en place une mesure d’audience sur un site statique avec une stack Grafana et le SDK de OpenTelemetry.
