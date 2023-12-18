@@ -9,7 +9,7 @@ categories: [seo, blog]
 tags: [javascript, otel, grafana, baywatch]
 image: featured-otela-opentelemetry-analytics.webp
 toc: true
-# comment: /s/beoan4/comment_r_aliser_une_bonne_veille
+comment: /s/hhqeel/mesurer_l_audience_d_un_blog_avec
 ---
 
 J’aime bien savoir quel sont les articles qui sont le plus lu et combien de visiteurs passent par le blog chaque jour. Ce blog est passé par plusieurs étapes pour mesurer ces éléments. Au début, c'était du Google Analytics. Mais je ne suis pas vraiment à l’aise avec le fait de données à Google toutes ces informations. Alors je suis passé par [Matomo, hébergé chez le CHATON: Libréon]({{< relref "stats-from-matomo">}}).
