@@ -1,10 +1,10 @@
 ---
-title: Baywatch, l’outil de veille techno sorts en 2.1.0
+title: Baywatch, l’outil de veille techno sorts en 2.1.1
 slug: baywatch-veille-techno-2-1-0
 date: 2024-02-10
-# modified: 2021-11-04
+modified: 2024-02-11
 summary: |
-    Baywatch sort en version 2.1.0 avec la possibilité pour tous les utilisateurs de se créer un compte gratuitement.
+    Baywatch sort en version 2.1.1 avec la possibilité pour tous les utilisateurs de se créer un compte gratuitement.
 categories: [development]
 tags: [baywatch, java, spring]
 image: featured-baywatch-pour-veille-techno.webp
@@ -18,7 +18,7 @@ Il y a quelque mois, je vous parlais de [Baywatch]({{< relref "baywatch-ou-la-ve
 
 {{< figimg src="create-user.webp" float="left" alt="Création Utilisateur Baywatch" >}}
 
-Aujourd’hui, il sort en version **2.1.0**. La grosse nouveauté (et la seule visible) est la possibilité pour n’importe qui de se **créer un compte**.
+Aujourd’hui, il sort en version **2.1.1**. La grosse nouveauté (et la seule visible) est la possibilité pour n’importe qui de se **créer un compte**.
 
 Une fois le compte utilisateur créé, il ne reste plus qu’à attendre (pas longtemps) que je vous valide le compte et vous pourrez découvrir cet outil merveilleux.
 
@@ -28,10 +28,10 @@ N’hésitez pas à me faire des [retours sur Github](https://github.com/Marthym
 
 Rendez-vous https://bw.ght1pc9kc.fr/ pour vous créer un compte, c’est gratuit.
 
-Baywatch est aussi téléchargeable sur github, en [tar.bz](https://github.com/Marthym/baywatch/releases/download/2.1.0/baywatch-2.1.0.tar.bz2) pour une installation manuelle directement sur vos serveurs. Ou via [Docker et docker-compose](https://github.com/Marthym/baywatch/pkgs/container/baywatch) si vous préférez.
+Baywatch est aussi téléchargeable sur github, en [tar.bz](https://github.com/Marthym/baywatch/releases/download/2.1.1/baywatch-2.1.1.tar.bz2) pour une installation manuelle directement sur vos serveurs. Ou via [Docker et docker-compose](https://github.com/Marthym/baywatch/pkgs/container/baywatch) si vous préférez.
 
 ```shell
-docker pull ghcr.io/marthym/baywatch:2.1.0
+docker pull ghcr.io/marthym/baywatch:2.1.1
 
 ```
 
@@ -39,7 +39,7 @@ Vous trouverez un [exemple de compose](https://github.com/Marthym/baywatch/blob/
 
 ## Améliorations techniques
 
-En dehors de la fonctionnalité de création d’utilisateur, la version 2.1.0, c’est aussi quelques mises à jour techniques qui ne se voient pas trop.
+En dehors de la fonctionnalité de création d’utilisateur, la version 2.1.1, c’est aussi quelques mises à jour techniques qui ne se voient pas trop.
 
 * Un nouveau générateur de mot de passe capable de proposer des mots de passes complexes.
 * Une amélioration du système de notification qui peut maintenant stocker les notifs quand le destinataire n’est pas connecté et les restituer à l’utilisateur quand celui-ci connecte.
@@ -49,4 +49,8 @@ En dehors de la fonctionnalité de création d’utilisateur, la version 2.1.0, 
 * Ajout de la métadonnée *_createdBy* sur les entités `User`.
 * Ajout de tests unitaires sur le backend
 
-Les sources sont sur Github : https://github.com/Marthym/baywatch/tree/2.1.0
+Les sources sont sur Github : https://github.com/Marthym/baywatch/tree/2.1.1
+
+> *Edit 2024-02-11 :* **Baywatch 2.1.1**
+> 
+> Oui, il y a bien eu une 2.1.0 mais, j’ai MEP un peu vite et laissé passer un bug sur la mise à jour des droits utilisateurs dans l'administration. La 2.1.1 corrige ce problème et vient remplacer la version précédente.
