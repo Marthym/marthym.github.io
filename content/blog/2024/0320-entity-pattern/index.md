@@ -18,7 +18,7 @@ Il est des problèmes que tous les développeurs avec un peu d'expérience a for
 ## DAO, DTO, POJO
 Fut un temps, la "mode" ou du moins la pratique courante était d'embarquer la logique dans les Objets métier. Les <abbr title="Data Access Object">DAO</abbr> contenaient, en plus des données métiers, les méthodes et la logique métier voire, la persistance. Je parle d’un temps que les moins de 20 ans, ...
 
-De nos jours, les applications plus récentes ont une approche orienté Service, des classes instancier en Singleton, ne contenant pas de données mais, contenant toute la logique d'un domaine métier et des <abbr title="Plain Old Java Object">POJO</abbr> qui contiennent la donnée. Cette approche est d'ailleurs particulièrement mise en avant avec les `Record` de Java 14 qui rajoutent l'immutabilité aux POJO pour obtenir des `Value Object`.
+De nos jours, les applications plus récentes ont une approche orientée Service, des classes instancier en Singleton, ne contenant pas de données mais, contenant toute la logique d'un domaine métier et des <abbr title="Plain Old Java Object">POJO</abbr> qui contiennent la donnée. Cette approche est d'ailleurs particulièrement mise en avant avec les `Record` de Java 14 qui rajoutent l'immutabilité aux POJO pour obtenir des `Value Object`.
 
 ## La problématique de l'identifiant
 On en vient donc à la problématique que l'on rencontre très souvent pour ne pas dire dans toutes les applications dès que l'on a à faire une <abbr title="Create Read Update Delete">CRUD</abbr> et à un stockage.
@@ -27,7 +27,7 @@ On en vient donc à la problématique que l'on rencontre très souvent pour ne p
 
 Lorsque que votre application crée une entité et souhaite la persister. Pendant un certain laps de temps le code manipule l’entité qui n’a pas d’identifiant, jusqu’à ce qu’elle soit persisté et qu’elle obtienne alors un ID permettant de la retrouver parmi les autres dans le stockage.
 
-L’identifiant pourrait lui être assigné dès sa création, ce qui règlerait la question et parfois cette solution est la meilleure. Mais bien souvent, **la génération de l’identifiant doit rester un détail d’implémentation dont la couche métier n’a pas à avoir connaissance**. La génération peut être liée à une séquence de la base de données (pas la meilleure solution, mais des fois cela peu aider). La génération peu aussi être une méthode générique, indépendante du métier. Dans ces cas, le métier qui construit l’objet entité ne s’occupe pas de lui fournir un identifiant.
+L’identifiant pourrait lui être assigné dès sa création, ce qui réglerait la question et parfois cette solution est la meilleure. Mais bien souvent, **la génération de l’identifiant doit rester un détail d’implémentation dont la couche métier n’a pas à avoir connaissance**. La génération peut être liée à une séquence de la base de données (pas la meilleure solution, mais des fois cela peu aider). La génération peut aussi être une méthode générique, indépendante du métier. Dans ces cas, le métier qui construit l’objet entité ne s’occupe pas de lui fournir un identifiant.
 
 On va alors se retrouver avec **des entités qui ont, ou non, une donnée identifiant**.
 
@@ -109,10 +109,10 @@ public abstract class EntityJacksonMixin {
 
 L’usage d’un `Mixin` Jackson permet de "flatten" l’entité et de fournir au front un objet plus simple à manipuler tout en conservant la composition côté backend.
 
-Pour la désérialisation, si elle est nécessaire, c’est plus compliqué, voici un exemple : https://github.com/Marthym/baywatch/blob/2.0.0/sandside/src/main/java/fr/ght1pc9kc/baywatch/common/infra/mappers/EntityDeserializer.java
+Pour la désérialisation, si elle est nécessaire, c’est plus compliqué, [le code est dispo sur github](https://github.com/Marthym/entity/blob/1.0.1/entity-jackson/src/main/java/fr/ght1pc9kc/entity/jackson/serializer/EntityDeserializer.java).
 
 ## Gestion des méta données
-On remarquera dans le bout de code précédent l’ajout d’un `_` devant le nom du champ `id`. En effet, si on réfléchit à la sémantique de l’objet `Entity`, quel est son objectif ? Porter l’identifiant, mais l’identifiant, une fois que l’on a admis qu’il n’est **pas de la responsabilité du métier**, n’est rien de plus qu’**une méta donnée comme une autre** que le métier a besoin de connaitre ou de transmettre à un moment ou à un autre, mais qui ne peut pas être modifié par l’utilisateur. L’`_` peut servir de repère dans les entités sérialisées pour reconnaitre les champs qui ne sont pas modifiable.
+On remarquera dans le bout de code précédent l’ajout d’un `_` devant le nom du champ `id`. En effet, si on réfléchit à la sémantique de l’objet `Entity`, quel est son objectif ? Porter l’identifiant, mais l’identifiant, une fois que l’on a admis qu’il n’est **pas de la responsabilité du métier**, n’est rien de plus qu’**une méta donnée comme une autre** que le métier a besoin de connaître ou de transmettre à un moment ou à un autre, mais qui ne peut pas être modifié par l’utilisateur. L’`_` peut servir de repère dans les entités sérialisées pour reconnaître les champs qui ne sont pas modifiables.
 
 Sur ce principe, on va pouvoir ajouter d’autres données comme la date de création d’un objet et l’identifiant de l’utilisateur qui l’a créé. Cela peut être très utile si vous avez besoin de tracer les entités.
 
@@ -178,7 +178,7 @@ public sealed interface Entity<T> permits BasicEntity, ExtendedEntity {
 }
 ```
 
-Cette interface est scellée afin de ne pouvoir être implémenté que par la forme basique de l’entité ou la forme étendue. La forme basique ne contient que l’identifiant alors que la forme étendue contient l'identifiant et une `EnumMap` de métas données. De cette façon, pour les entités basiques, qui n’ont pas de métas, on ne paye pas le surcout de l’EnumMap, ni dans la structure ni dans l’utilisation.
+Cette interface est scellée afin de ne pouvoir être implémenté que par la forme basique de l’entité ou la forme étendue. La forme basique ne contient que l’identifiant alors que la forme étendue contient l'identifiant et une `EnumMap` de métas données. De cette façon, pour les entités basiques, qui n’ont pas de métas, on ne paye pas le surcoût de l’EnumMap, ni dans la structure ni dans l’utilisation.
 
 Enfin, deux builders vont permettrent de masquer la complexité de la création de ces objets. La méthode statique `identify` sert d’amorçage à la création. Le choix du builder est fait en fonction de s’il y a ou non des métas à ajouter.
 
