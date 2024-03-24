@@ -3,3 +3,4 @@ themes/ght1pc9kc/static/**
 **/node_modules/**
 resources/**
 .vscode
+public/**
