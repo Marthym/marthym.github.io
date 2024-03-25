@@ -1,14 +1,14 @@
 ---
 title: Le pattern Entité et la gestion des méta-données
 slug: entity-pattern
-date: 2024-03-20
+date: 2024-03-24
 summary: |
-    Un des problèmes les plus courament rencontré est le problèmes de la gestion des entité ou objets dans le code d'une application. Où mettre la barre entre les DOA, les DTO, les POJO, ... avec ou sans identifiant, mutable ou immutable. Voici un possible façon de traiter cette question.
+    Un des problèmes les plus couramment rencontré est le problèmes de la gestion des entité ou objets dans le code d'une application. Où mettre la barre entre les DOA, les DTO, les POJO, ... avec ou sans identifiant, mutable ou immutable. Voici un possible façon de traiter cette question.
 categories: [development]
 tags: [java, architecture]
 image: featured-entity-pattern.webp
 toc: true
-#comment: /s/beoan4/comment_r_aliser_une_bonne_veille
+comment: /s/s2evgi/le_pattern_entit_et_la_gestion_des_m_ta_donn
 ---
 
 Il est des problèmes que tous les développeurs avec un peu d'expérience a forcément rencontré dans sa carrière. Parmi eux la question de la différence entre les objets persisté et les usuels de vos services.
