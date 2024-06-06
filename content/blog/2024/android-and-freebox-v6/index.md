@@ -11,25 +11,25 @@ image: featured-android-freebox-wifi.webp
 # comment: /s/s2evgi/le_pattern_entit_et_la_gestion_des_m_ta_donn
 ---
 
-Quelque temps, j'ai acheté un Pixel 6 à ma conjointe pour son anniversaire. Il fonctionne niquel mais impossible de le connecter au wifi de l'appartement. On se dit que c'est le téléphone qui à un problème avec sa carte wifi. Ca fonctionne avec tous les autres wifi, c'est pas génant, on reste en 3G à la maison et voilà. Un jour le téléphone est brisé, on le change pour le même modèle et rebelotte, même problème, la connexion wifi saute de connecté à déconnecté en continue.
+Quelque temps, j'ai acheté un Pixel 6 à ma conjointe pour son anniversaire. Il fonctionne nickel, mais impossible de le connecter au wifi de l'appartement. On se dit que c'est le téléphone qui à un problème avec sa carte wifi. Ça fonctionne avec tous les autres wifi, ce n'est pas gênant, on reste en 3G à la maison et voilà. Un jour, le téléphone est brisé, on le change pour le même modèle et rebelote, même problème, la connexion wifi saute de connecté à déconnecté en continu.
 
 Vous avez déjà eu ce problème ?
 
 ## Symptômes
 
-Vu du téléphone, le wifi semble se connecter correctement, mais au bout de 2s, il repasse en non-connecté et tourne en boucle comme ça infiniement. Ce qui est particulièrement étrange, c'est que pendant les 2s où le wifi est connecté, internet fonctionne et si on rafraichie une page du navigateur, la page apparait. Mais a chaque fois la connexion saute et revient.
+Vu du téléphone, le wifi semble se connecter correctement, mais au bout de 2s, il repasse en non connecté et tourne en boucle comme ça infiniment. Ce qui est particulièrement étrange, c'est que pendant les 2s où le wifi est connecté, internet fonctionne et si on rafraîchit une page du navigateur, la page apparait. Mais à chaque fois la connexion saute et revient.
 
 Plus étrange encore, cela se produit uniquement avec les téléphone et produit Android. Par exemple, on a aussi eu le problème avec un Chromecast et GoogleTV, mais jamais sur un PC ni sur un téléphone d'autre marque que google qui ont une surcouche android.
 
-Toujours plus étrange, tout ces périphériques fonctionnent parfaitement sur les réseaux wifi autre que ceux de la Freebox.
+Toujours plus étrange, tous ces périphériques fonctionnent parfaitement sur les réseaux wifi autre que ceux de la Freebox.
 
 ## Investigations
 
-Manifestement, le problème vient de la Freebox. Mais qu'est ce qui sur la configuration wifi de la Freebox peut provoquer des problèmes spécifiquement aux périphériques Google ?
+Manifestement, le problème vient de la Freebox. Mais qu'est-ce qui sur la configuration wifi de la Freebox peut provoquer des problèmes spécifiquement aux périphériques Google ?
 
-On a testé plusieurs modification dans la configuration :
+On a testé plusieurs modifications dans la configuration :
 
-  * forcer les fréquences, 2Ghz ou 5Ghz, les largeurs de bande, sans succés
+  * forcer les fréquences, 2Ghz ou 5Ghz, les largeurs de bande, sans succès
   * Rendre le SSID visible, aucune différence
   * Utiliser ou non un wifi invité, nop
   * Redémarrer la Freebox une bonne centaine de fois, toujours rien
@@ -42,8 +42,8 @@ Rien de tout cela n'a eu le moindre effet, le wifi continue à sauter toutes les
 
 ## Solution
 
-Finalement, en s'énervant sur le Chromecast qui fonctionne pas, on constate qu'en DHCP, il chope des IPv6. On va donc voir dans les config IPv6 de la Freebox. **Et sur l'onglet DNS de la configuration IPv6, on décoche la case "Forcer l'utilisation de serveurs DNS IPv6 personnalisés"**. Et là **eurêka** la connexion wifi se stabilise.
+Finalement, en s'énervant sur le Chromecast qui ne fonctionne pas, on constate qu'en DHCP, il chope des IPv6. On va donc voir dans les configs IPv6 de la Freebox. **Et sur l'onglet DNS de la configuration IPv6, on décoche la case "Forcer l'utilisation de serveurs DNS IPv6 personnalisés"**. Et là **eurêka** la connexion wifi se stabilise.
 
-La compréhension que j'en ai, est que le `ConnectivityManager` d'Android, dessuite après la connexion wifi ping un serveur google pour s'assurer d'avoir un accès internet. Cela permet entre autre de savoir s'il est sur un réseau qui demande une authentification (type wifi d'hotel) et de vous proposer la notification de login. Sauf que dans le cas de la Freebox qui accepte l'IPv6, et force le serveur DNS. Ce serveur DNS ne connait pas le domaine sur lequel android veut ping et celui-ci interprète le domaine inconnu comme une erreur de connexion internet et reboucle la connexion wifi.
+La compréhension que j'en ai, est que le `ConnectivityManager` d'Android, de suite après la connexion wifi ping un serveur google pour s'assurer d'avoir un accès internet. Cela permet entre autre de savoir s'il est sur un réseau qui demande une authentification (type wifi d'hôtel) et de vous proposer la notification de login. Sauf que dans le cas de la Freebox qui accepte l'IPv6, et force le serveur DNS. Ce serveur DNS ne connait pas le domaine sur lequel android veut ping et celui-ci interprète le domaine inconnu comme une erreur de connexion internet et reboucle la connexion wifi.
 
-Bref ça a pris pas mal de temps pour trouver ça et j'ai mal heureusement pas trouvé grand chose sur internet pour résoudre mon problème. J'espère que si vous avez le problème et que vous tombez sur cette page, cela vous aidera. Si c'est le cas, envoyez moi un petit mail.
+Bref ça a pris pas mal de temps pour trouver ça et je n'ai heureusement pas trouvé grand-chose sur internet pour résoudre mon problème. J'espère que si vous avez le problème et que vous tombez sur cette page, cela vous aidera. Si c'est le cas, envoyez-moi un petit mail.
