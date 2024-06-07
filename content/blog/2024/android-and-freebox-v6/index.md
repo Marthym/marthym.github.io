@@ -3,7 +3,7 @@ title: Wifi Android et Freebox v6
 slug: wifi-android-and-freebox-v6
 date: 2024-06-06
 summary: |
-    Avez vous déjà eu des problèmes pour connecter un dispositif Android stock au wifi de votre Freebox v6. Le wifi se connecte mais ne trouve pas de connexion internet et se déconnecte. Et ce cycle se reproduit à l'infinie sans aucunne explications. Voilà comme j'ai résolu ce problème.
+    Avez vous déjà eu des problèmes pour connecter un dispositif Android stock au wifi de votre Freebox v6. Le wifi se connecte mais ne trouve pas de connexion internet et se déconnecte. Et ce cycle se reproduit à l'infinie sans aucune explication. Voilà comme j'ai résolu ce problème.
 categories: [leisure, infrastructure]
 tags: [free, wifi, android, google, ipv6, dns, freebox]
 image: featured-android-freebox-wifi.webp
