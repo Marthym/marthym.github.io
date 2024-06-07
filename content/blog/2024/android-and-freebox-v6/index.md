@@ -8,7 +8,7 @@ categories: [leisure, infrastructure]
 tags: [free, wifi, android, google, ipv6, dns, freebox]
 image: featured-android-freebox-wifi.webp
 # toc: true
-# comment: /s/s2evgi/le_pattern_entit_et_la_gestion_des_m_ta_donn
+comment: /s/oqfrne/wifi_android_et_freebox_v6
 ---
 
 Quelque temps, j'ai acheté un Pixel 6 à ma conjointe pour son anniversaire. Il fonctionne nickel, mais impossible de le connecter au wifi de l'appartement. On se dit que c'est le téléphone qui à un problème avec sa carte wifi. Ça fonctionne avec tous les autres wifi, ce n'est pas gênant, on reste en 3G à la maison et voilà. Un jour, le téléphone est brisé, on le change pour le même modèle et rebelote, même problème, la connexion wifi saute de connecté à déconnecté en continu.
