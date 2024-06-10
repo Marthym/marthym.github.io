@@ -1,9 +1,9 @@
 ---
-title: Configurer Azure AD comme IdP sur Keycloak
+title: Configurer Azure Entra ID comme IdP sur Keycloak
 date: 2023-03-17
-# modified: 2021-11-04
+modified: 2024-06-10
 summary: |
-    Comment configurer un Keycloak pour utiliser Azure AD comme Identity Provider. Qeuls sont les pièges à éviter et les astuces de configuration. Le tout dans un projet Spring Boot Webflux.
+    Comment configurer un Keycloak pour utiliser Microsoft Entra ID (ancien Azure Active Directory) comme Identity Provider. Quels sont les pièges à éviter et les astuces de configuration. Le tout dans un projet Spring Boot Webflux.
 categories: [devops, security]
 tags: [spring, azure, cloud, security]
 image: featured-azure-vs-keycloak.webp
@@ -11,7 +11,12 @@ toc: true
 # comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
 ---
 
-Pour un nouveau projet, j’ai eu besoin d’utiliser un Keycloak comme Authentifcation Provider dans une application Spring Boot Webflux. Et comme la société dans laquelle je travaille possède un Azure AD, l’idéal est de connecter l’Azure AD comme Identity Provider sur le Keycloak avec OpenIC Connect.
+> **Edit: 10 juin 2024**
+> 
+> Je constate en mettant à jour mes secrets Azure que le menu `Active Directory` s'appelle maintenant `Microsoft Entra ID`. Du coup j'ai mis à jour les captures et le post avec les bons noms.
+>
+
+Pour un nouveau projet, j’ai eu besoin d’utiliser un Keycloak comme Authentifcation Provider dans une application Spring Boot Webflux. Et comme la société dans laquelle je travaille possède un Microsoft Entra ID (anciennement Azure Active Directory), l’idéal est de connecter l’Azure Entra ID comme Identity Provider sur le Keycloak avec OpenID Connect.
 
 Malgré la quantité d’articles sur le sujet, cela m’a pris un peu de temps pour trouver la bonne configuration et pour trouver certaines astuces qui permettent de finaliser cette configuration. Voici dans le détail les différentes étapes.
 
@@ -23,7 +28,7 @@ Et la première astuce est de **passer votre interface en anglais** si ce n’es
 
 {{< figimg src="azure-config-01.webp" height="100" alt="Azure Configuration" caption="Ajouter une application dans l’interface Azure" >}}
 
-1. Cliquez sur Active Directory
+1. Cliquez sur **Microsoft Entra ID**
 2. App Registration
 3. New Registration
 
