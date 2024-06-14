@@ -2,6 +2,7 @@
 title: Le pattern Entité et la gestion des méta-données
 slug: entity-pattern
 date: 2024-03-24
+modified: 2024-06-14
 summary: |
     Un des problèmes les plus couramment rencontré est le problèmes de la gestion des entité ou objets dans le code d'une application. Où mettre la barre entre les DOA, les DTO, les POJO, ... avec ou sans identifiant, mutable ou immutable. Voici un possible façon de traiter cette question.
 categories: [development]
@@ -10,6 +11,11 @@ image: featured-entity-pattern.webp
 toc: true
 comment: /s/s2evgi/le_pattern_entit_et_la_gestion_des_m_ta_donn
 ---
+
+> **Edit 14 juin 2024**
+>
+> [Entity v1.3.0](https://github.com/Marthym/entity/releases/tag/1.3.0) est disponible
+>   * ajout d'un [module GraphQL](#usage-avec-graphql) pour convertir facilement les objets Entités de votre base de code vers des API GraphQL.
 
 Il est des problèmes que tous les développeurs avec un peu d'expérience a forcément rencontré dans sa carrière. Parmi eux la question de la différence entre les objets persisté et les usuels de vos services.
 
@@ -225,8 +231,40 @@ La version définitive est disponible sous forme d’une [micro librairie sur gi
 
 La librairie contient aussi de quoi sérialisé et désérialiser les entités grâce à Jackson. Les annotations de mixin ne sont plus vraiment suffisantes et une [feature/bug dans Jackson empêche d’utiliser le polymorphisme et les wrapped entity en même temps](https://github.com/FasterXML/jackson-databind/issues/81).
 
+## Usage avec GraphQL
+
+Nous avons vu comment on pouvait serialiser nos Entité via jackson et rendre le résultat un peu sexy en applatissant l'objet. Mais pour [GraphQL](https://graphql.org/) c'est un peu plus complexe. En effet, ce n'est pas un mapper qui est utilisé lors des résolution de type pour GraphQL mais un `DataFetcher`.
+
+La librairie propose un `EntityDataFetcher` qui accompagné d'un `EntityTypeResolver` va permettre à GraphQL de fetch directement des objets wrappés dans un Entité. Par exemple si vous utilisez [Spring for GraphQL](https://spring.io/projects/spring-graphql), il vous suffira de créer une classe de configuration comme suit :
+
+```java
+@Configuration
+public class JediModuleConfiguration {
+    @Bean
+    public RuntimeWiringConfigurer jediRuntimeWiringConfigurer(ObjectMapper mapper) {
+        DataFetcher<Object> dataFetcher = new EntityDataFetcher(mapper);
+        TypeResolver typeResolver = new EntityTypeResolver();
+
+        return wiringBuilder -> wiringBuilder
+                .type(Jedi.class.getSimpleName(), builder -> builder.defaultDataFetcher(dataFetcher).typeResolver(typeResolver));
+    }
+}
+```
+
+Et **vos controller GraphQL pourront retourner directement des objets `Entity<Jedi>`**.
+
+```java
+@Controller
+public class JedisController {
+    @QueryMapping
+    Flux<Entity<Jedi>> findJedis(@Arguments FindJediRequest request) {
+        return jediService.find(request);
+    }
+}
+```
+
 ## Conclusion
 
-Cette stratégie n’est bien sur pas parfaite, par exemple on perd le type de l’enum en utilisant l’interface. Mais elle est fonctionnelle et vraiment pratique à utiliser. De plus ce schéma s’adapte à beaucoup d’usages, je m’en suis servi dans presque tous mes projets, personneles comme professionnels. C’est ce que j’utilise en particulier pour [Baywatch](https://bw.ght1pc9kc.fr/).
+Cette stratégie n’est bien sur pas parfaite, par exemple on perd le type de l’enum en utilisant l’interface. Mais elle est fonctionnelle et vraiment pratique à utiliser. De plus ce schéma s’adapte à beaucoup d’usages, je m’en suis servi dans presque tous mes projets, personneles comme professionnels. C’est ce que j’utilise en particulier pour [Baywatch]({{< relref "baywatch-2-1-0" >}}).
 
 N’hésitez pas à tester, avec ou sans la lib et faites-moi vos retours, je suis curieux.
