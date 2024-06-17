@@ -1,13 +1,13 @@
 ---
 title: Les Critères de recherche avec Juery
 date: 2021-05-01
-modified: 2021-11-04
+modified: 2024-06-17
 summary: |
     Juery est une librairie java permettant de gérer simplement des critères de filtre et de recherche ainsi que de la pagination
-    dans vos api REST sans JPA.
+    dans vos api REST sans JPA. A l'aide de diverses implementation de Visiteur, il est très facile de décliner les Critères Juery en Query jOOQ ou Mongo.
 categories: [development]
 tags: [java, jpa, librairy]
-image: top.jpg
+image: featured-juery-java-lib-for-criteria-query.webp
 toc: true
 comment: /s/s6d5d1/les_crit_res_de_recherche_avec_juery
 ---
@@ -16,16 +16,12 @@ Chaque fois que j’entreprends un nouveau projet, que ce soit professionnel ou 
 
 De ce constat est née **[Juery](https://github.com/Marthym/juery)**.
 
-
-### Édit : 4 novembre 2021
-
-Sorti de la version 1.2.0 avec comme changements :
-
-* Ajout des opérateurs `contains`, `endWith` et `startWith`
-* Prise en compte de l'opérateur `in`, `lowerThan` et `greaterThan` dans le parsing des query string
-* Possibilité de paginer par offset plutôt que par numéro de page
-* Possibilité de configurer les noms des paramètres de pagination dans la query string
-* Prise en compte des paramètres temporel lors du parsing de la query string
+> **Edit: 17 juin 2024**:
+>
+> Sortie de la version 1.4.0
+>
+>  * Utilisation des records
+>  * Ajout d'un module MongoDB
 
 ## Description
 
@@ -62,32 +58,38 @@ Le package `juery-jooq` fournit des implémentations relatives à la librairie [
 
 ## Installation
 
-L’api fait *25 kb* et ne dépend de rien, donc très léger si vous surveillez le poids de votre application. La version **1.0.0** pour tous les packages est disponible sur Maven Central.
+L’api fait *30 kb* et ne dépend de rien, donc très léger si vous surveillez le poids de votre application. La version **1.4.0** pour tous les packages est disponible sur Maven Central.
 
 ```xml
 <dependency>
     <groupId>fr.ght1pc9kc</groupId>
     <artifactId>juery-api</artifactId>
-    <version>1.2.0</version>
+    <version>1.4.0</version>
 </dependency>
 <dependency>
     <groupId>fr.ght1pc9kc</groupId>
     <artifactId>juery-basic</artifactId>
-    <version>1.2.0</version>
+    <version>1.4.0</version>
 </dependency>
 <dependency>
     <groupId>fr.ght1pc9kc</groupId>
     <artifactId>juery-jooq</artifactId>
-    <version>1.2.0</version>
+    <version>1.4.0</version>
+</dependency>
+<dependency>
+    <groupId>fr.ght1pc9kc</groupId>
+    <artifactId>juery-mongo</artifactId>
+    <version>1.4.0</version>
 </dependency>
 ```
 
 ou pour gradle
 
 ```gradle
-compile "fr.ght1pc9kc:juery-api:1.2.0"
-compile "fr.ght1pc9kc:juery-basic:1.2.0"
-compile "fr.ght1pc9kc:juery-jooq:1.2.0"
+compile "fr.ght1pc9kc:juery-api:1.4.0"
+compile "fr.ght1pc9kc:juery-basic:1.4.0"
+compile "fr.ght1pc9kc:juery-jooq:1.4.0"
+compile "fr.ght1pc9kc:juery-mongo:1.4.0"
 ```
 
 ## Utilisation
