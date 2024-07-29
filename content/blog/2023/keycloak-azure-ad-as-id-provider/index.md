@@ -1,7 +1,7 @@
 ---
 title: Configurer Azure Entra ID comme IdP sur Keycloak
 date: 2023-03-17
-modified: 2024-06-10
+modified: 2024-07-29
 summary: |
     Comment configurer un Keycloak pour utiliser Microsoft Entra ID (ancien Azure Active Directory) comme Identity Provider. Quels sont les pièges à éviter et les astuces de configuration. Le tout dans un projet Spring Boot Webflux.
 categories: [devops, security]
@@ -10,6 +10,11 @@ image: featured-azure-vs-keycloak.webp
 toc: true
 # comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
 ---
+
+> **Edit: 28 juillet 2024**
+> 
+> Ajout de la [configuration Keycloak pour que les roles se retrouvent à l'intérieur du token JWT](#inclure-les-roles-dans-le-token-jwt). Permettant ainsi au backend de les avoir à disposition.
+>
 
 > **Edit: 10 juin 2024**
 > 
@@ -134,6 +139,14 @@ Puis dans l’Identity Provider Azure, aller dans l’onglet **Mappers** et ajou
 * **Claim** : `groups`
 * **Claim Value** : l’id du groupe azure
 * **Role** : le ou les rôles associés à ce groupe Azure
+
+### Inclure les ROLES dans le Token JWT
+
+Une dernière manipulation sera nécessaire pour incorporer les ROLES dans le token JWT. Cela permettra de ne pas avoir à les redemander à Keycloak et de les avoir à disposition dans votre backend au moment de les tester.
+
+Se rendre sur keycloak dans le bon realm puis `Client scopes` -> `roles` -> `Mappers` -> `realm roles`. Et activer `Add to userinfo` puis sauver.
+
+{{< figimg src="keycloak-config-04.webp" height="100" alt="Keycloak Clients Scopes details" caption="Ajouter les roles dans le token JWT" >}}
 
 ## Test final
 
