@@ -1,10 +1,10 @@
 ---
-title: Baywatch, l’outil de veille techno sorts en 2.1.3
+title: Baywatch, l’outil de veille techno sorts en 2.2.0
 slug: baywatch-feed-aggregator-free
 date: 2024-02-10
-modified: 2024-03-31
+modified: 2024-12-16
 summary: |
-    La version 2.1.3 de Baywatch est en ligne avec des améliorations de performences importante pour l’affichage des fils de news et un changement d’hébergeur vers Hostinger.
+    La version 2.2.0 de Baywatch est en ligne avec des améliorartions pour l’affichage des fils de news et une traduction français et anglais.
 categories: [development]
 tags: [baywatch, java, spring]
 image: featured-baywatch-pour-veille-techno.webp
@@ -17,6 +17,48 @@ aliases:
 Il y a quelque mois, je vous parlais de [Baywatch]({{< relref "baywatch-ou-la-veille-informatique" >}}), l’outil avec lequel je fais ma veille technologique. Un agrégateur de fils Atom et RSS gratuit et open source capable de faire de la déduplication des articles qui y sont référencés.
 
 Rendez-vous https://bw.ght1pc9kc.fr/ pour vous créer un compte, c’est gratuit.
+
+## Baywatch 2.2.0
+
+### Traduction français / anglais
+
+Il s'agit d'une des améliorations la plus conséquente, la traduction de l'application en anglais et en français. Jusqu'à cette version, Baywatch était en franglais, un peu de français par ci, beaucoup d'Anglais par là. Pas génial pour l'adoption. Donc dans la 2.2.0, tout est correctement traduit, l'interface comme les messages d'erreurs. Il se peut que j'en ai oublié, dans ce cas [n'hésitez pas à me faire un feedback](https://github.com/Marthym/baywatch/issues/new/choose).
+
+C’est [vue i18n](https://vue-i18n.intlify.dev/) qui se charge de faire cette traduction. Autrement dis, tout est géré par l’UI. La langue préférée du navigateur sert de langage par défaut puis il est possible de changer de langue dans les paramètres de l'application. Techniquement, les fichiers de traduction sont séparés par module et par langue et sont chargés à la volée par le routeur juste avant l'affichage du composant. Ce qui évite d'éventuels effets de clignotement.
+
+Pour l'instant seuls l'anglais et le français sont disponibles, mais si des volontaires se présentent pour d'autres langues, ce sera avec plaisir. Les fichiers de traduction sont consultables sur github : https://github.com/Marthym/baywatch/tree/develop/seaside/src/locales
+
+### Affichage de la liste des news
+
+Une autre évolution importante est la possibilité d'afficher les news soit en liste magazine comme cela était le cas jusqu’à maintenant soit en grille plus dense :
+{{< figimg src="feed-news-list-card-grid.webp" alt="Capture d'écran de la liste des news au format grille" >}}
+
+Comme pour les traductions, le mode d'affichage en magazine est configurable dans les paramètres de l'utilisateur, mais un raccourci permet aussi de la changer dans la barre de navigation.
+
+### Nouvel écran de paramètres utilisateur
+
+Cela commençait à manquer, un écran permettant à l'utilisateur de modifier certains paramètres de l'application comme :
+  * La langue de l'interface
+  * Le mode d'affichage de la liste des news
+  * Désactiver le marquage "lu" automatique sur la liste des news
+
+Ces paramètres sont disponibles dans "Configuration > Paramètres" ou "Configuration > Settings"
+
+### Indication de l'état des flux dans la configuration
+
+Il est maintenant possible de voir directement sur la liste des flux s'ils sont valident ou non et s'ils ne le sont pas, depuis combien de temps ils sont défectueux.
+
+### Prise en compte des normes RDF / DCMI
+
+En regardant les logs de l'application, j'ai vu que certains fils d'actus produisaient du XML contenant des balises aux [normes RDF / DCMI](https://www.dublincore.org/schemas/rdfs/) qui n'étaient pas pris en charge correctement. Voilà qui est corrigé, les normes sont maintenant intégrées dans le scraper.
+
+### Corrections de bugs
+
+Avec les nouvelles fonctionnalités viennent aussi les corrections de bugs : 
+  * Pas mal de chose sur l'ajout et la mise à jour des flux de nouvelles qui ne fonctionnaient pas bien.
+  * L'ajout d'un flux de nouvelle passe maintenant par un système de validation qui retournera une erreur si le flux n'est pas valide
+  * L'ajout d'utilisateurs depuis l'admin ne fonctionnait pas correctement
+  * Les flux Reddit ne se mettaient pas à jour correctement
 
 ## Baywatch 2.1.3
 
