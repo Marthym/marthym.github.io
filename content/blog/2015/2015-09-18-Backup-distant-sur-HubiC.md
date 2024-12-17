@@ -1,8 +1,8 @@
 ---
 title: Backups distant sur HubiC
-date: "2015-09-18T12:00:00-00:00"
+date: 2015-09-18
 excerpt: "Protéger ses données perso d'un cataclisme en les envoyant dans le cloud"
-modified: "2015-15-25T12:00:00-00:00"
+modified: 2015-12-25
 categories: [security]
 tags: [backup, shell]
 comments: true
