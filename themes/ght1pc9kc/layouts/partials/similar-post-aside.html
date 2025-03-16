@@ -10,7 +10,7 @@
     {{ end }}
 {{ end }}
 {{ if gt (len $tagged) 0 }}
-<header class="font-bold text-lg">Sur le même sujet</header>
+<header class="font-bold text-lg">{{ T "same.subject" }}</header>
 <nav class="toc-nav">
     <ul class="toc-list">
     {{ range first 5 ($tagged | uniq) }}

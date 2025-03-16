@@ -1,14 +1,22 @@
-#baseURL = "https://blog.ght1pc9kc.fr"
-languageCode = "fr-fr"
 title = "j’ai acheté un PC..."
 theme = "ght1pc9kc"
 uglyurls = false
 pygmentsUseClasses = true
 pygmentsCodeFences = true
-#googleAnalytics = "UA-67836375-1"
+
+defaultContentLanguage = 'fr'
+defaultContentLanguageInSubdir = false
+disableDefaultLanguageRedirect = false
+[languages]
+  [languages.fr]
+    weight = 1
+    languageName = '🇫🇷'
+  [languages.en]
+    weight = 2
+    languageName = '🇺🇸'
 
 [permalinks]
   blog = "/:year/:slug"
 
 [markup.goldmark.renderer]
-  unsafe= true
+  unsafe = true

@@ -1,5 +1,5 @@
 {{ $author := .Params.author | default "marthym" }}
-{{ $author := index $.Site.Data.authors $author }}
+{{ $author := index $.Site.Data.authors $author .Site.Language.Lang }}
 {{ with $author }}
 
 <aside class="mx-8 pt-12 hidden lg:w-3/4 lg:block lg:w-36" itemscope itemtype="http://schema.org/Person">
@@ -38,7 +38,7 @@
   <p>{{ delimit . ", " }}</p>
   {{ end }}
   {{ with .skills }}
-  <h4>Compétences</h4>
+  <h4>{{ T "skills" }}</h4>
   <p>{{ delimit . ", " }}</p>
   {{ end }}
   </div>

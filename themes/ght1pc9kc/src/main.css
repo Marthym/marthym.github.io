@@ -1,13 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @layer base {
     h1 {
-        @apply font-title font-bold text-3xl leading-8 mb-7;
+        @apply font-sans font-bold text-3xl leading-8 mb-7;
     }
     h2 {
-        @apply font-title font-bold text-2xl mt-6 mb-4;
+        @apply font-sans font-bold text-2xl mt-6 mb-4;
     }
     h3 {
         @apply text-xl font-bold mt-4 mb-2;
@@ -31,7 +29,7 @@
         @apply after:content-["■"] after:rotate-45 after:absolute after:left-[calc(100%/7)] after:text-2xl after:-mt-4 after:text-white;
     }
     .toc-nav {
-        @apply text-sm -ml-4 border-solid border-l-2 mb-10 pr-2;
+        @apply text-sm -ml-4 border-solid border-black/10 border-l-2 mb-10 pr-2;
     }
     .toc-list {
         @apply pl-4;
@@ -68,7 +66,7 @@
     }
 
     article section a {
-        @apply bg-no-repeat bg-bottom-4 rotate-180 ease-out bg-gradient-to-r from-blue-300 to-blue-300 
+        @apply bg-no-repeat bg-[center_top_1.3rem] rotate-180 ease-out bg-gradient-to-r from-blue-300 to-blue-300 
             transition transition-all duration-150 
             hover:bg-top hover:-translate-y-1;
     }

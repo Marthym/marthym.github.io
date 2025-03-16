@@ -10,6 +10,12 @@
     <link rel="canonical" href="{{ .Permalink }}">
     {{ end }}
 
+    {{ if .IsTranslated }}
+    {{ range .Translations }}
+    <link rel="alternate" href="{{ .Permalink }}" hreflang="{{ .Language.Lang }}" type="text/html">
+    {{ end }}
+    {{ end }}
+
     {{ template "_internal/opengraph.html" . }}
     {{ template "_internal/twitter_cards.html" . }}
     
