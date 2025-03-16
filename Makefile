@@ -5,9 +5,9 @@ themes/ght1pc9kc/node_modules:
 
 themes/ght1pc9kc/static/main.css: themes/ght1pc9kc/node_modules
 	cd themes/ght1pc9kc && \
-		npx tailwindcss -i src/syntax.css -o static/syntax.css --minify
+		npx @tailwindcss/cli -i src/syntax.css -o static/syntax.css --minify
 	cd themes/ght1pc9kc && \
-		npx tailwindcss -i src/main.css -o static/main.css --minify
+		npx @tailwindcss/cli -i src/main.css -o static/main.css --minify
 
 build: themes/ght1pc9kc/static/main.css
 
