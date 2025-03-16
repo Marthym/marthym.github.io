@@ -13,7 +13,7 @@ build: themes/ght1pc9kc/static/main.css
 
 serve: themes/ght1pc9kc/static/main.css
 	docker run -it --rm -p 1313:1313 -v "$$PWD:/src" \
-		hugomods/hugo:base-0.140.0 \
+		hugomods/hugo:base-0.145.0 \
 		hugo server --buildFuture --buildDrafts --bind 0.0.0.0
 
 clean:

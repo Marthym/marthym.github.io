@@ -1,4 +1,9 @@
 marthym:
-  name: Marthym
-  bio: “La connaissance est la seule chose qui s'accroit lorsqu'on la partage.”<br><em class="text-xs">– Sacha Boudjema</em>
-  avatar: bio-marthym.webp
+  fr:
+    name: Marthym
+    bio: “La connaissance est la seule chose qui s'accroit lorsqu'on la partage.”<br><em class="text-xs">– Sacha Boudjema</em>
+    avatar: bio-marthym.webp
+  en: 
+    name: Marthym
+    bio: “Knowledge is the only thing that grows when shared.”<br><em class="text-xs">– Sacha Boudjema</em>
+    avatar: bio-marthym.webp
