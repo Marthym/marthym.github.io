@@ -2,12 +2,20 @@
     <div class="ml-4 lg:ml-8">
         <a href="/">{{ .Site.Title }}</a>
     </div><!-- /.site-name -->
-    <nav aria-label="primary" class="ml-4 lg:col-span-6">
+    <nav aria-label="primary" class="flex flex-row ml-4 lg:col-span-6 px-4">
         <ul>
             {{ range .Site.Sections.ByWeight.Reverse }}
             <li class="inline mr-8"><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
             {{ end }}
         </ul>
+        {{ if .IsTranslated }}
+        <span class="grow"></span>
+        <ul>
+            {{ range .Translations }}
+            <li><a href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a></li>
+            {{ end }}
+        </ul>
+        {{ end }}
     </nav>
 </header><!-- /.navigation-wrapper -->
 
