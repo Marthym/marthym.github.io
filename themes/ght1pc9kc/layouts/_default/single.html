@@ -12,19 +12,19 @@
         </section>
         <hr class="w-full my-8" />
         <footer role="contentinfo" class="text-sm">
-            <p><strong>{{ .Title }}</strong> est paru le <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2006-01-02" }}</time>
+            <p><strong>{{ .Title }}</strong> {{ T "published.on" }} <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2006-01-02" }}</time>
             {{ if (gt .Lastmod .Date) }}
-            et modifié pour la dernière fois le <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "Jan 2, 2006" }}</time>
+            {{ T "last.modified.on" }} <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "Jan 2, 2006" }}</time>
             {{ end }}
             {{ if isset .Params "comment" }}
-            <p>Cet article vous a plu, n’hésitez pas à laisser un commentaire sur le 
-                <a class="underline" href="https://www.journalduhacker.net{{ .Params.comment | default "/" }}">Journal du Hacker</a></p>
+            <p>{{ T "leave.comment" }} 
+                <a class="underline" href="https://www.journalduhacker.net{{ .Params.comment | default "/" }}" hreflang="fr">Journal du Hacker</a></p>
             {{ end }}
         </footer>
     </article>
     <aside class="ml-6 col-span-2 pt-12 pl-16 hidden lg:block">
         {{ if .Params.toc }}
-            <header class="font-bold text-lg">Vue d’ensemble</header>
+            <header class="font-bold text-lg">{{ T "overview" }}</header>
             {{ .TableOfContents | replaceRE "id=\"TableOfContents\"" "class='toc-nav'" 
                 | replaceRE "<ul>" "<ul class='toc-list'>" 
                 | replaceRE "<li>" "<li class='toc-element'>" 
