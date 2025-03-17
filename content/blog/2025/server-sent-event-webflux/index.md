@@ -9,22 +9,22 @@ tags: [java, spring, webflux, network, baywatch]
 image: featured-spring-sse-reactor.webp
 toc: true
 comment: /s/rnlrbh/server_sent_event_vs_websocket_avec
+alias:
+  - /2021/server-sent-event-vs-websocket-avec-spring-webflux/
 ---
 
-La fonctionnalité est de prévenir les clients d’une application qu’un évènement s’est produit dans cette application. La première approche consiste souvent à implémenter les WebSockets. Régulièrement cités dès que l’on veut faire de la communication serveur vers clients. Mais il existe une autre approche, les **Server Sent Event**. Avec des inconvénients, mais aussi des avantages face aux WebSockets.
-
-> ### Edit : 15/10/2022 - Ciblage des events
-> 
-> Une nouvelle mise à jour de la version initiale qui ne permettait que de broadcast les messages à tous les souscripteurs. Il est facilement possible de faire en sorte de cibler les évènements à un seul souscripteur.
+Lorsqu’une application doit prévenir ses utilisateurs d’un évènement survenu sur le serveur, il existe plusieurs stratégies : Le long polling, les WebSocket ou, les **Server Sent Event (SSE)**.
 
 
-> ### Edit : 21/02/2021 - Nettoyage des souscriptions
->
-> La version initiale avait un inconvénient majeur : les souscriptions au flux <abbr title="Server Sent Event">SSE</abbr> se cumulent et ne se libèrent jamais. Il semble que [Netty ne détecte pas bien les fermetures](https://github.com/spring-projects/spring-framework/issues/18523) ce qui à pour conséquence d’ouvrir une nouvelle souscription chaque fois que l’on rafraichit la page qui ouvre la liaison <abbr title="Server Sent Event">SSE</abbr>, tout en gardant les précédentes. Un `EventSource#close` n’a aucun effet coté serveur.
+> ### Edit : 16/03/2025 - Mise à jour et corrections
 > 
-> Le contrôleur a donc été revu pour inclure une mécanique de nettoyage des souscriptions. La difficulté étant de libérer le Flux quand on n'a pas accès au `Disposable`.
-> 
-> cf. [Libération des souscriptions](#lib%C3%A9ration-des-souscriptions)
+> J’ai initialement écrit cet article en 2021. Depuis, entre les évolutions de Spring et les optimisations que j’ai apportées, cela valait la peine de faire une petite mise à jour de l’article.
+
+## Comparaison des différentes stratégies
+{{< figimg src="long-polling-websocket-sse.webp" alt="graphique de sequence long polling websocket server send event" >}}
+
+### L’interrogation longue (long polling)
+
 
 ## Server Sent Event
 
