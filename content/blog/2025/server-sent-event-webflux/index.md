@@ -21,21 +21,31 @@ Lorsqu’une application doit prévenir ses utilisateurs d’un évènement surv
 > J’ai initialement écrit cet article en 2021. Depuis, entre les évolutions de Spring et les optimisations que j’ai apportées, cela valait la peine de faire une petite mise à jour de l’article.
 
 ## Comparaison des différentes stratégies
-{{< figimg src="long-polling-websocket-sse.webp" alt="graphique de sequence long polling websocket server send event" >}}
+{{< figimg src="longpolling-websocket-sse.webp" alt="graphique de séquence long polling websocket server send event" >}}
 
 ### L’interrogation longue (long polling)
 
+Le long polling consiste à ce que le front fasse un appel HTTP vers le backend en prévision d’une future information que le backend pourrait avoir à transmettre au front. Le backend garde la connexion et quand il a besoin de transmettre une notification ou autre information au front, il répond. Le front récupère alors l’information et renvoi une requête au backend pour la prochaine donnée.
 
-## Server Sent Event
+L’intérêt par rapport à du short polling est l’efficience, on limite le nombre de requêtes. Cette stratégie permet en outre des communications à double sens. L’inconvénient majeur est de devoir maintenir une connexion en attente constamment.
 
-Server Sent Event est une norme et elle n’est pas toute jeune puisque **Opera l’a implémenté de façon expérimentale en 2006**, le **W3C l’a validé en 2013**. Du fait de son âge, elle est pleinement supportée par la plupart des navigateurs.
+Il est conseillé de limiter la durée de l’attente côté serveur, on préfèrera renvoyer une réponse vide plutôt que conserver la même connexion ouverte indéfiniment.
+
+### Le WebSocket
+
+Il s’agit d’un protocole largement répandu, basé sur TCP pour échanger des données, teste ou binaire, entre un client et un serveur en temps réel. Le protocole est standardisé depuis 2011 par l’<abbr title="Internet Engineering Task Force">[IETF](https://www.ietf.org/)</abbr> au travers de la norme [RFC 6455](https://datatracker.ietf.org/doc/html/rfc6455). Une connexion TCP persistante est initialisée via HTTP(s) et permet d’échanger autant de message que nécessaire dans n’importe quel sens.
+
+### Server Sent Event
+
+Server Sent Event est une norme et elle n’est pas toute jeune puisque **Opera l’a implémenté de façon expérimentale en 2006**, le **W3C l’a validé en 2013**. Du fait de son âge, elle est pleinement supportée par la plupart des navigateurs et fait partie de la spécification HTML 5.
 
 {{< figimg src="server-send-message.svg" float="right" alt="server send event message" >}}
 Contrairement aux WebSocket, le <abbr title="Server Sent Event">SSE</abbr> fonctionne sur le **protocole HTTP** et la **communication est unilatérale**, on ne peut qu’envoyer des évènements aux clients connectés. Dernier inconvénient face aux WebSocket, les <abbr title="Server Sent Event">SSE</abbr>s ne peuvent faire transiter **que du texte, pas de binaire**, ce qui laisse quand même la possibilité d’utiliser du JSON.
 
-Je ne rentrerais pas plus dans les détails du fonctionnement ou de la norme elle-même, il est facile de trouver des informations sur le sujet. Un des avantages de la norme, est qu’il est très simple de l’implémenter dans `Spring Boot`. Utilisé avec la programmation reactive de `Reactor` et `Webflux`, les Serveurs Send Event offrent des possibilités intéressantes. 
+Parmi les avantages du <abbr title="Server Sent Event">SSE</abbr>, on profitera de la reconnexion automatique et la reprise automatique du flux, en cas de reconnexion, le client se souvient des évènements déjà lu.
 
-En voilà quelques exemples.
+Enfin, l’avantage que je préfère, les <abbr title="Server Sent Event">SSE</abbr> sont très simple à implémenter dans `Spring Boot`. Utilisé avec la programmation reactive de `Reactor` et `Webflux`, les Serveurs Send Event offrent des possibilités intéressantes. 
+
 
 ## Implémentation Spring Boot
 
