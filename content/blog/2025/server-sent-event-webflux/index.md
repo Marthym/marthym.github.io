@@ -51,7 +51,7 @@ Enfin, l’avantage que je préfère, les <abbr title="Server Sent Event">SSE</a
 
 Il va suffire de créer un contrôleur et une **fonction qui produit `TEXT_EVENT_STREAM_VALUE`**:
 
-```java
+```java {linenos=table}
 @RestController
 @RequestMapping("/sse")
 public class NotificationController {
@@ -64,33 +64,41 @@ public class NotificationController {
 }
 ```
 
-L’exemple est fonctionnel, mais il ne sert pas à grand-chose. Il envoie une chaine avec un compteur toutes les secondes, mais on ne maitrise pas ce qui est envoyé une fois que le flux est souscrit.
+L’exemple est fonctionnel, mais il ne sert pas à grand-chose. Il envoie une chaine avec un compteur toutes les secondes, mais n’est pas d’un grand intérêt une fois le flux souscrit.
 
 ### Utilisation des Sinks
 
-Maintenant, si on utilise **un `Sink` de `Reactor`** pour alimenter notre <abbr title="Server Sent Event">SSE</abbr>. Cela nous permettrait de contrôler les évènements qui sont envoyés via <abbr title="Server Sent Event">SSE</abbr>.
+Maintenant, si on utilise **un `Sink` de `Reactor`** pour alimenter notre <abbr title="Server Sent Event">SSE</abbr>. Cela va permettre de contrôler les évènements qui sont envoyés dans le flux souscrit et de donner un peu d’intérêt à notre contrôleur.
 
-```java
+```java {linenos=table}
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Sinks;
 
+@Slf4j
 @RestController
-@RequestMapping("/sse")
-public class NotificationController {
+@RequiredArgsConstructor
+@RequestMapping("/api/sse")
+public class SseController {
+    private final Sinks.Many<String> notificationSink = 
+        Sinks.many().multicast().directBestEffort();
 
-    public static final reactor.core.publisher.Sinks.Many<String> sink = Sinks.many().multicast().directBestEffort();
-
-    @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/subscribe", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> sse() {
-        return sink.asFlux();
+        return notificationSink.asFlux();
+    }
+
+    @GetMapping("/send")
+    public Mono<Void> send(@RequestParam("msg") String msg) {
+        notificationSink.tryEmitNext(msg);
+        return Mono.empty();
     }
 }
 ```
 
-*Attention, ce code n’est là que pour la démonstration, on verra plus loin comment on re-factorise ça pour avoir du code plus propre.*
+On voit que maintenant on maitrise ce qui est transmis au travers de la connexion SSE avec une quantité de code très limité.
 
-Donc là, si de n’importe où dans le code vous accédez à `NotificationController.sink` et vous faites un `sink.tryEmitNext()`, un événement sera envoyé aux clients connectés.
+En déplaçant le `notificationSink` dans un service, il est possible de s’en servir partout dans le code pour déclencher un évènement de notification via le `tryEmitNext()`.
 
 Les paramètres de la création du `Sink` sont importants :
 
@@ -98,11 +106,63 @@ Les paramètres de la création du `Sink` sont importants :
 * `.multicast()`: Ce flux va être souscrit plusieurs fois
 * `.directBestEffort()`: On ne bufferize rien. On envoie le message aux souscripteurs présents et qui sont prêts à recevoir. Tant pis pour ceux qui ne l’ont pas reçu, on n’essaye pas de leur renvoyer.
 
-### Implémentation d’un service de notification
+### Annulation automatique des souscriptions
+
+Avant de voir comment il est possible de contextualiser le flux pour viser des utilisateurs spécifiques, on peut améliorer un peu notre contrôleur afin de mieux exploiter les fonctionnalités du SSE.
+
+```java {linenos=table}
+import reactor.core.Disposable;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.core.publisher.Sinks;
+import com.github.f4b6a3.ulid.UlidFactory;
+
+@Slf4j
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/sse")
+public class SseController {
+    private final UlidFactory ulid = UlidFactory.newMonotonicInstance();
+    private final Sinks.Many<ServerSentEvent<String>> notificationSink = 
+        Sinks.many().multicast().directBestEffort();
+
+    @GetMapping(value = "/subscribe", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<ServerSentEvent<String>> sse() {
+        return Flux.create(sink -> {
+            sink.next(ServerSentEvent.<String>builder()
+                    .id(ulid.create().toString())
+                    .event("open")
+                    .build());
+            Disposable disposable = notificationSink.asFlux().subscribe(sink::next);
+            sink.onCancel(disposable);
+        });
+    }
+
+    @GetMapping("/send")
+    public Mono<Void> send(@RequestParam("msg") String msg) {
+        notificationSink.tryEmitNext(ServerSentEvent.<String>builder()
+                .id(ulid.create().toString())
+                .event("notification")
+                .data(msg)
+                .build());
+        return Mono.empty();
+    }
+}
+```
+
+Spring fourni une classe `ServerSentEvent` qui permet de produire des évènements avec un ID et un type. L’ID permet au client de reprendre là où il s’est arrêté en cas de reconnexion, le type permet d’observer certains évènements en particulier. On a utilisé un <abbr title="Universally Unique Lexicographically sortable IDentifier">[ULID](https://github.com/ulid/spec)</abbr> pour générer l’id de l’évènement, mais on aurait très bien peu avoir un simple compteur. 
+
+Dans l’exemple ci-dessus, dès la connexion effectuée, on transmet l’évènement `open`. Sans cet évènement, le client n’actera la réussite de la connexion qu’à partir du premier message ce qui peut poser des problèmes, en particulier pour l’annulation des souscriptions.
+
+L’une des fonctionnalités sympa de la communication SSE est l’**annulation automatique de la souscription** par le client. Si l’utilisateur quitte la page qui a ouvert la connexion SSE ou s’il rafraîchit la page le navigateur annule la souscription et il est possible d’intercepter l’évènement. On pourra ainsi gérer plus facilement les traitements qui découlent de cette annulation. Dans l’exemple au-dessus, on a utilisé `Flux.create(sink -> {})`. Cela crée un flux indépendant, spécifique à la souscription et nous donne accès au `sink` du flux grâce auquel on peut intercepter l’annulation. Via ce dernier, on souscrit au flux de notifications et on pense à annuler cette souscription si le flux spécifique du SSE est annulé. **L’annulation n’est déclenchée par le client que s’il a reçu au moins un évènement**. D’où l’intérêt de l’événement `open` envoyé lors de la souscription.
+
+Dans cet exemple on a utilisé un <abbr title="Universally Unique Lexicographically sortable IDentifier">[ULID](https://github.com/ulid/spec)</abbr> pour générer l’id de l’évènement, mais on aurait très bien peu avoir un simple compteur.
+
+### Contextualisation du flux de notifications
 
 Comme je le disais, le code plus haut est plus que sale. Un accès statique à une variable d’un contrôleur `Spring`. Cela viole presque tous les principes <abbr title="Single responsibility, Open/closed, Liskov substitution, Interface segregation, Dependency inversion">SOLID</abbr>. Une façon de corriger ça serait de créer un Service de Notification :
 
-```java
+```java {linenos=table}
 public interface NotifyService {
     Flux<Tuple2<EventType, Mono<Object>>> getFlux();
 
@@ -222,7 +282,7 @@ Dans ce deuxième cas par contre, la souscription est laissée au `notifyService
 ## Libération des souscriptions
 
 {{< figimg src="free-subscriptions.svg" float="right" alt="free the subscriptions" >}}
-Avec le contrôleur tel qu’il est implémenté au-dessus, le code va présenter un problème de fuite mémoire : **Les ressources utilisées pour la souscription au Flux** (le contexte, ...) **ne sont jamais libérées**. Pire, si un utilisateur appelle la route <abbr title="Server Sent Event">SSE</abbr> 25x d’affilée, avec ou sans `EventSource#close` le serveur va se retrouver avec 25 contextes pour 25 souscriptions. Chaque élément envoyé dans le flux via le `Sink` effectuera 25 traitements avec possiblement des accés disque ou BBD. Ce comportement semble lié à un [problème sur Netty](ttps://github.com/spring-projects/spring-framework/issues/18523) ou juste à la façon dont les <abbr title="Server Sent Event">SSE</abbr> fonctionnent.
+Avec le contrôleur tel qu’il est implémenté au-dessus, le code va présenter un problème de fuite mémoire : **Les ressources utilisées pour la souscription au Flux** (le contexte, ...) **ne sont jamais libérées**. Pire, si un utilisateur appelle la route <abbr title="Server Sent Event">SSE</abbr> 25x d’affilée, avec ou sans `EventSource#close` le serveur va se retrouver avec 25 contextes pour 25 souscriptions. Chaque élément envoyé dans le flux via le `Sink` effectuera 25 traitements avec possiblement des accés disque ou BBD. Ce comportement semble lié à un [problème sur Netty](https://github.com/spring-projects/spring-framework/issues/18523) ou juste à la façon dont les <abbr title="Server Sent Event">SSE</abbr> fonctionnent.
 
 Voilà par exemple les logs retournés par un seul message. Il n’y a pourtant qu'un seul souscripteur.
 
