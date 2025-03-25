@@ -102,7 +102,7 @@ public class SseController {
 }
 ```
 
-On voit que maintenant on maitrise ce qui est transmis au travers de la connexion <abbr title="Server Sent Event">SSE</abbr> avec une quantité de code très limité.
+On voit que maintenant on maitrise ce qui est transmis au travers de la connexion <abbr title="Server Sent Event">SSE</abbr> avec un code somme toute frugal.
 
 En déplaçant le `notificationSink` dans un service, il est possible de s’en servir partout dans le code pour déclencher un évènement de notification via le `tryEmitNext()`.
 
