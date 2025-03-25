@@ -8,7 +8,7 @@ categories: [development]
 tags: [java, spring, webflux, network, baywatch]
 image: featured-spring-sse-reactor.webp
 toc: true
-comment: /s/rnlrbh/server_sent_event_vs_websocket_avec
+comment: /s/epbbby/le_protocole_server_sent_event_avec
 alias:
   - /2021/server-sent-event-vs-websocket-avec-spring-webflux/
 ---
