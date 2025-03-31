@@ -6,7 +6,7 @@ summary: |
     Comment configurer un Keycloak pour utiliser Microsoft Entra ID (ancien Azure Active Directory) comme Identity Provider. Quels sont les pièges à éviter et les astuces de configuration. Le tout dans un projet Spring Boot Webflux.
 categories: [devops, security]
 tags: [spring, azure, cloud, security]
-image: featured-azure-vs-keycloak.webp
+image: featured-azure-vs-keycloak.fr.webp
 toc: true
 # comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
 ---

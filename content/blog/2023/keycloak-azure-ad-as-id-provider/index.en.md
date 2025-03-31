@@ -7,7 +7,7 @@ summary: |
     Learn how to configure Keycloak with Microsoft Entra ID (formerly Azure AD) as an Identity Provider in a Spring Boot WebFlux project. Avoid common pitfalls and apply best practices for seamless integration.
 categories: [devops, security]
 tags: [spring, azure, cloud, security]
-image: featured-azure-vs-keycloak.webp
+image: featured-azure-vs-keycloak.en.webp
 toc: true
 # comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
 ---
