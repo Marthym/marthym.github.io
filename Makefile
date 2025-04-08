@@ -20,6 +20,7 @@ clean:
 	rm -rf themes/ght1pc9kc/static
 	rm -rf themes/ght1pc9kc/node_modules
 	rm -rf public
+	rm -rf resources/_gen
 
 list:
 	make -npq : 2> /dev/null | awk -v RS= -F: '$$1 ~ /^[^#%.]+$$/ { print $$1 }' | sort -u
