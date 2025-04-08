@@ -13,7 +13,7 @@ disableDefaultLanguageRedirect = false
     languageName = '🇫🇷'
   [languages.en]
     weight = 2
-    languageName = '🇺🇸'
+    languageName = '🇬🇧'
 
 [permalinks]
   blog = "/:year/:slug"
