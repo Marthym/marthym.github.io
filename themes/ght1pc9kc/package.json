@@ -9,10 +9,11 @@
         "syntaxcss": "tailwindcss -i src/syntax.css -o static/syntax.css --minify",
         "maincss": "tailwindcss -i src/main.css -o static/main.css --watch",
         "build": "tailwindcss -i src/syntax.css -o static/syntax.css --minify; tailwindcss -i src/main.css -o static/main.css",
-        "watch": "yarn run build --watch"
+        "watch": "npm run build --watch"
     },
     "devDependencies": {
-        "@tailwindcss/cli": "4.0.14",
-        "tailwindcss": "4.0.14"
+        "@tailwindcss/cli": "4.1.3",
+        "daisyui": "5.0.17",
+        "tailwindcss": "4.1.3"
     }
 }

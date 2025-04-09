@@ -1,0 +1,9 @@
+{{ range $index, $message := split .Inner "- " }}
+{{ if not (eq (trim $message " \n") "") }}
+<div class="chat {{ cond ((modBool $index 2)) "chat-end" "chat-start" }}">
+    <div class="chat-bubble">
+      {{ $message | markdownify }}
+    </div>
+</div>
+{{ end }}
+{{ end }}
