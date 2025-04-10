@@ -8,7 +8,7 @@ categories: [management]
 tags: [free, humeur, Oqee, dette, freebox]
 image: featured-la-dette-technique-c-est-oqee.webp
 toc: true
-# comment: /s/epbbby/le_protocole_server_sent_event_avec
+comment: /s/24yu53/la_dette_technique_cest_oqee
 # alias:
 #   - /2021/server-sent-event-vs-websocket-avec-spring-webflux/
 ---
