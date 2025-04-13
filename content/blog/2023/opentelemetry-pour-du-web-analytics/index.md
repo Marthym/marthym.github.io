@@ -4,7 +4,7 @@ slug: web-analytics-avec-opentelemetry
 date: 2023-12-18
 # modified: 2021-11-04
 summary: |
-    Comment mettre en place une mesure d’audience sur un site statique avec une stack Grafana et le SDK de OpenTelemetry.
+    Remplacez Google Analytics et Matomo par une solution maison avec OpenTelemetry, Prometheus et Grafana. Découvrez Otela, un script JS open source pour suivre les visites de votre site statique de façon respectueuse et auto-hébergée.
 categories: [seo, blog]
 tags: [javascript, otel, grafana, baywatch]
 image: featured-otela-opentelemetry-analytics.webp
@@ -12,10 +12,12 @@ toc: true
 comment: /s/hhqeel/mesurer_l_audience_d_un_blog_avec
 ---
 
-J’aime bien savoir quel sont les articles qui sont le plus lu et combien de visiteurs passent par le blog chaque jour. Ce blog est passé par plusieurs étapes pour mesurer ces éléments. Au début, c'était du Google Analytics. Mais je ne suis pas vraiment à l’aise avec le fait de données à Google toutes ces informations. Alors je suis passé par [Matomo, hébergé chez le CHATON: Libréon]({{< relref "stats-from-matomo">}}).
+J’aime bien savoir quels sont les articles qui sont le plus lu et combien de visiteurs passent par le blog chaque jour. Ce blog est passé par plusieurs étapes pour mesurer ces éléments. Au début, c'était du Google Analytics. Mais je ne suis pas vraiment à l’aise avec le fait de données à Google toutes ces informations. Alors je suis passé par [Matomo, hébergé chez le CHATON: Libréon]({{< relref "stats-from-matomo">}}).
 
->**TL;DR** \
->Grâce au SDK d’OpenTelemetry il est possible de transformer une stack OpenTelemetry/Grafana/Prometheus en outils de mesure d’audience pour un site ou un blog statique. Voici les quelques configurations nécessaires pour y arriver.
+> **TL;DR** \
+> Envie de suivre le trafic de votre blog statique **sans Matomo ni Google Analytics** ? \
+> Voici comment utiliser **OpenTelemetry, Prometheus et Grafana** avec un petit script JS maison (**Otela**) pour suivre les visites avec classe, efficacité… et respect de vos données.
+
 
 ## La problématique
 
@@ -29,15 +31,19 @@ L’autre problème est que sur un site statique, hébergé sur Github Pages ou 
 
 {{< figimg src="otela-logo.webp" height="100" alt="Otela" float="right" >}}
 
-La première étape est d’avoir un client javascript qui va **ping le collecteur Open Telemetry** avec les infos de la page visité. OpenTelemetry possède un **SDK qui permet de transmettre des métriques et des traces**. Malheureusement, pour les logs, c’est encore en cours de développement.
+La première étape est d’avoir un client javascript qui va **ping le collecteur Open Telemetry** avec les infos de la page visitée. OpenTelemetry possède un **SDK qui permet de transmettre des métriques et des traces**. Malheureusement, pour les logs, c’est encore en cours de développement.
 
-L’envoie de ping sous forme de métrique n’est pas possible, cela n’est pas adapté au fonctionnement de OpenTelemetry et de Prometheus dans la mesure où cela ne pousse que des `1`, le compteur revient à zéro sur chaque visite.
+L’envoi de ping sous forme de métrique n’est pas possible, cela n’est pas adapté au fonctionnement de OpenTelemetry et de Prometheus dans la mesure où cela ne pousse que des `1`, le compteur revient à zéro sur chaque visite.
 
-Par contre, l’envoi de span fonctionne bien. Chaque visite, **Otela** transmet un span au collecteur OpenTelemetry avec les attributs de la page visité (Le titre, l’url, ...).
+Par contre, l’envoi de span fonctionne bien. Pour chaque visite, **Otela** transmet un span au collecteur OpenTelemetry avec les attributs de la page visitée (Le titre, l’url, ...).
 
 Le projet **Otela** est disponible sur github : https://github.com/Marthym/otela
 
 Il est issu d’un des projets d’exemple du SDK OpenTelemetry. Il est Open Source. Un **build WebPack** permet d’optimiser la taille du fichier `otela.js` à inclure dans les pages.
+
+### C’est quoi un span au juste ?
+
+Un span, dans l’univers d’OpenTelemetry, représente une opération unique ou un événement dans une trace. C’est l’unité de base de l’observation. Chaque fois qu’un utilisateur visite une page de votre site avec Otela, un span est créé pour enregistrer cette "action" : l'URL visitée, le titre de la page, le navigateur utilisé, la provenance (referrer), etc. Ce span est ensuite envoyé au collecteur OpenTelemetry. Il contient des attributs personnalisables que vous pouvez extraire et transformer pour générer des métriques exploitables dans Prometheus. En somme, le span joue le rôle d’un log enrichi et structuré, parfait pour suivre les interactions utilisateurs sur un site statique.
 
 ### Installation
 
