@@ -1,3 +1,6 @@
+{{ $otelaPage := .Site.GetPage "opentelemetry-pour-du-web-analytics" }}
+{{ $otelaLink := $otelaPage.Permalink }}
+
 <footer class="lg:grid lg:grid-cols-7 p-2 bg-gray-100">
     <em class="lg:col-span-6 text-sm">
         <p>{{ T "license.prefix" }}
@@ -5,7 +8,7 @@
                 {{ T "license.name" }}</a>.<br />
                 {{ T "generator.prefix" }} <a href="https://gohugo.io/" rel="nofollow noopener">Hugo</a> {{ T "and" }} <a
                 href="https://tailwindcss.com" rel="nofollow noopener">Tailwindcss</a>, 
-                {{ T "statistics.by" }} <a href="https://fr.matomo.org/" rel="nofollow noopener">Matomo</a>,
+                {{ T "statistics.by" }} <a href="{{ $otelaLink }}" rel="nofollow noopener">Otela</a>,
                 {{ T "hosted.by" }} <a href="https://libreon.fr/" rel="nofollow noopener">Libreon</a>.
         </p>
         <p class="text-xs"><accronym title="fred.blog (at) ght1pc9kc (dot) fr">{{ T "contact.me" }}</accronym></p>
