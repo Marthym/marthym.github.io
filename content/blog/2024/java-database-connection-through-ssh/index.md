@@ -15,9 +15,9 @@ Dans le cadre d’un projet, j’ai eu besoin d’accéder à une base de donné
 
 ## Principe de fonctionnement
 
-Pour se connecter à une base de données via SSH, il est nécessaire d’ouvrir une connexion SSH, pour de faire une redirection de port de votre machine locale vers la machine distante sur laquelle vous êtes connectée. Ensuite, au lieu de configurer JDBC avec le nom et le port de la machine distante, il faut le configurer sur `localhost` et le port local que vous venez de rediriger. Ainsi les communications vers la base de données vont transiter au travers de la connexion SSH.
+Accéder à une base de données au travers d'un tunnel SSH nécessaire d'ouvrir une connexion entre votre machine et le serveur SSH. Il faut ensuite créer une redirection de port depuis votre machine vers le port de base de données sur le serveur pour y faire transité les connexion JDBC. Enfin, il faudra configurer le client JDBC pour qu'il se connecte sur les ports redirigés de votre machine (`localhost`) plutôt que sur ceux du serveur.
 
-Attention, **si la performance est votre problématique principale, ce mode de fonctionnement n’est pas vraiment conseillé**. SSH introduit une latence importante le temps d’établir la connexion et pour chiffrer le trafic. En contre-partie, tout le trafic avec la base de données est maintenant chiffré.
+Attention, **si la performance est votre problématique principale, ce mode de fonctionnement n’est pas vraiment conseillé**. SSH introduit une latence importante le temps d’établir la connexion et de chiffrer le trafic. En contre-partie, tout le trafic avec la base de données est maintenant chiffré.
 
 {{< figimg src="network-schema.png" alt="Schéma exemple du réseau" credit="Draw.io" >}}
 
