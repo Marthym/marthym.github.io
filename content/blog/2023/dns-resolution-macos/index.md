@@ -11,7 +11,7 @@ toc: true
 # comment: /s/3cwxdp/am_liorations_et_bonnes_pratiques_pour_le
 ---
 
-Depuis 6 mois, je découvre les joies de MacOS. En dehors de la disposition du clavier qui change beaucoup, il y a la résolution DNS de debian qui me manquait beaucoup. La possibilité d’avoir un resolver spécifique pour les domaines internes. Ceux que je n’utilise qu’au travers d’un VPN le plus souvent.
+Depuis 6 mois, je découvre les joies de MacOS. En dehors de la disposition du clavier qui change beaucoup, il y a la résolution [DNS de debian]({{< relref "2020-05-30--comprendre-la-resolution-dns" >}}) qui me manquait beaucoup. La possibilité d’avoir un resolver spécifique pour les domaines internes. Ceux que je n’utilise qu’au travers d’un VPN le plus souvent.
 
 En cherchant un peu, j’ai fini par trouver une configuration similaire.
 
