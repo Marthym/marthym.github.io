@@ -3,7 +3,7 @@ title: DNS resolution for MacOS
 date: 2023-01-02
 modified: 2025-05-13
 summary: |
-    Configurez un DNS resolver par domaine sur macOS en utilisant `/etc/resolver/`, pour une résolution fine via VPN, à la manière de Debian. Guide détaillé avec exemple de configuration et vérification via scutil
+    Configure a per-domain DNS resolver on macOS using /etc/resolver/, for fine resolution via VPN, Debian-style. Detailed guide with configuration example and verification via scutil
 categories: [linux]
 tags: [dns, macos, network]
 image: featured-dns-resolution.webp
