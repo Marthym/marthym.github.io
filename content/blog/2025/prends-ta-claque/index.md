@@ -8,7 +8,7 @@ categories: [management]
 tags: [carreer, humeur, management, life]
 image: featured-prend-ta-claque.webp
 toc: true
-#comment: /s/24yu53/la_dette_technique_cest_oqee
+comment: /s/1wflqk/la_claque_du_d_veloppeur
 # alias:
 #   - /2021/server-sent-event-vs-websocket-avec-spring-webflux/
 ---
